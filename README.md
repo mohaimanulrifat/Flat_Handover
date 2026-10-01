@@ -85,6 +85,19 @@ To try the build locally:
 npm run preview
 ```
 
+## Publish on GitHub Pages
+
+The workflow in `.github/workflows/deploy.yml` runs the tests, builds the
+app and publishes it every time `main` changes. To switch it on once:
+
+1. On GitHub, open the repository's **Settings > Pages**.
+2. Under **Build and deployment > Source**, choose **GitHub Actions**.
+3. Merge into `main`, or run the workflow by hand from the **Actions** tab.
+
+The app is then at `https://<user>.github.io/<repository>/`, for this
+repository https://mohaimanulrifat.github.io/Flat_Handover/. Open it on a
+phone and use "Add to Home screen" to install it.
+
 ## Test
 
 ```sh
