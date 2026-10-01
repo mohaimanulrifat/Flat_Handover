@@ -377,8 +377,7 @@ export const sections: ChecklistSection[] = [
   {
     id: "B",
     title: "Bathroom",
-    intro:
-      "Checked in each bathroom, in addition to Section A.",
+    intro: "Checked in each bathroom, in addition to Section A.",
     groups: [
       {
         id: "B",
@@ -470,8 +469,7 @@ export const sections: ChecklistSection[] = [
   {
     id: "C",
     title: "Kitchen",
-    intro:
-      "Checked in the kitchen, in addition to Section A.",
+    intro: "Checked in the kitchen, in addition to Section A.",
     groups: [
       {
         id: "C",
@@ -590,8 +588,7 @@ export const sections: ChecklistSection[] = [
   {
     id: "E",
     title: "Whole flat",
-    intro:
-      "Checked once for the whole flat.",
+    intro: "Checked once for the whole flat.",
     groups: [
       {
         id: "E-electricity",
@@ -625,8 +622,7 @@ export const sections: ChecklistSection[] = [
           {
             code: "E5",
             title: "IPS provision (if promised)",
-            howToCheck:
-              "A separate IPS wiring point or circuit where agreed.",
+            howToCheck: "A separate IPS wiring point or circuit where agreed.",
           },
         ],
       },
@@ -736,8 +732,7 @@ export const sections: ChecklistSection[] = [
           {
             code: "F9",
             title: "Security",
-            howToCheck:
-              "Main gate, guard room and CCTV working as promised.",
+            howToCheck: "Main gate, guard room and CCTV working as promised.",
           },
           {
             code: "F10",
@@ -752,8 +747,7 @@ export const sections: ChecklistSection[] = [
   {
     id: "G",
     title: "Papers and keys",
-    intro:
-      "Collected at the end of the visit, before signing anything.",
+    intro: "Collected at the end of the visit, before signing anything.",
     groups: [
       {
         id: "G",
