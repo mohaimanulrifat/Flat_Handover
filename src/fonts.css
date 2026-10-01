@@ -1,0 +1,23 @@
+/*
+ * Nocturne type: Fraunces (display) and Manrope (text), both under the
+ * SIL Open Font License. Only the Latin files are loaded and they are
+ * bundled with the app, so text looks right offline. Bangla falls back to
+ * the phone's own Bangla font.
+ */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2")
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2")
+    format("woff2-variations");
+}

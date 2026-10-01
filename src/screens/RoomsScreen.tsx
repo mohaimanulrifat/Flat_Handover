@@ -1,8 +1,9 @@
+import { Icon, ROOM_ICONS } from "../components/Icon.tsx";
 import { TopBar } from "../components/TopBar.tsx";
-import { APP_TITLE } from "../config.ts";
+import { APP_TITLE, SEVERITY_NAMES } from "../config.ts";
 import type { RoomKind } from "../data/checklist.ts";
 import type { Inspection } from "../lib/inspection.ts";
-import { roomProgress } from "../lib/report.ts";
+import { buildReport, roomProgress } from "../lib/report.ts";
 import { routeHref } from "../lib/route.ts";
 import type { Room } from "../lib/rooms.ts";
 
@@ -18,9 +19,9 @@ export function RoomsScreen({ inspection, rooms }: Props) {
     room,
     ...roomProgress(room, inspection.answers),
   }));
-  const total = progress.reduce((n, p) => n + p.total, 0);
-  const answered = progress.reduce((n, p) => n + p.answered, 0);
-  const problems = progress.reduce((n, p) => n + p.problems, 0);
+  const { counts } = buildReport(rooms, inspection.answers);
+  const answered = counts.total - counts.unanswered;
+  const share = counts.total ? answered / counts.total : 0;
 
   const groups = [
     {
@@ -43,34 +44,38 @@ export function RoomsScreen({ inspection, rooms }: Props) {
   const { project, flat } = inspection.details;
   const flatLabel = [project, flat && `Flat ${flat}`]
     .filter(Boolean)
-    .join(", ");
+    .join(" · ");
 
   return (
     <>
-      <TopBar
-        title={APP_TITLE}
-        back={{ href: "#/", label: "Start" }}
-        side={<a href="#/report">Report ›</a>}
-      />
+      <TopBar title={APP_TITLE} back={{ href: "#/", label: "Start" }} />
       <main className="page">
+        {flatLabel && <p className="eyebrow">{flatLabel}</p>}
         <h1>Your checklist</h1>
-        {flatLabel && <p className="muted">{flatLabel}</p>}
-        <div className="card">
-          <div>
-            <strong>{answered}</strong> of {total} items checked
-            {problems > 0 && (
-              <>
-                {" · "}
-                <strong>{problems}</strong>{" "}
-                {problems === 1 ? "problem" : "problems"}
-              </>
-            )}
-          </div>
-          <div className="progress" aria-hidden="true">
-            <div
-              className="progress__bar"
-              style={{ width: `${total ? (answered / total) * 100 : 0}%` }}
-            />
+
+        <div className="card summary">
+          <ProgressRing value={share} />
+          <div className="summary__text">
+            <div className="summary__count">
+              {answered} of {counts.total} items checked
+            </div>
+            <div className="chips">
+              {counts.problems === 0 ? (
+                <span className="pill pill--ok">No problems yet</span>
+              ) : (
+                <>
+                  {counts.safety > 0 && (
+                    <span className="pill">
+                      {counts.safety} {SEVERITY_NAMES.safety}
+                    </span>
+                  )}
+                  <span className="pill pill--muted">
+                    {counts.problems}{" "}
+                    {counts.problems === 1 ? "problem" : "problems"}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -78,56 +83,113 @@ export function RoomsScreen({ inspection, rooms }: Props) {
           (group) =>
             group.items.length > 0 && (
               <section key={group.title}>
-                <h2>{group.title}</h2>
+                <div className="section-title">
+                  <h2>{group.title}</h2>
+                </div>
                 <ul className="room-list">
-                  {group.items.map((p) => (
-                    <li key={p.room.id}>
-                      <a
-                        className="room-link"
-                        href={routeHref({ name: "room", roomId: p.room.id })}
-                      >
-                        <span className="room-link__main">
-                          <span className="room-link__name">{p.room.name}</span>
-                          <br />
-                          <span className="room-link__meta">
-                            {p.answered === p.total ? (
-                              <span className="room-link__done">✓ Done</span>
-                            ) : (
-                              `${p.answered} of ${p.total} checked`
-                            )}
+                  {group.items.map((p) => {
+                    const done = p.answered === p.total;
+                    const others = p.problems - p.safety;
+                    return (
+                      <li key={p.room.id}>
+                        <a
+                          className={`room-link${done ? " room-link--done" : ""}`}
+                          href={routeHref({ name: "room", roomId: p.room.id })}
+                        >
+                          <span className="icon-tile">
+                            <Icon
+                              name={done ? "check" : ROOM_ICONS[p.room.kind]}
+                              size={22}
+                            />
                           </span>
-                        </span>
-                        {p.safety > 0 && (
-                          <span className="pill">{p.safety} safety</span>
-                        )}
-                        {p.problems - p.safety > 0 && (
-                          <span className="pill pill--muted">
-                            {p.problems - p.safety}{" "}
-                            {p.problems - p.safety === 1
-                              ? "problem"
-                              : "problems"}
+                          <span className="room-link__main">
+                            <span className="room-link__name">
+                              {p.room.name}
+                            </span>
+                            <span className="room-link__meta">
+                              <span className="mini-bar" aria-hidden="true">
+                                <div
+                                  style={{
+                                    width: `${(p.answered / p.total) * 100}%`,
+                                  }}
+                                />
+                              </span>
+                              {done ? "Done" : `${p.answered}/${p.total}`}
+                            </span>
                           </span>
-                        )}
-                        <span className="room-link__arrow" aria-hidden="true">
-                          ›
-                        </span>
-                      </a>
-                    </li>
-                  ))}
+                          {p.safety > 0 && (
+                            <span className="pill">{p.safety}</span>
+                          )}
+                          {others > 0 && (
+                            <span
+                              className="pill pill--muted"
+                              aria-label={`${others} other problems`}
+                            >
+                              {others}
+                            </span>
+                          )}
+                          <Icon
+                            name="next"
+                            size={18}
+                            className="room-link__arrow"
+                          />
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
             ),
         )}
 
-        <a className="btn btn--primary btn--block" href="#/report">
-          See the report
+        <a className="btn btn--ghost btn--block" href="#/">
+          Change rooms or flat details
         </a>
-        <div className="btn-row">
-          <a className="btn" href="#/">
-            Change rooms or flat details
+      </main>
+
+      <div className="dock">
+        <div className="dock__inner">
+          <a className="btn btn--primary" href="#/report">
+            <Icon name="report" size={18} />
+            See the report
           </a>
         </div>
-      </main>
+      </div>
     </>
+  );
+}
+
+function ProgressRing({ value }: { value: number }) {
+  const r = 36;
+  const c = 2 * Math.PI * r;
+  return (
+    <div
+      className="ring"
+      role="img"
+      aria-label={`${Math.round(value * 100)}% checked`}
+    >
+      <svg width="84" height="84" viewBox="0 0 84 84">
+        <circle
+          className="ring__track"
+          cx="42"
+          cy="42"
+          r={r}
+          fill="none"
+          strokeWidth="7"
+        />
+        <circle
+          className="ring__bar"
+          cx="42"
+          cy="42"
+          r={r}
+          fill="none"
+          strokeWidth="7"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - value)}
+        />
+      </svg>
+      <span className="ring__label">{Math.round(value * 100)}%</span>
+    </div>
   );
 }

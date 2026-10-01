@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPhoto } from "../lib/photos.ts";
+import { Icon } from "./Icon.tsx";
 
 interface Props {
   photoId: string;
@@ -40,7 +41,7 @@ export function PhotoThumb({ photoId, onRemove }: Props) {
         {url ? (
           <img src={url} alt="" />
         ) : (
-          <span className="small muted">{missing ? "Photo missing" : "…"}</span>
+          <span className="small">{missing ? "Photo missing" : "…"}</span>
         )}
       </button>
       {onRemove && (
@@ -52,7 +53,7 @@ export function PhotoThumb({ photoId, onRemove }: Props) {
             if (confirm("Delete this photo?")) onRemove();
           }}
         >
-          ×
+          <Icon name="x" size={16} />
         </button>
       )}
       {open && url && (

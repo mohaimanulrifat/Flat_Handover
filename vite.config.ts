@@ -12,8 +12,8 @@ export default defineConfig({
       appTitle: APP_TITLE,
       description:
         "A room-by-room checklist for flat handover day, with a PDF defect report.",
-      themeColour: "#0f5c4d",
-      backgroundColour: "#f5f4f0",
+      themeColour: "#0b1020",
+      backgroundColour: "#0b1020",
     }),
     {
       name: "app-title",

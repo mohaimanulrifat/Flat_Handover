@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#0f5c4d" />
+    <meta name="theme-color" content="#0b1020" />
     <meta
       name="description"
       content="A room-by-room checklist for flat handover day, with a PDF defect report."
@@ -16,6 +16,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="%APP_TITLE%" />
     <title>%APP_TITLE%</title>
+    <script>
+      // Apply the saved theme before the page draws (see src/lib/theme.ts).
+      try {
+        var light = localStorage.getItem("handover-check:theme") === "light";
+        document.documentElement.dataset.theme = light ? "light" : "dark";
+        if (light)
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", "#f4f2ec");
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
