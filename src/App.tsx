@@ -3,6 +3,9 @@ import { generateRooms } from "./lib/rooms.ts";
 import { useRoute } from "./lib/route.ts";
 import { useUpdate } from "./lib/serviceWorker.ts";
 import { useInspection } from "./lib/useInspection.ts";
+import { HomeScreen } from "./screens/HomeScreen.tsx";
+import { LandownerFormScreen } from "./screens/LandownerFormScreen.tsx";
+import { LandownerResultScreen } from "./screens/LandownerResultScreen.tsx";
 import { ReportScreen } from "./screens/ReportScreen.tsx";
 import { RoomScreen } from "./screens/RoomScreen.tsx";
 import { RoomsScreen } from "./screens/RoomsScreen.tsx";
@@ -18,7 +21,13 @@ export function App() {
   );
 
   let screen;
-  if (!inspection.layout || route.name === "start") {
+  if (route.name === "home") {
+    screen = <HomeScreen />;
+  } else if (route.name === "land") {
+    screen = <LandownerFormScreen />;
+  } else if (route.name === "landResult") {
+    screen = <LandownerResultScreen />;
+  } else if (!inspection.layout || route.name === "checklist") {
     screen = <StartScreen inspection={inspection} dispatch={dispatch} />;
   } else if (route.name === "report") {
     screen = <ReportScreen inspection={inspection} rooms={rooms} />;

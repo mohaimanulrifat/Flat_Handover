@@ -5,25 +5,38 @@ import { useEffect, useState } from "react";
  * phone's back button moves between screens instead of closing the app.
  */
 export type Route =
-  | { name: "start" }
+  | { name: "home" }
+  | { name: "checklist" }
   | { name: "rooms" }
   | { name: "room"; roomId: string }
-  | { name: "report" };
+  | { name: "report" }
+  | { name: "land" }
+  | { name: "landResult" };
 
 export function parseHash(hash: string): Route {
   const parts = hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+  if (parts[0] === "checklist") return { name: "checklist" };
   if (parts[0] === "rooms") return { name: "rooms" };
   if (parts[0] === "report") return { name: "report" };
   if (parts[0] === "room" && parts[1]) {
     return { name: "room", roomId: decodeURIComponent(parts[1]) };
   }
-  return { name: "start" };
+  if (parts[0] === "land") {
+    return parts[1] === "result" ? { name: "landResult" } : { name: "land" };
+  }
+  return { name: "home" };
 }
 
 export function routeHref(route: Route): string {
   switch (route.name) {
-    case "start":
+    case "home":
       return "#/";
+    case "checklist":
+      return "#/checklist";
+    case "land":
+      return "#/land";
+    case "landResult":
+      return "#/land/result";
     case "rooms":
       return "#/rooms";
     case "report":

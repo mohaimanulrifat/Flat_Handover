@@ -48,7 +48,10 @@ export function RoomsScreen({ inspection, rooms }: Props) {
 
   return (
     <>
-      <TopBar title={APP_TITLE} back={{ href: "#/", label: "Start" }} />
+      <TopBar
+        title={APP_TITLE}
+        back={{ href: "#/checklist", label: "Start" }}
+      />
       <main className="page">
         {flatLabel && <p className="eyebrow">{flatLabel}</p>}
         <h1>Your checklist</h1>
@@ -142,7 +145,7 @@ export function RoomsScreen({ inspection, rooms }: Props) {
             ),
         )}
 
-        <a className="btn btn--ghost btn--block" href="#/">
+        <a className="btn btn--ghost btn--block" href="#/checklist">
           Change rooms or flat details
         </a>
       </main>

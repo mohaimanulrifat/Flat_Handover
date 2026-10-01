@@ -31,6 +31,12 @@ const PATHS = {
   shield: "M12 3l8 3v6c0 4.8-3.4 7.9-8 9-4.6-1.1-8-4.2-8-9V6z",
   bulb: "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z",
   report: "M7 3h10v18H7zM10 8h4M10 12h4M10 16h2",
+  calculator:
+    "M6 3h12v18H6zM9 6.5h6v3H9zM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01",
+  layers: "M12 4l9 4.5-9 4.5-9-4.5zM3 13l9 4.5 9-4.5M3 17l9 4.5 9-4.5",
+  globe:
+    "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9",
+  ruler: "M4 15L15 4l5 5L9 20zM8 11l2 2M11 8l2 2M14 5l2 2",
 } as const;
 
 export type IconName = keyof typeof PATHS;
