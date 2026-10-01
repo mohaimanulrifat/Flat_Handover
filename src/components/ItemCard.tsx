@@ -1,12 +1,13 @@
 import { memo, useState, type Dispatch } from "react";
 import type { ChecklistItem } from "../data/checklist.ts";
 import type { Action, Answer, Status } from "../lib/inspection.ts";
+import { Icon, type IconName } from "./Icon.tsx";
 import { ProblemEditor } from "./ProblemEditor.tsx";
 
-const STATUS_BUTTONS: { status: Status; label: string }[] = [
-  { status: "ok", label: "OK" },
-  { status: "problem", label: "Problem" },
-  { status: "na", label: "Not applicable" },
+const STATUS_BUTTONS: { status: Status; label: string; icon: IconName }[] = [
+  { status: "ok", label: "OK", icon: "check" },
+  { status: "problem", label: "Problem", icon: "alert" },
+  { status: "na", label: "Not applicable", icon: "minus" },
 ];
 
 interface Props {
@@ -39,7 +40,10 @@ export const ItemCard = memo(function ItemCard({
       </div>
 
       {showTips || tipOpen ? (
-        <p className="tip">{item.howToCheck}</p>
+        <p className="tip">
+          <Icon name="bulb" size={17} />
+          <span>{item.howToCheck}</span>
+        </p>
       ) : (
         <p className="tip">
           <button
@@ -68,6 +72,7 @@ export const ItemCard = memo(function ItemCard({
               })
             }
           >
+            {status === b.status && <Icon name={b.icon} size={16} />}
             {b.label}
           </button>
         ))}

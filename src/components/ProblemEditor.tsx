@@ -8,6 +8,7 @@ import {
   type Answer,
 } from "../lib/inspection.ts";
 import { deletePhoto, savePhoto } from "../lib/photos.ts";
+import { Icon } from "./Icon.tsx";
 import { PhotoThumb } from "./PhotoThumb.tsx";
 import { severityStyle } from "./SeverityBadge.tsx";
 
@@ -73,8 +74,11 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
               })
             }
           >
-            <strong>{SEVERITY_NAMES[level.id]}</strong>
-            {level.meaning}
+            <span className="severity__dot" aria-hidden="true" />
+            <span>
+              <strong>{SEVERITY_NAMES[level.id]}</strong>
+              {level.meaning}
+            </span>
           </button>
         ))}
         <button
@@ -119,7 +123,8 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
         </div>
       )}
       <div className="btn-row">
-        <label className="btn btn--small file-btn">
+        <label className="btn btn--small btn--primary file-btn">
+          <Icon name="camera" size={18} />
           Take photo
           <input
             type="file"
@@ -129,13 +134,14 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
           />
         </label>
         <label className="btn btn--small file-btn">
+          <Icon name="image" size={18} />
           Choose from gallery
           <input type="file" accept="image/*" multiple onChange={addPhotos} />
         </label>
       </div>
       {saving > 0 && <p className="small muted">Saving photo…</p>}
       {error && (
-        <p className="small" role="alert" style={{ color: "var(--problem)" }}>
+        <p className="small error-text" role="alert">
           {error}
         </p>
       )}

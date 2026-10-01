@@ -37,7 +37,7 @@ const PHOTO_MAX_H = 150;
 const BLACK = rgb(0.11, 0.11, 0.1);
 const GREY = rgb(0.38, 0.38, 0.35);
 const LIGHT = rgb(0.85, 0.85, 0.82);
-const BRAND = hexToRgb("#0f5c4d");
+const BRAND = hexToRgb("#26327a"); // Nocturne night indigo, on paper
 
 interface Options {
   inspection: Inspection;

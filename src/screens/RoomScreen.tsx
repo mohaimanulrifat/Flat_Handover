@@ -1,4 +1,5 @@
 import { useState, type Dispatch } from "react";
+import { Icon } from "../components/Icon.tsx";
 import { ItemCard } from "../components/ItemCard.tsx";
 import { TopBar } from "../components/TopBar.tsx";
 import type { RoomKind } from "../data/checklist.ts";
@@ -60,13 +61,14 @@ export function RoomScreen({ room, next, inspection, dispatch }: Props) {
         title={room.name}
         back={{ href: "#/rooms", label: "Rooms" }}
         side={`${progress.answered}/${progress.total}`}
+        progress={progress.total ? progress.answered / progress.total : 0}
       />
       <main className="page">
-        <p className="muted">{ROOM_HINTS[room.kind]}</p>
-        <label
-          className="small"
-          style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
-        >
+        <p className="hint">
+          <Icon name="info" size={18} />
+          <span>{ROOM_HINTS[room.kind]}</span>
+        </p>
+        <label className="switch">
           <input type="checkbox" checked={showTips} onChange={toggleTips} />
           Show "how to check" under every item
         </label>
@@ -79,7 +81,12 @@ export function RoomScreen({ room, next, inspection, dispatch }: Props) {
           return (
             <section className="group" key={group.id}>
               <div className="group__head">
-                <h2>{group.title}</h2>
+                <div>
+                  <h2>{group.title}</h2>
+                  <div className="group__left">
+                    {open === 0 ? "All answered" : `${open} left`}
+                  </div>
+                </div>
                 <button
                   type="button"
                   className="btn btn--small"
@@ -87,6 +94,7 @@ export function RoomScreen({ room, next, inspection, dispatch }: Props) {
                   onClick={() => dispatch({ type: "markUnansweredOk", keys })}
                   aria-label={`All OK: mark the ${open} unanswered items in ${group.title} as OK`}
                 >
+                  <Icon name="check" size={16} />
                   All OK
                 </button>
               </div>
@@ -103,25 +111,29 @@ export function RoomScreen({ room, next, inspection, dispatch }: Props) {
             </section>
           );
         })}
-
-        {next ? (
-          <a
-            className="btn btn--primary btn--block"
-            href={routeHref({ name: "room", roomId: next.id })}
-          >
-            Next: {next.name} ›
-          </a>
-        ) : (
-          <a className="btn btn--primary btn--block" href="#/report">
-            See the report ›
-          </a>
-        )}
-        <div className="btn-row">
-          <a className="btn" href="#/rooms">
-            All rooms
-          </a>
-        </div>
       </main>
+
+      <div className="dock">
+        <div className="dock__inner">
+          <a className="btn" href="#/rooms" aria-label="All rooms">
+            <Icon name="home" size={18} />
+          </a>
+          {next ? (
+            <a
+              className="btn btn--primary"
+              href={routeHref({ name: "room", roomId: next.id })}
+            >
+              Next: {next.name}
+              <Icon name="next" size={18} />
+            </a>
+          ) : (
+            <a className="btn btn--primary" href="#/report">
+              See the report
+              <Icon name="next" size={18} />
+            </a>
+          )}
+        </div>
+      </div>
     </>
   );
 }

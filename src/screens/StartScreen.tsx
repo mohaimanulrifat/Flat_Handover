@@ -1,4 +1,6 @@
-import { useState, type Dispatch, type FormEvent } from "react";
+import { useMemo, useState, type Dispatch, type FormEvent } from "react";
+import { Icon, type IconName } from "../components/Icon.tsx";
+import { ThemeToggle } from "../components/TopBar.tsx";
 import { Stepper } from "../components/Stepper.tsx";
 import { APP_TITLE } from "../config.ts";
 import { groundRules, whatToBring } from "../data/checklist.ts";
@@ -9,9 +11,11 @@ import {
   type Inspection,
 } from "../lib/inspection.ts";
 import { requestPersistentStorage } from "../lib/photos.ts";
+import { buildReport } from "../lib/report.ts";
 import { navigate } from "../lib/route.ts";
 import {
   DEFAULT_LAYOUT,
+  generateRooms,
   LAYOUT_MAX,
   LAYOUT_MIN,
   type Layout,
@@ -22,10 +26,10 @@ interface Props {
   dispatch: Dispatch<Action>;
 }
 
-const LAYOUT_FIELDS: { key: keyof Layout; label: string }[] = [
-  { key: "bedrooms", label: "Bedrooms" },
-  { key: "bathrooms", label: "Bathrooms" },
-  { key: "balconies", label: "Balconies" },
+const LAYOUT_FIELDS: { key: keyof Layout; label: string; icon: IconName }[] = [
+  { key: "bedrooms", label: "Bedrooms", icon: "bed" },
+  { key: "bathrooms", label: "Bathrooms", icon: "bath" },
+  { key: "balconies", label: "Balconies", icon: "balcony" },
 ];
 
 const DETAIL_FIELDS: { key: keyof FlatDetails; label: string; type: string }[] =
@@ -44,6 +48,15 @@ export function StartScreen({ inspection, dispatch }: Props) {
   const layoutChanged =
     inProgress &&
     LAYOUT_FIELDS.some((f) => layout[f.key] !== inspection.layout![f.key]);
+
+  const counts = useMemo(
+    () =>
+      inspection.layout
+        ? buildReport(generateRooms(inspection.layout), inspection.answers)
+            .counts
+        : null,
+    [inspection.layout, inspection.answers],
+  );
 
   function submit(event: FormEvent) {
     event.preventDefault();
@@ -76,42 +89,92 @@ export function StartScreen({ inspection, dispatch }: Props) {
 
   return (
     <main className="page">
-      <h1>{APP_TITLE}</h1>
-      <p className="lead">
-        A room-by-room checklist for the day you receive your new flat. Mark
-        each item OK or Problem, take photos, and make a PDF report to give the
-        developer.
-      </p>
+      <div className="brand">
+        <span className="brand__mark">
+          <Icon name="home" size={26} />
+        </span>
+        <span className="brand__name">{APP_TITLE}</span>
+        <ThemeToggle />
+      </div>
 
-      {inProgress && (
-        <div className="notice">
-          <p>You have an inspection in progress. It is saved on this phone.</p>
-          <a className="btn btn--primary btn--block" href="#/rooms">
-            Continue checking
+      <section className="hero">
+        <p className="eyebrow">Flat handover inspection</p>
+        <h1>
+          Check your new flat <em>before you sign.</em>
+        </h1>
+        <p className="lead">
+          A room-by-room checklist for the day you receive your flat. Mark each
+          item OK or Problem, take photos, and make a PDF report to give the
+          developer.
+        </p>
+        <ol className="steps">
+          <li>
+            <b>1</b>Enter your flat layout
+          </li>
+          <li>
+            <b>2</b>Check room by room
+          </li>
+          <li>
+            <b>3</b>Share the PDF report
+          </li>
+        </ol>
+      </section>
+
+      {inProgress && counts && (
+        <div className="card resume" style={{ marginTop: "1.25rem" }}>
+          <span className="icon-tile">
+            <Icon name="papers" size={22} />
+          </span>
+          <div className="resume__text">
+            <strong>Inspection in progress</strong>
+            <div className="small muted">
+              {counts.total - counts.unanswered} of {counts.total} items checked
+              · saved on this phone
+            </div>
+          </div>
+          <a className="btn btn--primary btn--small" href="#/rooms">
+            Continue
           </a>
         </div>
       )}
 
+      <div className="section-title">
+        <h2>Before you go</h2>
+      </div>
+
       <section className="card">
-        <h2>What to bring</h2>
-        <ul>
+        <div className="card__head">
+          <span className="icon-tile">
+            <Icon name="bag" size={22} />
+          </span>
+          <h3>What to bring</h3>
+        </div>
+        <ol className="numbered">
           {whatToBring.map((thing) => (
             <li key={thing}>{thing}</li>
           ))}
-        </ul>
+        </ol>
       </section>
 
       <section className="card">
-        <h2>Ground rules</h2>
-        <ul>
+        <div className="card__head">
+          <span className="icon-tile">
+            <Icon name="shield" size={22} />
+          </span>
+          <h3>Ground rules</h3>
+        </div>
+        <ol className="numbered">
           {groundRules.map((rule) => (
             <li key={rule}>{rule}</li>
           ))}
-        </ul>
+        </ol>
       </section>
 
-      <form className="card" onSubmit={submit}>
+      <div className="section-title">
         <h2>Your flat</h2>
+      </div>
+
+      <form className="card" onSubmit={submit}>
         <p className="muted small">
           Enter the number of rooms and the app makes your checklist. The living
           room, dining room, kitchen, whole flat, building and papers are always
@@ -121,6 +184,7 @@ export function StartScreen({ inspection, dispatch }: Props) {
           <Stepper
             key={f.key}
             label={f.label}
+            icon={f.icon}
             value={layout[f.key]}
             min={LAYOUT_MIN}
             max={LAYOUT_MAX}
@@ -128,7 +192,9 @@ export function StartScreen({ inspection, dispatch }: Props) {
           />
         ))}
 
-        <h3 style={{ marginTop: "1.25rem" }}>For the report (optional)</h3>
+        <h3 style={{ margin: "1.5rem 0 0.9rem" }}>
+          For the report <span className="muted small">(optional)</span>
+        </h3>
         {DETAIL_FIELDS.map((f) => (
           <label className="field" key={f.key}>
             <span className="field__label">{f.label}</span>
@@ -151,6 +217,7 @@ export function StartScreen({ inspection, dispatch }: Props) {
             : layoutChanged
               ? "Update my rooms"
               : "Continue checking"}
+          <Icon name="next" size={18} />
         </button>
       </form>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SEVERITY_NAMES } from "../config.ts";
 import type { Inspection } from "../lib/inspection.ts";
 import { getPhoto } from "../lib/photos.ts";
+import { Icon } from "./Icon.tsx";
 import type { Report } from "../lib/report.ts";
 
 interface Props {
@@ -72,7 +73,12 @@ export function PdfExport({ inspection, report }: Props) {
 
   return (
     <section className="card">
-      <h2>PDF report</h2>
+      <div className="card__head">
+        <span className="icon-tile">
+          <Icon name="report" size={22} />
+        </span>
+        <h2>PDF report</h2>
+      </div>
       <p className="small muted">
         Lists problems room by room with {SEVERITY_NAMES.safety} items first,
         then the items checked OK. Give it to the developer and ask them to sign
@@ -91,6 +97,7 @@ export function PdfExport({ inspection, report }: Props) {
                 className="btn btn--primary"
                 onClick={() => share(state.file)}
               >
+                <Icon name="share" size={18} />
                 Share PDF
               </button>
             )}
@@ -99,6 +106,7 @@ export function PdfExport({ inspection, report }: Props) {
               href={state.url}
               download={state.file.name}
             >
+              <Icon name="download" size={18} />
               Save PDF
             </a>
           </div>
@@ -115,7 +123,7 @@ export function PdfExport({ inspection, report }: Props) {
       )}
 
       {state.step === "error" && (
-        <p className="small" role="alert" style={{ color: "var(--problem)" }}>
+        <p className="small error-text" role="alert">
           The PDF could not be made. Please try again. If it keeps failing, try
           removing very large photos.
         </p>

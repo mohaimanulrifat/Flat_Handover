@@ -128,6 +128,8 @@ The tests cover:
 | App name                           | `src/config.ts` (`APP_TITLE`)          |
 | Severity names and colours         | `src/config.ts`                        |
 | PDF report footer                  | `src/config.ts` (`REPORT_FOOTER_TEXT`) |
+| Colours (Night and Daylight)       | `src/styles.css` (tokens at the top)   |
+| Fonts                              | `src/fonts.css`                        |
 
 The checklist text comes from `Flat_Handover_Checklist_Draft1.docx`, which
 is kept privately and is not in this repository (`.gitignore` skips `.docx`
