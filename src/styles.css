@@ -164,6 +164,14 @@ a {
   font-size: 0.95rem;
 }
 
+.banner--info {
+  background: var(--brand-dark);
+}
+.banner .link {
+  color: #fff;
+  font-weight: 600;
+}
+
 /* Buttons ---------------------------------------------------------- */
 
 .btn {

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { generateRooms } from "./lib/rooms.ts";
 import { useRoute } from "./lib/route.ts";
+import { useUpdate } from "./lib/serviceWorker.ts";
 import { useInspection } from "./lib/useInspection.ts";
 import { ReportScreen } from "./screens/ReportScreen.tsx";
 import { RoomScreen } from "./screens/RoomScreen.tsx";
@@ -10,6 +11,7 @@ import { StartScreen } from "./screens/StartScreen.tsx";
 export function App() {
   const [inspection, dispatch, saveFailed] = useInspection();
   const route = useRoute();
+  const update = useUpdate();
   const rooms = useMemo(
     () => (inspection.layout ? generateRooms(inspection.layout) : []),
     [inspection.layout],
@@ -45,6 +47,14 @@ export function App() {
         <div className="banner" role="alert">
           Your answers cannot be saved on this phone. Do not close this page, or
           turn off private browsing and try again.
+        </div>
+      )}
+      {update && (
+        <div className="banner banner--info">
+          A new version of the app is ready.{" "}
+          <button type="button" className="link" onClick={update}>
+            Update now
+          </button>
         </div>
       )}
       {screen}

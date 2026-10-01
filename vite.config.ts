@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import { offline } from "./build/offline.ts";
 import { APP_TITLE } from "./src/config.ts";
 
 export default defineConfig({
@@ -7,6 +8,13 @@ export default defineConfig({
   base: "./",
   plugins: [
     react(),
+    offline({
+      appTitle: APP_TITLE,
+      description:
+        "A room-by-room checklist for flat handover day, with a PDF defect report.",
+      themeColour: "#0f5c4d",
+      backgroundColour: "#f5f4f0",
+    }),
     {
       name: "app-title",
       transformIndexHtml: (html) => html.replaceAll("%APP_TITLE%", APP_TITLE),
