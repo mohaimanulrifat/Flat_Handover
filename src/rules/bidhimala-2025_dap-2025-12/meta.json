@@ -1,0 +1,22 @@
+{
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "documents": {
+    "bidhimala-2025": {
+      "title": "ঢাকা মহানগর ইমারত বিধিমালা, ২০২৫ (Dhaka Mohanagar Imarat Bidhimala 2025)",
+      "published": "বাংলাদেশ গেজেট, অতিরিক্ত, ১৪ ডিসেম্বর ২০২৫",
+      "file": "Dhaka Mohanagar Imarat Bidhimala 2025 (gazette PDF).pdf",
+      "pageNote": "Pages are gazette page numbers (13409-13520); PDF page = gazette page - 13408."
+    },
+    "dap-2025-12": {
+      "title": "বিশদ অঞ্চল পরিকল্পনা (DAP) ২০২২-২০৩৫, সংশোধিত গেজেট",
+      "published": "বাংলাদেশ গেজেট, অতিরিক্ত, ১৪ ডিসেম্বর ২০২৫",
+      "file": "DAP 2022-2035 revised gazette, Dec 2025 (PDF).pdf",
+      "pageNote": "Pages are gazette page numbers (13385-13407); PDF page = gazette page - 13384."
+    },
+    "worked-examples-2016": {
+      "title": "FAR Rule and Building Code (RAJUK), slides dated 18 May 2016",
+      "file": "worked-examples (answers from a architect).pdf",
+      "pageNote": "Based on the repealed 2008 rules. Used only for unit conversion and test arithmetic."
+    }
+  }
+}

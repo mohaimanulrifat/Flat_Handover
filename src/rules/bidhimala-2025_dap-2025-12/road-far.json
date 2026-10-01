@@ -1,0 +1,117 @@
+{
+  "title": "Road FAR by plot-adjacent existing road width (রোডভিত্তিক FAR)",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "source": {
+    "doc": "bidhimala-2025",
+    "table": "Rule 47(5), Table 5 (সারণি-৫); same values in DAP Appendix 3.5",
+    "page": "13460-13461 (PDF p.52-53); DAP 13399-13400 (PDF p.15-16)"
+  },
+  "widthColumns": [
+    {
+      "id": "c5",
+      "kind": "range",
+      "fromM": 1.8,
+      "toM": 2.5,
+      "label": "১.৮ মিটার হইতে ২.৫ মিটার কম"
+    },
+    {
+      "id": "c6",
+      "kind": "range",
+      "fromM": 2.5,
+      "toM": 3.66,
+      "label": "২.৫ মিটার হইতে ৩.৬৬ মিটার কম"
+    },
+    {
+      "id": "c7",
+      "kind": "range",
+      "fromM": 3.66,
+      "toM": 4.88,
+      "label": "৩.৬৬ মিটার হইতে ৪.৮৮ মিটার কম"
+    },
+    { "id": "c8", "kind": "step", "atM": 4.88, "label": "৪.৮৮ মিটার" },
+    { "id": "c9", "kind": "step", "atM": 6.0, "label": "৬.০ মিটার" },
+    { "id": "c10", "kind": "step", "atM": 9.0, "label": "৯.০ মিটার" },
+    { "id": "c11", "kind": "step", "atM": 12.0, "label": "১২.০ মিটার" },
+    { "id": "c12", "kind": "step", "atM": 18.0, "label": "১৮.০ মিটার" },
+    {
+      "id": "c13",
+      "kind": "step",
+      "atM": 24.0,
+      "label": "২৪.০ মিটার বা তদূর্ধ্ব",
+      "orMore": true
+    }
+  ],
+  "betweenSteps": {
+    "rule": "If the existing road is wider than a listed step, FAR is based on the extra width and increases proportionally up to the next step's FAR (linear interpolation).",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 47(6)",
+      "page": "13465 (PDF p.57)"
+    },
+    "needs_verification": true,
+    "verifyNote": "The rule says 'proportionally up to the next step'. Applied here only between the single-width steps (4.88 m and wider). The first three columns are printed as ranges, so they are treated as constant within each range."
+  },
+  "groups": [
+    {
+      "id": "central",
+      "label_bn": "কেন্দ্রীয় ঢাকা, পূর্বাচল, ঝিলমিল",
+      "label_en": "Central Dhaka, Purbachal, Jhilmil",
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 5, row 1",
+        "page": "13460 (PDF p.52)"
+      },
+      "rows": {
+        "A1": [1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 3.75, 4.25],
+        "A2": [1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 3.75, 4.25],
+        "A3": [1.25, 1.75, 2.0, 2.25, 3.25, 3.5, 4.0, 4.25, 4.75],
+        "A4": [null, 2.0, 2.25, 2.5, 3.0, 3.5, 4.0, 4.5, 5.5],
+        "A5": [null, null, null, null, 4.0, 4.5, 5.0, 6.0, 7.0],
+        "A6": [1.5, 2.0, 2.25, 2.5, 3.0, 3.25, 3.75, 4.0, 4.25]
+      },
+      "notes": {
+        "A5": "Last column printed as '7.0 *NR' (NR = Non-Restricted for 1 acre or more, Table 5 note 6)."
+      }
+    },
+    {
+      "id": "outer",
+      "label_bn": "বহিঃস্থ নগর অঞ্চল (যেমন নারায়ণগঞ্জ সিটি কর্পোরেশন, সাভার পৌরসভা)",
+      "label_en": "Outer city areas (e.g. Narayanganj City Corporation, Savar Pourashava)",
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 5, row 2",
+        "page": "13460 (PDF p.52)"
+      },
+      "rows": {
+        "A1": [1.0, 1.25, 1.5, 1.75, 2.25, 2.75, 3.25, 3.5, 4.0],
+        "A2": [1.0, 1.25, 1.5, 1.75, 2.25, 2.75, 3.25, 3.5, 4.0],
+        "A3": [1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 3.75, 4.25],
+        "A4": [1.25, 1.75, 2.0, 2.25, 2.75, 3.25, 3.75, 4.25, 4.75],
+        "A5": [null, null, null, null, 3.75, 4.25, 4.75, 5.75, 6.75],
+        "A6": [1.5, 1.75, 2.0, 2.25, 2.75, 3.0, 3.5, 3.75, 4.0]
+      }
+    },
+    {
+      "id": "other",
+      "label_bn": "অন্যান্য এলাকা",
+      "label_en": "Other areas",
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 5, row 3",
+        "page": "13461 (PDF p.53)"
+      },
+      "rows": {
+        "A1": [1.0, 1.25, 1.5, 1.75, 2.25, 2.75, 3.25, 3.5, 4.0],
+        "A2": [1.0, 1.25, 1.5, 1.75, 2.25, 2.75, 3.25, 3.5, 4.0],
+        "A3": [1.0, 1.25, 1.5, 1.75, 2.3, 2.8, 3.3, 3.5, 4.0],
+        "A4": [1.0, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5],
+        "A5": [null, null, null, null, 3.5, 4.0, 4.5, 5.5, 6.5],
+        "A6": [1.5, 1.75, 2.0, 2.25, 2.75, 3.0, 3.5, 3.75, 4.0]
+      }
+    }
+  ],
+  "groupChoice": {
+    "needs_verification": true,
+    "verifyNote": "Neither gazette maps density blocks to these three groups. The plot owner chooses the group; the app does not guess it."
+  }
+}

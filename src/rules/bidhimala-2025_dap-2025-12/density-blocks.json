@@ -1,0 +1,1064 @@
+{
+  "title": "Area FAR, density and average unit size by density block (DAP Appendix 3.6, RAJUK area)",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "columns": {
+    "type": "ব্লক টাইপ: spontaneous = স্বতঃস্ফূর্ত উন্নয়ন, planned = পরিকল্পিত, null = not given",
+    "grossPPA": "গ্রস PPA (persons per acre)",
+    "avgUnitSizeSqft": "আবাসন ইউনিটের গড় আয়তন (বর্গফুট)",
+    "unitsPerKatha": "কাঠা প্রতি আবাসন ইউনিট",
+    "areaFar": "এলাকাভিত্তিক FAR"
+  },
+  "note": "Blocks with all values 0 (01 airport, 58 Kalyanpur retention) allow no residential development in this table.",
+  "blocks": [
+    {
+      "id": "01",
+      "name_bn": "সংরক্ষিত",
+      "area_bn": "বিমান বন্দর",
+      "type": null,
+      "grossPPA": 0,
+      "avgUnitSizeSqft": 0,
+      "unitsPerKatha": 0.0,
+      "areaFar": 0.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "02",
+      "name_bn": "জিঞ্জিরা, কালিন্দি, আগানগর",
+      "area_bn": "আগানগর ইউনিয়ন, কালিন্দী ইউনিয়ন, শুভাড্যা ইউনিয়ন (অংশ), জিঞ্জিরা ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 940,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "03",
+      "name_bn": "বসুন্ধরা আবাসিক এলাকা",
+      "area_bn": "DNCC-১৭, ৪০, ৪২, ৪৩ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1480,
+      "unitsPerKatha": 2.0,
+      "areaFar": 4.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "04",
+      "name_bn": "দক্ষিণখান",
+      "area_bn": "DNCC-৪৪ (অংশ), ৪৫, ৪৬, ৪৮ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1200,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "05",
+      "name_bn": "ফরিদাবাদ",
+      "area_bn": "DNCC-৪৭, ৫০",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1000,
+      "unitsPerKatha": 2.2,
+      "areaFar": 3.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "06",
+      "name_bn": "কাউলা",
+      "area_bn": "DNCC-১৭, ৪৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 1150,
+      "unitsPerKatha": 2.0,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "07",
+      "name_bn": "উত্তরা ১ম ও ২য় পর্ব",
+      "area_bn": "DNCC-১, ৫১ (অংশ)",
+      "type": "planned",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1630,
+      "unitsPerKatha": 2.0,
+      "areaFar": 4.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "08",
+      "name_bn": "কামারপাড়া",
+      "area_bn": "DNCC-৫৩, ৫৪ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 280,
+      "avgUnitSizeSqft": 980,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "09",
+      "name_bn": "মিরপুর",
+      "area_bn": "DNCC-২, ৩, ৪, ৫, ৬, ৭, ৮, ১২, ১৩, ১৪, ১৬, ৫২ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1300,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "10",
+      "name_bn": "কেরানীগঞ্জ, তারানগর, ভাকুর্তা, কোন্ডা",
+      "area_bn": "আলিরটেক, আমিন বাজার, বাক্তাবলি, বাস্তা, ভাকুর্তা, হযরতপুর, কালাটীয়া, কন্দা, রুহিতপুর, সাক্তা ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 860,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "11",
+      "name_bn": "আনন্দনগর বেড়ীবাঁধ",
+      "area_bn": "DNCC-৮, ৯, ১০ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 950,
+      "unitsPerKatha": 2.0,
+      "areaFar": 2.6,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "12",
+      "name_bn": "শেওড়াপাড়া",
+      "area_bn": "DNCC-১০, ১১, ১২, ১৩, ১৪ (অংশ), ১৬, ২৮ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1150,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "13",
+      "name_bn": "ইব্রাহীমপুর পূর্ব শেওড়াপাড়া",
+      "area_bn": "DNCC-১৪, ১৬ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1150,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "14",
+      "name_bn": "বাউনিয়া",
+      "area_bn": "DNCC-৩, ৪, ৫, ১৫ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1200,
+      "unitsPerKatha": 2.1,
+      "areaFar": 3.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "15",
+      "name_bn": "খিলখেত ভাটারা",
+      "area_bn": "DNCC-১৭, ১৮, ৪০ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1180,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13402 (PDF p.18)"
+      }
+    },
+    {
+      "id": "16",
+      "name_bn": "বারিধারা",
+      "area_bn": "DNCC-১৮, ৩৯, ৪০ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1880,
+      "unitsPerKatha": 1.8,
+      "areaFar": 4.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "17",
+      "name_bn": "গুলশান বনানী",
+      "area_bn": "DNCC-১৯ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 2100,
+      "unitsPerKatha": 1.9,
+      "areaFar": 5.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "18",
+      "name_bn": "বাইপাইল, আশুলিয়া, ধামসোনা, ইয়ারপুর",
+      "area_bn": "আশুলিয়া ইউনিয়ন, ধামসোনা ইউনিয়ন, শিমুলিয়া ইউনিয়ন, ইয়ারপুর ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "19",
+      "name_bn": "করাইল",
+      "area_bn": "DNCC-১৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1050,
+      "unitsPerKatha": 1.4,
+      "areaFar": 2.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "20",
+      "name_bn": "মহাখালী ডিওএইচএস",
+      "area_bn": "DNCC-২০ (অংশ)",
+      "type": "planned",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 1580,
+      "unitsPerKatha": 2.0,
+      "areaFar": 4.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "21",
+      "name_bn": "নিকেতন",
+      "area_bn": "DNCC-১৯, ২০, ২৪ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 280,
+      "avgUnitSizeSqft": 1500,
+      "unitsPerKatha": 1.8,
+      "areaFar": 3.8,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "22",
+      "name_bn": "মহাখালী",
+      "area_bn": "DNCC-২০ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 960,
+      "unitsPerKatha": 2.5,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "23",
+      "name_bn": "রামপুরা",
+      "area_bn": "DNCC-১৮, ২১, ২২, ৩৮, ৩৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1180,
+      "unitsPerKatha": 2.2,
+      "areaFar": 3.6,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "24",
+      "name_bn": "তেজগাঁও আই এ",
+      "area_bn": "DNCC-২৪, ২৫ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 1040,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "25",
+      "name_bn": "মোহাম্মদপুর",
+      "area_bn": "DNCC-২৯, ৩১ (অংশ), ৩২ (অংশ)",
+      "type": "planned",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1100,
+      "unitsPerKatha": 2.2,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "26",
+      "name_bn": "বনগ্রাম",
+      "area_bn": "বনগ্রাম ইউনিয়ন, তেঁতুলঝোড়া ইউনিয়ন (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 150,
+      "avgUnitSizeSqft": 950,
+      "unitsPerKatha": 1.6,
+      "areaFar": 2.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "27",
+      "name_bn": "বাইতুল আমান",
+      "area_bn": "DNCC-১০, ১১, ৩০, ৩৩ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1080,
+      "unitsPerKatha": 2.1,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "28",
+      "name_bn": "মগবাজার",
+      "area_bn": "DNCC-২২, ৩৫, ৩৬ (অংশ), DSCC-৮, ১০ (অংশ), ১১, ১২, ১৩, ১৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1050,
+      "unitsPerKatha": 2.2,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "29A",
+      "name_bn": "পুরাতন ঢাকা",
+      "area_bn": "DSCC-২৪, ২৫, ৫০-৫৪, ৫৮, ৫৯, ৬০, ৬১, ৬২ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1000,
+      "unitsPerKatha": 2.4,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "29B",
+      "name_bn": "দনিয়া-মুরাদপুর",
+      "area_bn": "DSCC-৫২, ৫৩, ৫৮, ৫৯, ৬১, ৬২ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1000,
+      "unitsPerKatha": 2.4,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "30",
+      "name_bn": "গ্রীন মডেল টাউন",
+      "area_bn": "DSCC-৬৩, ৭১, ৭২, ৭৩ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1350,
+      "unitsPerKatha": 2.1,
+      "areaFar": 3.9,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "31",
+      "name_bn": "সাতারকুল, নাসিরাবাদ",
+      "area_bn": "DNCC-৩৭ (অংশ), ৪১-৪২ (অংশ), DSCC-৭০ (অংশ), ৭৫ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 1050,
+      "unitsPerKatha": 1.3,
+      "areaFar": 1.9,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13403 (PDF p.19)"
+      }
+    },
+    {
+      "id": "32",
+      "name_bn": "বাসাবো, খিলগাঁও",
+      "area_bn": "DNCC-২২, ২৩ (অংশ), DSCC-১-৭, ৪০ (অংশ), ৪৮ (অংশ), ৪৯, ৫০ (অংশ), ৭১, ৭২ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1160,
+      "unitsPerKatha": 2.1,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "33",
+      "name_bn": "বন্দর, মোগরাপাড়া, কাচপুর",
+      "area_bn": "বন্দর ইউনিয়ন, কাচপুর ইউনিয়ন, কলাগাছিয়া ইউনিয়ন, মদনপুর ইউনিয়ন, মুছাপুর ইউনিয়ন, সাদিপুর",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 860,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "34",
+      "name_bn": "রমনা, ঢাকা বিশ্ববিদ্যালয় এলাকা",
+      "area_bn": "DSCC-৮, ৯, ১০ (অংশ), ১৩, ১৮, ১৯, ২০, ২১, ২২ (অংশ), ২৩ (অংশ), ২৬ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 1040,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "35",
+      "name_bn": "পান্থপথ",
+      "area_bn": "DNCC-২৫, ২৬, ২৭ (অংশ); DSCC-১৫, ১৬, ১৭, ১৮ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1100,
+      "unitsPerKatha": 2.2,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "36",
+      "name_bn": "ধানমন্ডি আবাসিক",
+      "area_bn": "DNCC-৩১ (অংশ), ৩২ (অংশ), ৩৪ (অংশ), DSCC-১৫, ১৭, ১৮ (অংশ)",
+      "type": "planned",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 2000,
+      "unitsPerKatha": 1.8,
+      "areaFar": 5.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "37",
+      "name_bn": "নারায়ণগঞ্জ সেন্টার",
+      "area_bn": "NCC-৮, ১০, ১১-১৭, বক্তাবলী ইউনিয়ন, এনায়েতনগর ইউনিয়ন, ফতুল্লা ইউনিয়ন, কাশীপুর ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1060,
+      "unitsPerKatha": 2.4,
+      "areaFar": 3.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "38",
+      "name_bn": "টঙ্গী",
+      "area_bn": "GCC-৪৩, ৪৪, ৪৫, ৪৬, ৫৫, ৫৬, ৫৭ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 990,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "39",
+      "name_bn": "বিরুলিয়া",
+      "area_bn": "বিরুলিয়া ইউনিয়ন, সাভার ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 175,
+      "avgUnitSizeSqft": 946,
+      "unitsPerKatha": 1.8,
+      "areaFar": 2.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "40",
+      "name_bn": "গোগনগর, এনসিসি ২৭",
+      "area_bn": "NCC-৫, ৬, ১৮-২৭ (অংশ), গোগনগর ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "41",
+      "name_bn": "দাশেরকান্দি, কায়েতপাড়া",
+      "area_bn": "কায়েত পাড়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 175,
+      "avgUnitSizeSqft": 950,
+      "unitsPerKatha": 1.8,
+      "areaFar": 2.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "42A",
+      "name_bn": "মাতুয়াইল, সারুলিয়া",
+      "area_bn": "DSCC-৬৩ (অংশ), ৬৪ (অংশ), ৬৫, ৬৬, ৬৭, ৬৮, ৬৯ (অংশ), ৭০ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 1280,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "42B",
+      "name_bn": "কুতুবপুর, ফতুল্লা",
+      "area_bn": "NCC-১, ২, ৩, ৪, ৭, ৯ (অংশ), কুতুবপুর ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 1280,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "43",
+      "name_bn": "পাথালিয়া",
+      "area_bn": "পাথালিয়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13404 (PDF p.20)"
+      }
+    },
+    {
+      "id": "44",
+      "name_bn": "রূপগঞ্জ, ইসাপুর",
+      "area_bn": "রূপগঞ্জ ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "45",
+      "name_bn": "ভুলতা, গোলাকান্দাইল",
+      "area_bn": "ভুলতা ইউনিয়ন, গোলাকান্দাইল ইউনিয়ন, মুড়াপাড়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "46",
+      "name_bn": "সাভার পৌরসভা এলাকা",
+      "area_bn": "SP-১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯, তেঁতুলঝোড়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1050,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "47",
+      "name_bn": "ঝিলমিল আবাসিক এলাকা",
+      "area_bn": "ঝিলমিল আবাসিক এলাকা",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1600,
+      "unitsPerKatha": 1.9,
+      "areaFar": 4.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "48",
+      "name_bn": "হেমায়েতপুর, তেতুলঝোড়া",
+      "area_bn": "তেতুলঝোড়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 890,
+      "unitsPerKatha": 2.3,
+      "areaFar": 2.8,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "49",
+      "name_bn": "তাড়াবো পৌরসভা",
+      "area_bn": "TP-১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 940,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "50",
+      "name_bn": "জলসিড়ি",
+      "area_bn": "জলসিঁড়ি আবাসন",
+      "type": "planned",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 1400,
+      "unitsPerKatha": 2.1,
+      "areaFar": 4.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "51",
+      "name_bn": "বাড্ডা",
+      "area_bn": "DNCC-৩৭, ৩৮, ৩৯ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1180,
+      "unitsPerKatha": 2.1,
+      "areaFar": 3.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "52",
+      "name_bn": "আফতাবনগর, বনশ্রী",
+      "area_bn": "DNCC-২২, ৩৭ (অংশ), DSCC-৩, ৭৪ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1600,
+      "unitsPerKatha": 1.7,
+      "areaFar": 3.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "53",
+      "name_bn": "ইউনাইটেড, সানভ্যালী",
+      "area_bn": "DNCC-৪১, ৪২, ৪৩ (অংশ)",
+      "type": "planned",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1380,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "54",
+      "name_bn": "পূর্বাচল আবাসিক এলাকা",
+      "area_bn": "পূর্বাচল নতুন শহর",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1680,
+      "unitsPerKatha": 1.9,
+      "areaFar": 4.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "55",
+      "name_bn": "উত্তরা ৩য় পর্ব",
+      "area_bn": "DNCC-৫২, ৫৩ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1760,
+      "unitsPerKatha": 1.9,
+      "areaFar": 4.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13405 (PDF p.21)"
+      }
+    },
+    {
+      "id": "56",
+      "name_bn": "পি ও এইচ এস এবং স্বর্নালী আবাসিক এলাকা",
+      "area_bn": "DNCC-৪৩, ৪৪, ৪৮ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1560,
+      "unitsPerKatha": 1.9,
+      "areaFar": 4.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "57",
+      "name_bn": "নলভোগ",
+      "area_bn": "DNCC-৫২, ৫৩ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 900,
+      "unitsPerKatha": 2.0,
+      "areaFar": 2.6,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "58",
+      "name_bn": "কল্যানপুর-রিটেনশন",
+      "area_bn": "কল্যানপুর-রিটেনশন",
+      "type": "spontaneous",
+      "grossPPA": 0,
+      "avgUnitSizeSqft": 0,
+      "unitsPerKatha": 0.0,
+      "areaFar": 0.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "59",
+      "name_bn": "বসিলা, চন্দ্রিমা",
+      "area_bn": "DNCC-৩৩, DSCC-৩৪ (অংশ), DSCC-১৪, ১৫ (অংশ), ১৮ (অংশ), ২২ (অংশ), ২৩ (অংশ), ২৬, ৫৫, ৫৬, ৫৭ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 980,
+      "unitsPerKatha": 2.3,
+      "areaFar": 3.1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "60",
+      "name_bn": "খিলখেত আবাসিক এলাকা",
+      "area_bn": "DNCC-৪৩, ৪৪ (অংশ)",
+      "type": "planned",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1850,
+      "unitsPerKatha": 1.7,
+      "areaFar": 4.4,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "61",
+      "name_bn": "মিরপুর ডি ও এইচ এস",
+      "area_bn": "DNCC-০২, ৫২ (অংশ)",
+      "type": "planned",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 2050,
+      "unitsPerKatha": 1.7,
+      "areaFar": 4.8,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "62",
+      "name_bn": "পাইকপাড়া, টোলারবাগ",
+      "area_bn": "DNCC-১০ (অংশ), ১১ (অংশ), ১২ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 300,
+      "avgUnitSizeSqft": 1250,
+      "unitsPerKatha": 1.9,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "63",
+      "name_bn": "কাউন্দিয়া, আমিনবাজার",
+      "area_bn": "কাউন্দিয়া ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 175,
+      "avgUnitSizeSqft": 1100,
+      "unitsPerKatha": 1.3,
+      "areaFar": 2.0,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "64",
+      "name_bn": "কাচকুড়া মইনারটেক",
+      "area_bn": "DNCC-৪৩ (অংশ), ৪৪ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 890,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.6,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "65",
+      "name_bn": "পল্লবী ২",
+      "area_bn": "DNCC-৮, ৫২ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1400,
+      "unitsPerKatha": 1.7,
+      "areaFar": 3.3,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "66",
+      "name_bn": "ঘাটারচর",
+      "area_bn": "তারানগর (অংশ), শাক্তা (অংশ) ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 220,
+      "avgUnitSizeSqft": 1150,
+      "unitsPerKatha": 2.0,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "67",
+      "name_bn": "ডেমরা, কোনাপাড়া",
+      "area_bn": "DSCC-৬৩ (অংশ), ৬৪ (অংশ), ৬৯, ৭০, ৭৩-৭৫ (অংশ)",
+      "type": "spontaneous",
+      "grossPPA": 250,
+      "avgUnitSizeSqft": 1280,
+      "unitsPerKatha": 1.8,
+      "areaFar": 3.2,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13406 (PDF p.22)"
+      }
+    },
+    {
+      "id": "68",
+      "name_bn": "সুবাড্ডা, আরাকুল, বেয়ারা",
+      "area_bn": "সুবাড্ডা (অংশ), কন্ডা (অংশ), তেঘেরিয়া (অংশ) ইউনিয়ন",
+      "type": "spontaneous",
+      "grossPPA": 200,
+      "avgUnitSizeSqft": 930,
+      "unitsPerKatha": 2.1,
+      "areaFar": 2.7,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Appendix 3.6",
+        "page": "13407 (PDF p.23)"
+      }
+    }
+  ]
+}
