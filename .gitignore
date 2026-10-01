@@ -143,3 +143,6 @@ vite.config.ts.timestamp-*
 .vite/
 
 .env
+
+# Checklist drafts and review documents are kept private, not in this public repository
+*.docx

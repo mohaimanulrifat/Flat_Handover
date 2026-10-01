@@ -129,7 +129,9 @@ The tests cover:
 | Severity names and colours         | `src/config.ts`                        |
 | PDF report footer                  | `src/config.ts` (`REPORT_FOOTER_TEXT`) |
 
-The checklist text comes from `Flat_Handover_Checklist_Draft1.docx`. The
+The checklist text comes from `Flat_Handover_Checklist_Draft1.docx`, which
+is kept privately and is not in this repository (`.gitignore` skips `.docx`
+files). The
 "Your note" column and "Decisions for you" section of that document are
 review material and are not in the app.
 
