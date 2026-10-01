@@ -47,7 +47,7 @@ export function ReportScreen({ inspection, rooms }: Props) {
         <h1>Your report</h1>
         <p className="muted">
           {details.length ? details.join(" · ") : "No flat details yet."}{" "}
-          <a href="#/">Edit</a>
+          <a href="#/checklist">Edit</a>
         </p>
 
         <div className="stats">

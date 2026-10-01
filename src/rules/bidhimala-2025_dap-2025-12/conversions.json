@@ -1,0 +1,20 @@
+{
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "sqftPerKatha": {
+    "value": 720,
+    "source": {
+      "doc": "worked-examples-2016",
+      "table": "Sample calculation (slide 6): '5 katha (3600 sft)'",
+      "page": "6"
+    },
+    "note": "Consistent with Bidhimala 2025 Table 3 labels, e.g. '134 m2 (2 katha)', '1339 m2 (20 katha)'."
+  },
+  "metresPerFoot": {
+    "value": 0.3048,
+    "source": {
+      "doc": "international definition",
+      "table": "1 foot = 0.3048 m exactly",
+      "page": "-"
+    }
+  }
+}

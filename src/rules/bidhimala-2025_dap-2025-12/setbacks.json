@@ -1,0 +1,115 @@
+{
+  "title": "Minimum setbacks (সেটব্যাক)",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "front": {
+    "fromRoadCentreM": 4.5,
+    "fromBoundaryM": 1.5,
+    "rule": "The building may not be closer than 4.5 m from the centre of the existing road, or 1.5 m from the plot boundary, whichever distance is greater.",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 41(1)",
+      "page": "13451 (PDF p.43)"
+    },
+    "deadEnd": {
+      "maxLengthM": 50,
+      "frontM": 1.5,
+      "rule": "Dead-end road, plot front plus road to its end not more than 50 m: at least 1.5 m from the boundary.",
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Rule 41(1), second proviso",
+        "page": "13451 (PDF p.43)"
+      }
+    },
+    "privateEndRoad": {
+      "frontM": 1.5,
+      "rule": "Road that ends at this plot and is not shared: front setback 1.5 m.",
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Rule 41(4)",
+        "page": "13453 (PDF p.45)"
+      }
+    },
+    "needs_verification": true,
+    "verifyNote": "Converted to a distance from the boundary as max(1.5, 4.5 - road width / 2), which assumes the road centre is half the road width from the plot boundary."
+  },
+  "byStoreys": {
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 41(3), Table 1 (সারণি-১)",
+      "page": "13452 (PDF p.44)"
+    },
+    "rows": [
+      {
+        "row": 1,
+        "fromStoreys": 1,
+        "toStoreys": 7,
+        "label_bn": "৭ তলা পর্যন্ত",
+        "betweenBuildingsM": 2.0,
+        "sideM": 1.0,
+        "rearM": 1.25
+      },
+      {
+        "row": 2,
+        "fromStoreys": 8,
+        "toStoreys": 10,
+        "label_bn": "৮ তলা হইতে ১০ তলা পর্যন্ত",
+        "betweenBuildingsM": 2.5,
+        "sideM": 1.25,
+        "rearM": 2.0
+      },
+      {
+        "row": 3,
+        "fromStoreys": 11,
+        "toStoreys": 15,
+        "label_bn": "১১ তলা হইতে ১৫ তলা পর্যন্ত",
+        "betweenBuildingsM": 5.0,
+        "sideM": 3.0,
+        "rearM": 3.0
+      },
+      {
+        "row": 4,
+        "fromStoreys": 16,
+        "toStoreys": 20,
+        "label_bn": "১৬ তলা হইতে ২০ তলা পর্যন্ত",
+        "betweenBuildingsM": 6.0,
+        "sideM": 3.25,
+        "rearM": 3.25
+      },
+      {
+        "row": 5,
+        "fromStoreys": 21,
+        "toStoreys": 30,
+        "label_bn": "২১ তলা হইতে ৩০ তলা পর্যন্ত",
+        "betweenBuildingsM": 6.5,
+        "sideM": 3.5,
+        "rearM": 3.5
+      },
+      {
+        "row": 6,
+        "fromStoreys": 31,
+        "toStoreys": 40,
+        "label_bn": "৩১ তলা হইতে ৪০ তলা পর্যন্ত",
+        "betweenBuildingsM": 7.0,
+        "sideM": 4.5,
+        "rearM": 4.5
+      },
+      {
+        "row": 7,
+        "fromStoreys": 41,
+        "toStoreys": null,
+        "label_bn": "৪০ তলার ঊর্ধ্বে",
+        "betweenBuildingsM": 10.0,
+        "sideM": 5.0,
+        "rearM": 5.0
+      }
+    ],
+    "storeyCounting": {
+      "needs_verification": true,
+      "verifyNote": "Table 1 is by number of storeys (তলা). The calculator counts the ground floor as a storey (G+6 = 7 storeys). Not stated in the gazette."
+    }
+  },
+  "plotSizeTable": {
+    "needs_verification": true,
+    "verifyNote": "Bidhimala 2025 has no setback table by plot size; setbacks depend on the number of storeys. The plot-size setback table in the 2016 worked examples belongs to the repealed 2008 rules and is not used."
+  }
+}

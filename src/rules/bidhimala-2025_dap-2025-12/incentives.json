@@ -1,0 +1,168 @@
+{
+  "title": "Incentive FAR (প্রণোদনা FAR), DAP Table 3.28",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "source": {
+    "doc": "dap-2025-12",
+    "table": "Table 3.28 (as replaced by amendment (1)(চ))",
+    "page": "13388-13389 (PDF p.4-5)"
+  },
+  "addedTo": "base FAR, capped at maximum FAR",
+  "items": [
+    {
+      "id": "plotSize",
+      "no": 1,
+      "title_bn": "প্লট একত্রীকরণ/একক আয়তন",
+      "title_en": "Plot amalgamation / single plot size",
+      "kind": "byPlotSize",
+      "bands": [
+        { "fromKatha": 3, "toKatha": 6, "far": 0.2 },
+        { "fromKatha": 6, "toKatha": 10, "far": 0.35 },
+        { "fromKatha": 10, "toKatha": 15, "far": 0.5 },
+        { "fromKatha": 15, "toKatha": 20, "far": 0.65 },
+        { "fromKatha": 20, "toKatha": null, "far": 0.75 }
+      ],
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 1",
+        "page": "13388 (PDF p.4)"
+      },
+      "needs_verification": true,
+      "verifyNote": "Bands are printed as '3 to 6 katha' (৩ থেকে ৬ কাঠার মধ্যে) etc. without saying which band a boundary value (6, 10, 15 katha) belongs to; the calculator puts a boundary in the higher band. Also unclear whether any single plot of this size qualifies, or only amalgamated plots."
+    },
+    {
+      "id": "wideRoad",
+      "no": 2,
+      "title_bn": "বিদ্যমান রাস্তা ৩০ ফুটের অধিক",
+      "title_en": "Existing road wider than 30 ft",
+      "kind": "perFootAbove",
+      "aboveFt": 30,
+      "farPerFt": 0.02,
+      "maxFar": 1,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 2",
+        "page": "13388 (PDF p.4)"
+      }
+    },
+    {
+      "id": "affordableUnits",
+      "no": 3,
+      "title_bn": "সাশ্রয়ী আবাসন (A6): ৫টি ইউনিট (৪০০/৬০০ বর্গফুট)",
+      "title_en": "Affordable housing (A6): 5 units of 400/600 sq ft",
+      "kind": "fixed",
+      "maxFar": 0.5,
+      "minKatha": 10,
+      "onlySpontaneousArea": true,
+      "exclusiveWith": ["affordableFloor"],
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 3(a)",
+        "page": "13388 (PDF p.4)"
+      }
+    },
+    {
+      "id": "affordableFloor",
+      "no": 3,
+      "title_bn": "সাশ্রয়ী আবাসন (A6): মোট ফ্লোর স্পেসের ৫% সংরক্ষণ",
+      "title_en": "Affordable housing (A6): reserve 5% of total floor space",
+      "kind": "fixed",
+      "maxFar": 0.75,
+      "minKatha": 20,
+      "onlySpontaneousArea": true,
+      "exclusiveWith": ["affordableUnits"],
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 3(b)",
+        "page": "13388 (PDF p.4)"
+      },
+      "needs_verification": true,
+      "verifyNote": "'Only for unplanned areas' (অপরিকল্পিত এলাকা) is matched to block type 'spontaneous' in Appendix 3.6."
+    },
+    {
+      "id": "greenBuilding",
+      "no": 4,
+      "title_bn": "গ্রিন বিল্ডিং (স্বীকৃত সার্টিফিকেশন)",
+      "title_en": "Green building (recognised certification)",
+      "kind": "fixed",
+      "maxFar": 0.5,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 4",
+        "page": "13388 (PDF p.4)"
+      }
+    },
+    {
+      "id": "publicSpace",
+      "no": 5,
+      "title_bn": "জনসাধারণের জন্য ১০% জায়গা সমর্পণ",
+      "title_en": "Give 10% of the land as public open space",
+      "kind": "fixed",
+      "maxFar": 0.5,
+      "minKatha": 10,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 5",
+        "page": "13388 (PDF p.4)"
+      }
+    },
+    {
+      "id": "school",
+      "no": 9,
+      "title_bn": "নাগরিক সুবিধা: বিদ্যালয় (নতুন)",
+      "title_en": "Civic facility: new school",
+      "kind": "fixed",
+      "maxFar": 0.25,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 9",
+        "page": "13389 (PDF p.5)"
+      }
+    },
+    {
+      "id": "playground",
+      "no": 9,
+      "title_bn": "নাগরিক সুবিধা: খেলার মাঠ বা পার্ক (নতুন)",
+      "title_en": "Civic facility: new playground or park",
+      "kind": "fixed",
+      "maxFar": 0.25,
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 9",
+        "page": "13389 (PDF p.5)"
+      }
+    }
+  ],
+  "notCalculated": [
+    {
+      "no": 6,
+      "title_en": "Transit Oriented Development / Redevelopment",
+      "rule": "Set by the TOD Guideline 2025",
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 6",
+        "page": "13389 (PDF p.5)"
+      }
+    },
+    {
+      "no": 7,
+      "title_en": "Transfer of Development Rights (TDR)",
+      "rule": "Set by the relevant policy",
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 7",
+        "page": "13389 (PDF p.5)"
+      }
+    },
+    {
+      "no": 8,
+      "title_en": "FAR purchase from the authority",
+      "rule": "Set by RAJUK",
+      "source": {
+        "doc": "dap-2025-12",
+        "table": "Table 3.28, item 8",
+        "page": "13389 (PDF p.5)"
+      }
+    }
+  ],
+  "maxValueNote": "Items 3-5 and 9 are printed as maximums (সর্বোচ্চ). The calculator uses the maximum, so the result is the most the incentive could give."
+}

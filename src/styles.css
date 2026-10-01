@@ -1166,3 +1166,231 @@ details.plain[open] > summary svg {
     transition: none !important;
   }
 }
+
+/* Home and Landowner Calculator --------------------------------------- */
+
+.service-list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+}
+.service {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition:
+    border-color 0.15s,
+    transform 0.1s;
+}
+.service:hover {
+  border-color: var(--accent);
+}
+.service:active {
+  transform: scale(0.99);
+}
+.service__body {
+  flex: 1;
+  min-width: 0;
+}
+.service__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.service__text {
+  color: var(--text-2);
+  font-size: 0.93rem;
+}
+.service .icon-tile {
+  width: 52px;
+  height: 52px;
+}
+
+.lang-btn {
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid var(--line-strong);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.input-row input {
+  flex: 1;
+  min-width: 0;
+}
+select {
+  min-height: var(--tap);
+  padding: 0.55rem 2rem 0.55rem 0.75rem;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  max-width: 100%;
+}
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.input-row select {
+  flex: none;
+}
+select.select--full {
+  width: 100%;
+}
+.field__hint {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--text-3);
+  font-size: 0.82rem;
+}
+.field__error {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--problem);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--problem);
+}
+
+.choice-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  border: 0;
+}
+.choice-list legend {
+  padding: 0;
+  margin-bottom: 0.35rem;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.7rem 0.8rem;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+  cursor: pointer;
+  font-size: 0.93rem;
+}
+.choice:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface-2));
+}
+.choice input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0.1rem 0 0;
+  accent-color: var(--accent);
+}
+.choice__text {
+  flex: 1;
+}
+.choice__note {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.8rem;
+}
+
+.result-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.result-hero .card {
+  margin: 0;
+}
+.result-hero .card--accent {
+  grid-column: 1 / -1;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--accent) 20%, var(--surface)),
+    var(--surface) 70%
+  );
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.big-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.big-number--sm {
+  font-size: 1.5rem;
+}
+.kv {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem 1rem;
+  margin: 0;
+}
+.kv dt {
+  color: var(--text-2);
+}
+.kv dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.kv .kv__total {
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+.setback-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+}
+.setback-grid div {
+  padding: 0.65rem 0.4rem;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.setback-grid strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+.step-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.4rem;
+}
+.step-list li {
+  margin-bottom: 0.6rem;
+}
+.step-list .source {
+  display: block;
+  color: var(--text-3);
+  font-size: 0.78rem;
+}
+.disclaimer {
+  border-color: color-mix(in srgb, var(--warn) 50%, transparent);
+  background: var(--warn-soft);
+}

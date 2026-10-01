@@ -90,6 +90,9 @@ export function StartScreen({ inspection, dispatch }: Props) {
   return (
     <main className="page">
       <div className="brand">
+        <a className="icon-btn" href="#/" aria-label="Back to home">
+          <Icon name="back" />
+        </a>
         <span className="brand__mark">
           <Icon name="home" size={26} />
         </span>

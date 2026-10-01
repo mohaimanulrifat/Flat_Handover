@@ -1,13 +1,20 @@
 # Handover Check
 
-A mobile-first web app that guides flat buyers in Bangladesh through a
-handover-day inspection and produces a PDF defect report to give the
-developer.
+A mobile-first web app with two services for property owners in Dhaka:
+
+- **Flat handover checklist** (English): guides flat buyers through a
+  handover-day inspection and produces a PDF defect report to give the
+  developer.
+- **Landowner calculator** (Bangla first, with English): estimates what a
+  plot allows under the 2025 Dhaka building rules (FAR, floors, setbacks,
+  flats) and the owner's share in a joint-venture deal with a developer.
+
+Both open from the home screen.
 
 "Handover Check" is a working title. It is set in one place,
 `src/config.ts`.
 
-## What it does
+## Flat handover checklist
 
 1. **Start screen.** Shows "What to bring" and "Ground rules", then the buyer
    enters the layout (bedrooms, bathrooms, balconies) and, optionally, the
@@ -36,6 +43,44 @@ developer.
 Progress is saved on the phone as the buyer goes, so a refresh or a closed
 tab does not lose work. After the first visit the app works with no
 internet connection.
+
+## Landowner calculator
+
+For plot owners considering a joint-venture deal with a developer. The
+owner enters:
+
+- plot size (katha, sq ft or m²)
+- road width and type
+- area type
+- density block (DAP)
+- optionally: plot sides, land given for road widening, whether the plot
+  was subdivided, and incentives
+- the deal: owner's share, saleable percentage, flat size and any cash
+
+The results page shows:
+
+- Base and Maximum FAR, the FAR used, and the total floor area
+- ground coverage, floor size and floors (G+N)
+- front, side and rear setbacks
+- flats allowed by density
+- the owner's share in sq ft and flats
+
+It also lists every calculation step with its gazette source, the
+assumptions used, the rules version, and the disclaimer: this is an
+estimate, RAJUK decides the final values, and a registered architect
+must prepare and submit the plan. The result can be saved as a PDF in
+Bangla or English.
+
+Sources:
+
+- ঢাকা মহানগর ইমারত বিধিমালা ২০২৫ (gazette PDF in the repository root)
+- DAP 2022-2035, revised gazette of December 2025 (gazette PDF in the
+  repository root)
+- `worked-examples (answers from a architect).pdf`, used for the 720 sq ft
+  katha and for tests
+
+**[VERIFY.md](VERIFY.md)** lists every value the gazettes leave unclear and
+what the calculator does meanwhile. Please have these checked.
 
 ## Privacy
 
@@ -116,6 +161,20 @@ The tests cover:
 - `src/lib/inspection.test.ts`: answers, All OK, layout changes and saving.
 - `src/lib/report.test.ts`: report order (Safety first, then by room and
   severity) and counts.
+- `src/rules/rules.test.ts`: the rules data (every entry has a source, spot
+  checks against the gazette pages, no gaps between table rows, and every
+  `needs_verification` value is listed in VERIFY.md).
+- `src/landowner/calc.test.ts`: the plot calculation (conversions, road FAR
+  including interpolation, base and maximum FAR, incentives, ground
+  coverage, floors, setbacks, flats, error cases).
+- `src/landowner/share.test.ts`: the developer share split.
+- `src/landowner/worked-examples.test.ts`: the 2016 worked example. Its
+  arithmetic passes. Three of its values come from the repealed 2008 rules
+  and are kept as expected failures (`it.fails`), shown in the test output
+  as "expected fail"; see VERIFY.md.
+- `src/landowner/form.test.ts`, `src/landowner/i18n.test.ts`,
+  `src/lib/route.test.ts`: the calculator form, Bangla number input and
+  text, and screen addresses.
 
 ## Changing the content
 
@@ -151,10 +210,57 @@ After changing content, run `npm test` and `npm run build`, then deploy.
 Phones that already have the app see an "Update now" button the next time
 they open it online.
 
+## Updating the building rules
+
+The calculator's rules are data, not code. They live in one folder per
+version:
+
+```
+src/rules/
+  bidhimala-2025_dap-2025-12/   current rules, one JSON file per table
+    road-far.json               road FAR by road width (Table 5 / App. 3.5)
+    density-blocks.json         area FAR, density and unit size (App. 3.6)
+    far-derivation.json         how Base and Maximum FAR are worked out
+    incentives.json             incentive FAR (DAP Table 3.28)
+    ground-coverage.json        maximum ground coverage (Table 3)
+    setbacks.json               setbacks (Rule 41, Table 1)
+    conversions.json            katha and feet conversions
+    meta.json                   rules version and source documents
+  index.ts                      loads the current folder
+```
+
+Every table entry has a `source` (document, table, gazette page). Values
+the gazettes leave unclear have `"needs_verification": true`, and each one
+is explained in VERIFY.md.
+
+**To correct a value:** edit the JSON file, keep its `source` accurate,
+and run `npm test`.
+
+**When a new gazette changes the rules:**
+
+1. Copy the folder and name it after the new gazettes, for example
+   `bidhimala-2027_dap-2027-03`.
+2. Edit the values and sources in the copy, and set `rulesVersion` in
+   every file of the copy (the tests check that they all match).
+3. Point the imports in `src/rules/index.ts` at the new folder.
+4. Update VERIFY.md: remove items that are now clear and add new ones.
+   `npm test` fails if a flagged value is missing from VERIFY.md.
+5. Update the expected numbers in `src/rules/rules.test.ts` and
+   `src/landowner/calc.test.ts` where the rules changed, then run
+   `npm test` and `npm run build`.
+
+The calculation code in `src/landowner/` does not need to change unless
+the gazette changes how values are combined (for example, a new kind of
+incentive).
+
+Negotiation defaults (70% saleable, 50% owner share) are not rules. They
+are in `src/landowner/settings.ts`.
+
 ## How it is built
 
-- Vite, React and TypeScript. The only other runtime dependency is
-  [pdf-lib](https://pdf-lib.js.org/), loaded only when a PDF is made.
+- Vite, React and TypeScript. Other runtime dependencies:
+  [pdf-lib](https://pdf-lib.js.org/), loaded only when a PDF is made, and
+  the two font packages.
 - `src/lib/rooms.ts` turns the layout into rooms using the mapping in the
   data file.
 - `src/lib/inspection.ts` holds the answers and saves them;
@@ -162,6 +268,12 @@ they open it online.
 - `src/lib/report.ts` orders the report; `src/lib/pdf.ts` draws the PDF.
   Text the PDF's built-in font cannot show, such as notes typed in Bangla,
   is drawn by the phone's browser and added as an image.
+- `src/landowner/calc.ts` and `share.ts` are the calculator's pure
+  functions; `i18n.ts` holds its Bangla and English text;
+  `src/screens/Landowner*.tsx` are its screens.
+- `src/lib/pdfWriter.ts` draws PDF pages for both reports.
+- Fonts (Fraunces and Manrope) are bundled from `@fontsource-variable`,
+  Latin only, so they work offline; Bangla uses the phone's own font.
 - `src/service-worker.js` and `build/offline.ts` provide offline use and
   the web app manifest, without a PWA library.
 

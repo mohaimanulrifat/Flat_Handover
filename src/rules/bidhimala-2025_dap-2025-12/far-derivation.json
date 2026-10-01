@@ -1,0 +1,115 @@
+{
+  "title": "How Base FAR and Maximum FAR are derived",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "baseAndMax": {
+    "rule": "Two FAR values apply: area FAR (by density block) and road FAR (by road width). The smaller is the Base FAR, which applies without conditions. The larger is the Maximum FAR, reached only by adding incentives to the Base FAR. The approved FAR may never exceed the Maximum FAR.",
+    "source": [
+      {
+        "doc": "bidhimala-2025",
+        "table": "Rule 47(1)-(3)",
+        "page": "13459 (PDF p.51)"
+      },
+      {
+        "doc": "dap-2025-12",
+        "table": "Amendment (1)(গ), Maximum FAR",
+        "page": "13387 (PDF p.3)"
+      }
+    ]
+  },
+  "smallGapRule": {
+    "maxDifference": 0.1,
+    "rule": "If Base FAR and Maximum FAR differ by 0.1 or less, the applicant gets the Maximum FAR without conditions.",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 47(12)",
+      "page": "13466 (PDF p.58)"
+    }
+  },
+  "incentivesAddToBase": {
+    "rule": "In all cases incentives are added to the Base FAR.",
+    "source": {
+      "doc": "dap-2025-12",
+      "table": "Table 3.28, note",
+      "page": "13389 (PDF p.5)"
+    }
+  },
+  "blockBasedExtra": {
+    "value": 0.5,
+    "rule": "Block-based development, urban regeneration areas and TDR may exceed the Maximum FAR by up to 0.5 with incentives. Not used by this calculator (single plots only).",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 47(3), proviso",
+      "page": "13459 (PDF p.51)"
+    }
+  },
+  "nonResidential": {
+    "rule": "Buildings that are not residential (or mixed with residential) use only road FAR.",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 47(4)",
+      "page": "13460 (PDF p.52)"
+    }
+  },
+  "subdividedPlot": {
+    "farReduction": 0.25,
+    "rule": "For a plot created by subdivision, the permissible FAR is 0.25 lower.",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 51(10)",
+      "page": "13471 (PDF p.63)"
+    }
+  },
+  "roadWidening": {
+    "floorAreaMultiplier": 3,
+    "rule": "Land given for road widening by registered easement deed is left out of the plot area, and 3 times that land area is added as incentive floor area.",
+    "source": [
+      {
+        "doc": "bidhimala-2025",
+        "table": "Rule 39(3), Rule 48(2) and 48(4)",
+        "page": "13451, 13467 (PDF p.43, p.59)"
+      },
+      {
+        "doc": "dap-2025-12",
+        "table": "Amendment (4), para 3.6.4.2",
+        "page": "13390 (PDF p.6)"
+      }
+    ]
+  },
+  "multipleRoads": {
+    "rule": "If a plot has more than one road, the widest existing road is used.",
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Rule 47(10)",
+      "page": "13466 (PDF p.58)"
+    }
+  },
+  "dwellingUnits": {
+    "appliesTo": "A3",
+    "extraUnitsPct": 10,
+    "rule": "The number of dwelling units by density applies to A3 (flats and apartments). If the allowed floor area cannot be fully used with that number of A3 units, up to 10% more units may be approved; the floor area still may not exceed the maximum.",
+    "source": [
+      {
+        "doc": "bidhimala-2025",
+        "table": "Table 5, note 4",
+        "page": "13465 (PDF p.57)"
+      },
+      {
+        "doc": "dap-2025-12",
+        "table": "Amendment (1)(ঘ)",
+        "page": "13387 (PDF p.3)"
+      }
+    ],
+    "needs_verification": true,
+    "verifyNote": "Units = plot area in katha x 'units per katha' (Appendix 3.6). The gazette does not say how fractions are rounded; the calculator rounds down."
+  },
+  "parkingNotInFar": {
+    "rule": "Parking equal to the minimum required is not counted in floor area; up to 2x the minimum if the road is 6.1 m (20 ft) or wider, otherwise 1.5x.",
+    "source": {
+      "doc": "dap-2025-12",
+      "table": "Amendment (5), para 3.6.4.3",
+      "page": "13390 (PDF p.6)"
+    },
+    "needs_verification": true,
+    "verifyNote": "The calculator assumes the ground floor is used for parking and not counted in FAR (shown as G+N, as in the 2016 sample calculation). Whether the whole ground floor qualifies depends on the parking requirement."
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "title": "Maximum ground coverage by plot size (ভূমি আচ্ছাদন)",
+  "rulesVersion": "bidhimala-2025 / dap-2025-12",
+  "source": {
+    "doc": "bidhimala-2025",
+    "table": "Rule 45(1), Table 3 (সারণি ৩)",
+    "page": "13456 (PDF p.48)"
+  },
+  "unit": "percent of total plot area (net of land given for roads)",
+  "columns": {
+    "minMgcPct": "col 3: সর্বনিম্ন ভূমি আচ্ছাদন (MGC)",
+    "maxMgcPct": "col 4: সর্বোচ্চ ভূমি আচ্ছাদন (MGC)",
+    "openSpacePct": "col 5: আবশ্যিক অনাচ্ছাদিত স্থান (Mandatory open space)",
+    "extraCoveragePct": "col 6: প্রায়োগিক ব্যতিক্রম অনুযায়ী অতিরিক্ত ভূমি আচ্ছাদন (সর্বোচ্চ)",
+    "rainwaterPct": "col 7: বৃষ্টির পানি শোষণার্থে বাধ্যতামূলক অনাচ্ছাদিত এলাকা"
+  },
+  "useForCalculation": "maxMgcPct",
+  "needs_verification_columns": {
+    "minMgcPct": "Column 3 is headed 'minimum ground coverage (MGC)', but its meaning is not explained. The calculator uses only column 4 (maximum)."
+  },
+  "a6AnyPlot": {
+    "minMgcPct": 52,
+    "maxMgcPct": 75,
+    "openSpacePct": 25,
+    "extraCoveragePct": 12.5,
+    "rainwaterPct": 12.5,
+    "source": {
+      "doc": "bidhimala-2025",
+      "table": "Table 3, row 1 (A6: সাশ্রয়ী আবাসন, any plot)",
+      "page": "13456 (PDF p.48)"
+    }
+  },
+  "rows": [
+    {
+      "row": 2,
+      "aboveM2": 0,
+      "upToM2": 134,
+      "label_bn": "১৩৪ ব.মি. (২ কাঠা) বা ইহার নিম্নে",
+      "minMgcPct": 52.5,
+      "maxMgcPct": 70,
+      "openSpacePct": 30,
+      "extraCoveragePct": 15,
+      "rainwaterPct": 15,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 2",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 3,
+      "aboveM2": 134,
+      "upToM2": 201,
+      "label_bn": "১৩৪ ব.মি. (২ কাঠা) এর অধিক হইতে ২০১ ব.মি. (৩ কাঠা) পর্যন্ত",
+      "minMgcPct": 50,
+      "maxMgcPct": 67.5,
+      "openSpacePct": 32.5,
+      "extraCoveragePct": 16.25,
+      "rainwaterPct": 16.25,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 3",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 4,
+      "aboveM2": 201,
+      "upToM2": 268,
+      "label_bn": "২০১ ব.মি. (৩ কাঠা) এর অধিক হইতে ২৬৮ ব.মি. (৪ কাঠা) পর্যন্ত",
+      "minMgcPct": 48.5,
+      "maxMgcPct": 65,
+      "openSpacePct": 35,
+      "extraCoveragePct": 17.5,
+      "rainwaterPct": 17.5,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 4",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 5,
+      "aboveM2": 268,
+      "upToM2": 402,
+      "label_bn": "২৬৮ ব.মি. (৪ কাঠা) এর অধিক হইতে ৪০২ ব.মি. (৬ কাঠা) পর্যন্ত",
+      "minMgcPct": 46.5,
+      "maxMgcPct": 62.5,
+      "openSpacePct": 37.5,
+      "extraCoveragePct": 18.75,
+      "rainwaterPct": 18.75,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 5",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 6,
+      "aboveM2": 402,
+      "upToM2": 670,
+      "label_bn": "৪০২ ব.মি. (৬ কাঠা) এর অধিক হইতে ৬৭০ ব.মি. (১০ কাঠা) পর্যন্ত",
+      "minMgcPct": 45,
+      "maxMgcPct": 60,
+      "openSpacePct": 40,
+      "extraCoveragePct": 20,
+      "rainwaterPct": 20,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 6",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 7,
+      "aboveM2": 670,
+      "upToM2": 937,
+      "label_bn": "৬৭০ ব.মি. (১০ কাঠা) এর অধিক হইতে ৯৩৭ ব.মি. (১৪ কাঠা) পর্যন্ত",
+      "minMgcPct": null,
+      "maxMgcPct": 55,
+      "openSpacePct": 45,
+      "extraCoveragePct": 22.5,
+      "rainwaterPct": 22.5,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 7",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 8,
+      "aboveM2": 937,
+      "upToM2": 1339,
+      "label_bn": "৯৩৭ ব.মি. (১৪ কাঠা) এর অধিক হইতে ১৩৩৯ ব.মি. (২০ কাঠা) পর্যন্ত",
+      "minMgcPct": null,
+      "maxMgcPct": 50,
+      "openSpacePct": 50,
+      "extraCoveragePct": 25,
+      "rainwaterPct": 25,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 8",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 9,
+      "aboveM2": 1339,
+      "upToM2": 2677,
+      "label_bn": "১৩৩৯ ব.মি. (২০ কাঠা) এর অধিক হইতে ২৬৭৭ ব.মি. (৪০ কাঠা) পর্যন্ত",
+      "minMgcPct": null,
+      "maxMgcPct": 45,
+      "openSpacePct": 55,
+      "extraCoveragePct": 27.5,
+      "rainwaterPct": 27.5,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 9",
+        "page": "13456 (PDF p.48)"
+      }
+    },
+    {
+      "row": 10,
+      "aboveM2": 2677,
+      "upToM2": null,
+      "label_bn": "২৬৭৭ ব.মি. (৪০ কাঠা) এর অধিক",
+      "minMgcPct": null,
+      "maxMgcPct": 40,
+      "openSpacePct": 60,
+      "extraCoveragePct": 30,
+      "rainwaterPct": 30,
+      "source": {
+        "doc": "bidhimala-2025",
+        "table": "Table 3, row 10",
+        "page": "13456 (PDF p.48)"
+      }
+    }
+  ],
+  "boundaryNote": {
+    "needs_verification": true,
+    "verifyNote": "Rows are bounded in square metres with katha in brackets (e.g. 670 m2 = '10 katha', but 10 x 720 sq ft = 668.9 m2). The calculator uses the square-metre limits as printed."
+  }
+}
