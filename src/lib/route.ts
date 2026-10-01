@@ -33,14 +33,8 @@ export function routeHref(route: Route): string {
   }
 }
 
-export function navigate(route: Route, replace = false): void {
-  const href = routeHref(route);
-  if (replace) {
-    history.replaceState(null, "", href);
-    window.dispatchEvent(new HashChangeEvent("hashchange"));
-  } else {
-    location.hash = href;
-  }
+export function navigate(route: Route): void {
+  location.hash = routeHref(route);
 }
 
 export function useRoute(): Route {

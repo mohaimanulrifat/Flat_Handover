@@ -267,7 +267,7 @@ async function writeProblem(w: Writer, prepared: PreparedProblem) {
     p.severity ? SEVERITY_NAMES[p.severity] : "No severity"
   ).toUpperCase();
   const colour = p.severity ? hexToRgb(SEVERITY_COLOURS[p.severity]) : GREY;
-  const badgeW = w.badge(label, colour);
+  const badgeW = await w.badge(label, colour);
   await w.paragraph(`${p.item.code}  ${p.item.title}`, {
     font: w.bold,
     size: 10.5,
@@ -380,9 +380,32 @@ class Writer {
   }
 
   /** Draws a coloured label at the current line and returns its width. */
-  badge(text: string, colour: RGB): number {
+  async badge(text: string, colour: RGB): Promise<number> {
     const size = 7.5;
-    const width = this.bold.widthOfTextAtSize(text, size) + 8;
+    const white = rgb(1, 1, 1);
+    if (canEncode(this.bold, text)) {
+      const width = this.bold.widthOfTextAtSize(text, size) + 8;
+      this.page.drawRectangle({
+        x: MARGIN,
+        y: this.y - 12,
+        width,
+        height: 12.5,
+        color: colour,
+      });
+      this.page.drawText(text, {
+        x: MARGIN + 4,
+        y: this.y - 9.2,
+        size,
+        font: this.bold,
+        color: white,
+      });
+      return width;
+    }
+    // A severity name the built-in font cannot show (for example Bangla).
+    const [line] = await renderLines(text, size, CONTENT_W / 3, true, white);
+    const image = line ? await this.doc.embedPng(line) : null;
+    const textW = image ? image.width / RENDER_SCALE : 0;
+    const width = textW + 8;
     this.page.drawRectangle({
       x: MARGIN,
       y: this.y - 12,
@@ -390,13 +413,14 @@ class Writer {
       height: 12.5,
       color: colour,
     });
-    this.page.drawText(text, {
-      x: MARGIN + 4,
-      y: this.y - 9.2,
-      size,
-      font: this.bold,
-      color: rgb(1, 1, 1),
-    });
+    if (image) {
+      this.page.drawImage(image, {
+        x: MARGIN + 4,
+        y: this.y - 12,
+        width: textW,
+        height: 12.5,
+      });
+    }
     return width;
   }
 
@@ -404,6 +428,11 @@ class Writer {
   async labelled(label: string, value: string, labelColour = BLACK) {
     const size = 10;
     const labelText = `${label}: `;
+    if (!canEncode(this.bold, labelText)) {
+      // For example a severity name in Bangla: draw it all as one line.
+      await this.paragraph(labelText + value, { size });
+      return;
+    }
     const labelW = this.bold.widthOfTextAtSize(labelText, size);
     this.ensure(size * LINE);
     this.page.drawText(labelText, {
