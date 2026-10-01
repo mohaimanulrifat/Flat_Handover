@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { PdfExport } from "../components/PdfExport.tsx";
 import { PhotoThumb } from "../components/PhotoThumb.tsx";
 import { SeverityBadge, severityStyle } from "../components/SeverityBadge.tsx";
 import { TopBar } from "../components/TopBar.tsx";
@@ -113,6 +114,8 @@ export function ReportScreen({ inspection, rooms }: Props) {
             </ul>
           </div>
         )}
+
+        <PdfExport inspection={inspection} report={report} />
 
         <h2>{SEVERITY_NAMES.safety} problems</h2>
         {report.safety.length ? (

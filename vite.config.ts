@@ -12,6 +12,9 @@ export default defineConfig({
       transformIndexHtml: (html) => html.replaceAll("%APP_TITLE%", APP_TITLE),
     },
   ],
+  // pdf-lib is loaded lazily; pre-bundle it so the dev server does not
+  // reload the page the first time a PDF is made.
+  optimizeDeps: { include: ["pdf-lib"] },
   test: {
     include: ["src/**/*.test.ts"],
   },
