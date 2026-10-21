@@ -135,98 +135,104 @@ export function StartScreen({ inspection, dispatch }: Props) {
         </div>
       )}
 
-      <div className="section-title">
-        <h2>{t(lang, "beforeYouGo")}</h2>
-      </div>
+      <div className="split">
+        <div>
+          <div className="section-title">
+            <h2>{t(lang, "beforeYouGo")}</h2>
+          </div>
 
-      <section className="card">
-        <div className="card__head">
-          <span className="icon-tile">
-            <Icon name="bag" size={22} />
-          </span>
-          <h3>{t(lang, "whatToBring")}</h3>
+          <section className="card">
+            <div className="card__head">
+              <span className="icon-tile">
+                <Icon name="bag" size={22} />
+              </span>
+              <h3>{t(lang, "whatToBring")}</h3>
+            </div>
+            <ol className="numbered">
+              {whatToBring.map((thing) => (
+                <li key={thing.en}>{thing[lang]}</li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="card">
+            <div className="card__head">
+              <span className="icon-tile">
+                <Icon name="shield" size={22} />
+              </span>
+              <h3>{t(lang, "groundRules")}</h3>
+            </div>
+            <ol className="numbered">
+              {groundRules.map((rule) => (
+                <li key={rule.en}>{rule[lang]}</li>
+              ))}
+            </ol>
+          </section>
         </div>
-        <ol className="numbered">
-          {whatToBring.map((thing) => (
-            <li key={thing.en}>{thing[lang]}</li>
-          ))}
-        </ol>
-      </section>
 
-      <section className="card">
-        <div className="card__head">
-          <span className="icon-tile">
-            <Icon name="shield" size={22} />
-          </span>
-          <h3>{t(lang, "groundRules")}</h3>
-        </div>
-        <ol className="numbered">
-          {groundRules.map((rule) => (
-            <li key={rule.en}>{rule[lang]}</li>
-          ))}
-        </ol>
-      </section>
+        <div>
+          <div className="section-title">
+            <h2>{t(lang, "yourFlat")}</h2>
+          </div>
 
-      <div className="section-title">
-        <h2>{t(lang, "yourFlat")}</h2>
-      </div>
+          <form className="card" onSubmit={submit}>
+            <p className="muted small">{t(lang, "layoutIntro")}</p>
+            {LAYOUT_FIELDS.map((f) => (
+              <Stepper
+                key={f.key}
+                label={t(lang, f.label)}
+                icon={f.icon}
+                value={layout[f.key]}
+                min={LAYOUT_MIN}
+                max={LAYOUT_MAX}
+                onChange={(value) => setLayout({ ...layout, [f.key]: value })}
+              />
+            ))}
 
-      <form className="card" onSubmit={submit}>
-        <p className="muted small">{t(lang, "layoutIntro")}</p>
-        {LAYOUT_FIELDS.map((f) => (
-          <Stepper
-            key={f.key}
-            label={t(lang, f.label)}
-            icon={f.icon}
-            value={layout[f.key]}
-            min={LAYOUT_MIN}
-            max={LAYOUT_MAX}
-            onChange={(value) => setLayout({ ...layout, [f.key]: value })}
-          />
-        ))}
+            <h3 style={{ margin: "1.5rem 0 0.9rem" }}>
+              {t(lang, "forTheReport")}{" "}
+              <span className="muted small">{t(lang, "optional")}</span>
+            </h3>
+            {DETAIL_FIELDS.map((f) => (
+              <label className="field" key={f.key}>
+                <span className="field__label">{t(lang, f.label)}</span>
+                <input
+                  type={f.type}
+                  value={inspection.details[f.key]}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "setDetails",
+                      details: { [f.key]: e.target.value },
+                    })
+                  }
+                />
+              </label>
+            ))}
 
-        <h3 style={{ margin: "1.5rem 0 0.9rem" }}>
-          {t(lang, "forTheReport")}{" "}
-          <span className="muted small">{t(lang, "optional")}</span>
-        </h3>
-        {DETAIL_FIELDS.map((f) => (
-          <label className="field" key={f.key}>
-            <span className="field__label">{t(lang, f.label)}</span>
-            <input
-              type={f.type}
-              value={inspection.details[f.key]}
-              onChange={(e) =>
-                dispatch({
-                  type: "setDetails",
-                  details: { [f.key]: e.target.value },
-                })
-              }
-            />
-          </label>
-        ))}
+            <button type="submit" className="btn btn--primary btn--block">
+              {t(
+                lang,
+                !inProgress
+                  ? "startChecking"
+                  : layoutChanged
+                    ? "updateRooms"
+                    : "continueChecking",
+              )}
+              <Icon name="next" size={18} />
+            </button>
+          </form>
 
-        <button type="submit" className="btn btn--primary btn--block">
-          {t(
-            lang,
-            !inProgress
-              ? "startChecking"
-              : layoutChanged
-                ? "updateRooms"
-                : "continueChecking",
+          {inProgress && (
+            <button
+              type="button"
+              className="btn btn--danger btn--block"
+              onClick={startOver}
+            >
+              {t(lang, "startOver")}
+            </button>
           )}
-          <Icon name="next" size={18} />
-        </button>
-      </form>
-
-      {inProgress && (
-        <button
-          type="button"
-          className="btn btn--danger btn--block"
-          onClick={startOver}
-        >
-          {t(lang, "startOver")}
-        </button>
-      )}
+        </div>
+      </div>
     </main>
   );
 }

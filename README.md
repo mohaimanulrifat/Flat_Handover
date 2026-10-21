@@ -15,6 +15,11 @@ screen switches the whole app to Bangla, including the checklist, the
 calculator and both PDF reports, and the **English** button switches it
 back. The phone remembers the choice.
 
+On a phone every screen is one column. On a wider screen, such as a laptop
+or desktop browser or a tablet held sideways (960 px or more), the same
+screens spread across the width: two or three columns of cards, rooms and
+checklist items. The layout is in `src/styles.css`, at the end of the file.
+
 "Handover Check" is a working title. It is set in one place,
 `src/config.ts`.
 

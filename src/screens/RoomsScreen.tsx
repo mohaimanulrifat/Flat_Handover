@@ -156,7 +156,7 @@ export function RoomsScreen({ inspection, rooms }: Props) {
             ),
         )}
 
-        <a className="btn btn--ghost btn--block" href="#/checklist">
+        <a className="btn btn--ghost btn--block btn--end" href="#/checklist">
           {t(lang, "changeRooms")}
         </a>
       </main>

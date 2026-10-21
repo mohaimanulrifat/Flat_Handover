@@ -75,242 +75,265 @@ export function LandownerFormScreen() {
         <p className="lead">{t(lang, "landIntro")}</p>
 
         <form onSubmit={submit} noValidate>
-          <Section icon="ruler" title={t(lang, "plotSection")}>
-            <NumberWithUnit
-              id="plotArea"
-              label={t(lang, "plotArea")}
-              value={form.plotArea}
-              onValue={(v) => update({ plotArea: v })}
-              unit={form.plotAreaUnit}
-              units={AREA_UNITS}
-              onUnit={(u) => update({ plotAreaUnit: u as AreaUnit })}
-              lang={lang}
-              error={err("plotArea")}
-            />
-          </Section>
-
-          <Section icon="layers" title={t(lang, "roadSection")}>
-            <NumberWithUnit
-              id="roadWidth"
-              label={t(lang, "roadWidth")}
-              hint={t(lang, "roadWidthHint")}
-              value={form.roadWidth}
-              onValue={(v) => update({ roadWidth: v })}
-              unit={form.roadWidthUnit}
-              units={LENGTH_UNITS}
-              onUnit={(u) => update({ roadWidthUnit: u as LengthUnit })}
-              lang={lang}
-              error={err("roadWidth")}
-            />
-            <fieldset className="choice-list">
-              <legend>{t(lang, "roadKind")}</legend>
-              {ROAD_KINDS.map((kind) => (
-                <label className="choice" key={kind}>
-                  <input
-                    type="radio"
-                    name="roadKind"
-                    checked={form.roadKind === kind}
-                    onChange={() => update({ roadKind: kind })}
-                  />
-                  <span className="choice__text">
-                    {t(lang, `roadKind_${kind}` as StringKey)}
-                  </span>
-                </label>
-              ))}
-            </fieldset>
-          </Section>
-
-          <Section icon="globe" title={t(lang, "areaSection")}>
-            <fieldset className="choice-list" id="f-roadGroup" tabIndex={-1}>
-              <legend>{t(lang, "roadGroup")}</legend>
-              {rules.roadFar.groups.map((g) => (
-                <label className="choice" key={g.id}>
-                  <input
-                    type="radio"
-                    name="roadGroup"
-                    checked={form.roadGroup === g.id}
-                    onChange={() => update({ roadGroup: g.id })}
-                  />
-                  <span className="choice__text">{groupLabel(lang, g.id)}</span>
-                </label>
-              ))}
-              <span className="field__hint">{t(lang, "roadGroupHint")}</span>
-              {err("roadGroup")}
-            </fieldset>
-
-            <label className="field">
-              <span className="field__label">{t(lang, "block")}</span>
-              <select
-                id="f-blockId"
-                className="select--full"
-                value={form.blockId}
-                onChange={(e) => update({ blockId: e.target.value })}
-                aria-invalid={errors.blockId ? true : undefined}
-              >
-                <option value="">{t(lang, "chooseBlock")}</option>
-                {rules.densityBlocks.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {blockLabel(lang, b.id)}
-                  </option>
-                ))}
-              </select>
-              <span className="field__hint">
-                {block ? blockArea(lang, block.id) : t(lang, "blockHint")}
-              </span>
-              {err("blockId")}
-            </label>
-          </Section>
-
-          <Section icon="next" title={t(lang, "moreSection")} collapsible>
-            <div className="input-row">
-              <label className="field" style={{ flex: 1 }}>
-                <span className="field__label">{t(lang, "plotWidth")}</span>
-                <input
-                  id="f-plotWidth"
-                  type="text"
-                  inputMode="decimal"
-                  value={form.plotWidth}
-                  onChange={(e) => update({ plotWidth: e.target.value })}
-                  aria-invalid={errors.plotWidth ? true : undefined}
+          <div className="split">
+            <div>
+              <Section icon="ruler" title={t(lang, "plotSection")}>
+                <NumberWithUnit
+                  id="plotArea"
+                  label={t(lang, "plotArea")}
+                  value={form.plotArea}
+                  onValue={(v) => update({ plotArea: v })}
+                  unit={form.plotAreaUnit}
+                  units={AREA_UNITS}
+                  onUnit={(u) => update({ plotAreaUnit: u as AreaUnit })}
+                  lang={lang}
+                  error={err("plotArea")}
                 />
-                {err("plotWidth")}
-              </label>
-              <label className="field" style={{ flex: 1 }}>
-                <span className="field__label">{t(lang, "plotDepth")}</span>
-                <input
-                  id="f-plotDepth"
-                  type="text"
-                  inputMode="decimal"
-                  value={form.plotDepth}
-                  onChange={(e) => update({ plotDepth: e.target.value })}
-                  aria-invalid={errors.plotDepth ? true : undefined}
+              </Section>
+
+              <Section icon="layers" title={t(lang, "roadSection")}>
+                <NumberWithUnit
+                  id="roadWidth"
+                  label={t(lang, "roadWidth")}
+                  hint={t(lang, "roadWidthHint")}
+                  value={form.roadWidth}
+                  onValue={(v) => update({ roadWidth: v })}
+                  unit={form.roadWidthUnit}
+                  units={LENGTH_UNITS}
+                  onUnit={(u) => update({ roadWidthUnit: u as LengthUnit })}
+                  lang={lang}
+                  error={err("roadWidth")}
                 />
-                {err("plotDepth")}
-              </label>
-              <label className="field">
-                <span className="field__label">&nbsp;</span>
-                <select
-                  value={form.plotDimUnit}
-                  onChange={(e) =>
-                    update({ plotDimUnit: e.target.value as LengthUnit })
-                  }
-                  aria-label={t(lang, "plotWidth")}
-                >
-                  {LENGTH_UNITS.map((u) => (
-                    <option key={u} value={u}>
-                      {t(lang, `unit_${u}` as StringKey)}
-                    </option>
+                <fieldset className="choice-list">
+                  <legend>{t(lang, "roadKind")}</legend>
+                  {ROAD_KINDS.map((kind) => (
+                    <label className="choice" key={kind}>
+                      <input
+                        type="radio"
+                        name="roadKind"
+                        checked={form.roadKind === kind}
+                        onChange={() => update({ roadKind: kind })}
+                      />
+                      <span className="choice__text">
+                        {t(lang, `roadKind_${kind}` as StringKey)}
+                      </span>
+                    </label>
                   ))}
-                </select>
-              </label>
-            </div>
-            <span
-              className="field__hint"
-              style={{ marginTop: "-0.5rem", marginBottom: "0.9rem" }}
-            >
-              {t(lang, "plotDimsHint")}
-            </span>
-            <NumberWithUnit
-              id="roadSurrender"
-              label={t(lang, "roadSurrender")}
-              hint={t(lang, "roadSurrenderHint", {
-                multiplier: fmt(
-                  lang,
-                  rules.farDerivation.roadWideningMultiplier,
-                ),
-              })}
-              value={form.roadSurrender}
-              onValue={(v) => update({ roadSurrender: v })}
-              unit={form.roadSurrenderUnit}
-              units={AREA_UNITS}
-              onUnit={(u) => update({ roadSurrenderUnit: u as AreaUnit })}
-              lang={lang}
-              error={err("roadSurrender")}
-            />
-            <label className="choice">
-              <input
-                type="checkbox"
-                checked={form.subdivided}
-                onChange={(e) => update({ subdivided: e.target.checked })}
-              />
-              <span className="choice__text">
-                {t(lang, "subdivided")}
-                <span className="choice__note">
-                  FAR −{fmt(lang, rules.farDerivation.subdividedReduction)}
-                </span>
-              </span>
-            </label>
-          </Section>
+                </fieldset>
+              </Section>
 
-          <Section icon="bulb" title={t(lang, "incentivesSection")} collapsible>
-            <p className="small muted">{t(lang, "incentivesHint")}</p>
-            <div className="choice-list">
-              {rules.incentives.items.map((item) => (
-                <label className="choice" key={item.id}>
+              <Section icon="globe" title={t(lang, "areaSection")}>
+                <fieldset
+                  className="choice-list"
+                  id="f-roadGroup"
+                  tabIndex={-1}
+                >
+                  <legend>{t(lang, "roadGroup")}</legend>
+                  {rules.roadFar.groups.map((g) => (
+                    <label className="choice" key={g.id}>
+                      <input
+                        type="radio"
+                        name="roadGroup"
+                        checked={form.roadGroup === g.id}
+                        onChange={() => update({ roadGroup: g.id })}
+                      />
+                      <span className="choice__text">
+                        {groupLabel(lang, g.id)}
+                      </span>
+                    </label>
+                  ))}
+                  <span className="field__hint">
+                    {t(lang, "roadGroupHint")}
+                  </span>
+                  {err("roadGroup")}
+                </fieldset>
+
+                <label className="field">
+                  <span className="field__label">{t(lang, "block")}</span>
+                  <select
+                    id="f-blockId"
+                    className="select--full"
+                    value={form.blockId}
+                    onChange={(e) => update({ blockId: e.target.value })}
+                    aria-invalid={errors.blockId ? true : undefined}
+                  >
+                    <option value="">{t(lang, "chooseBlock")}</option>
+                    {rules.densityBlocks.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {blockLabel(lang, b.id)}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="field__hint">
+                    {block ? blockArea(lang, block.id) : t(lang, "blockHint")}
+                  </span>
+                  {err("blockId")}
+                </label>
+              </Section>
+            </div>
+
+            <div>
+              <Section icon="next" title={t(lang, "moreSection")} collapsible>
+                <div className="input-row">
+                  <label className="field" style={{ flex: 1 }}>
+                    <span className="field__label">{t(lang, "plotWidth")}</span>
+                    <input
+                      id="f-plotWidth"
+                      type="text"
+                      inputMode="decimal"
+                      value={form.plotWidth}
+                      onChange={(e) => update({ plotWidth: e.target.value })}
+                      aria-invalid={errors.plotWidth ? true : undefined}
+                    />
+                    {err("plotWidth")}
+                  </label>
+                  <label className="field" style={{ flex: 1 }}>
+                    <span className="field__label">{t(lang, "plotDepth")}</span>
+                    <input
+                      id="f-plotDepth"
+                      type="text"
+                      inputMode="decimal"
+                      value={form.plotDepth}
+                      onChange={(e) => update({ plotDepth: e.target.value })}
+                      aria-invalid={errors.plotDepth ? true : undefined}
+                    />
+                    {err("plotDepth")}
+                  </label>
+                  <label className="field">
+                    <span className="field__label">&nbsp;</span>
+                    <select
+                      value={form.plotDimUnit}
+                      onChange={(e) =>
+                        update({ plotDimUnit: e.target.value as LengthUnit })
+                      }
+                      aria-label={t(lang, "plotWidth")}
+                    >
+                      {LENGTH_UNITS.map((u) => (
+                        <option key={u} value={u}>
+                          {t(lang, `unit_${u}` as StringKey)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <span
+                  className="field__hint"
+                  style={{ marginTop: "-0.5rem", marginBottom: "0.9rem" }}
+                >
+                  {t(lang, "plotDimsHint")}
+                </span>
+                <NumberWithUnit
+                  id="roadSurrender"
+                  label={t(lang, "roadSurrender")}
+                  hint={t(lang, "roadSurrenderHint", {
+                    multiplier: fmt(
+                      lang,
+                      rules.farDerivation.roadWideningMultiplier,
+                    ),
+                  })}
+                  value={form.roadSurrender}
+                  onValue={(v) => update({ roadSurrender: v })}
+                  unit={form.roadSurrenderUnit}
+                  units={AREA_UNITS}
+                  onUnit={(u) => update({ roadSurrenderUnit: u as AreaUnit })}
+                  lang={lang}
+                  error={err("roadSurrender")}
+                />
+                <label className="choice">
                   <input
                     type="checkbox"
-                    checked={form.incentives.includes(item.id)}
-                    onChange={(e) => toggleIncentive(item.id, e.target.checked)}
+                    checked={form.subdivided}
+                    onChange={(e) => update({ subdivided: e.target.checked })}
                   />
                   <span className="choice__text">
-                    {lang === "bn" ? item.title_bn : item.title_en}
+                    {t(lang, "subdivided")}
                     <span className="choice__note">
-                      {incentiveNote(lang, item.id)}
+                      FAR −{fmt(lang, rules.farDerivation.subdividedReduction)}
                     </span>
                   </span>
                 </label>
-              ))}
-            </div>
-          </Section>
+              </Section>
 
-          <Section icon="papers" title={t(lang, "dealSection")}>
-            <div className="input-row">
-              <TextField
-                id="ownerPct"
-                label={t(lang, "ownerPct")}
-                hint={t(lang, "ownerPctHint")}
-                value={form.ownerPct}
-                onValue={(v) => update({ ownerPct: v })}
-                error={err("ownerPct")}
-              />
-              <TextField
-                id="saleablePct"
-                label={t(lang, "saleablePct")}
-                value={form.saleablePct}
-                onValue={(v) => update({ saleablePct: v })}
-                error={err("saleablePct")}
-              />
-            </div>
-            <span
-              className="field__hint"
-              style={{ marginTop: "-0.5rem", marginBottom: "0.9rem" }}
-            >
-              {t(lang, "saleablePctHint")}
-            </span>
-            <TextField
-              id="unitSize"
-              label={t(lang, "unitSize")}
-              hint={
-                block
-                  ? t(lang, "unitSizeHint", {
-                      size: fmt(lang, block.avgUnitSizeSqft),
-                    })
-                  : t(lang, "unitSizeHintNoBlock")
-              }
-              value={form.unitSize}
-              onValue={(v) => update({ unitSize: v })}
-              error={err("unitSize")}
-            />
-            <TextField
-              id="cash"
-              label={t(lang, "cash")}
-              value={form.cash}
-              onValue={(v) => update({ cash: v })}
-              error={err("cash")}
-            />
-          </Section>
+              <Section
+                icon="bulb"
+                title={t(lang, "incentivesSection")}
+                collapsible
+              >
+                <p className="small muted">{t(lang, "incentivesHint")}</p>
+                <div className="choice-list">
+                  {rules.incentives.items.map((item) => (
+                    <label className="choice" key={item.id}>
+                      <input
+                        type="checkbox"
+                        checked={form.incentives.includes(item.id)}
+                        onChange={(e) =>
+                          toggleIncentive(item.id, e.target.checked)
+                        }
+                      />
+                      <span className="choice__text">
+                        {lang === "bn" ? item.title_bn : item.title_en}
+                        <span className="choice__note">
+                          {incentiveNote(lang, item.id)}
+                        </span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </Section>
 
-          <button type="submit" className="btn btn--primary btn--block">
+              <Section icon="papers" title={t(lang, "dealSection")}>
+                <div className="input-row">
+                  <TextField
+                    id="ownerPct"
+                    label={t(lang, "ownerPct")}
+                    hint={t(lang, "ownerPctHint")}
+                    value={form.ownerPct}
+                    onValue={(v) => update({ ownerPct: v })}
+                    error={err("ownerPct")}
+                  />
+                  <TextField
+                    id="saleablePct"
+                    label={t(lang, "saleablePct")}
+                    value={form.saleablePct}
+                    onValue={(v) => update({ saleablePct: v })}
+                    error={err("saleablePct")}
+                  />
+                </div>
+                <span
+                  className="field__hint"
+                  style={{ marginTop: "-0.5rem", marginBottom: "0.9rem" }}
+                >
+                  {t(lang, "saleablePctHint")}
+                </span>
+                <TextField
+                  id="unitSize"
+                  label={t(lang, "unitSize")}
+                  hint={
+                    block
+                      ? t(lang, "unitSizeHint", {
+                          size: fmt(lang, block.avgUnitSizeSqft),
+                        })
+                      : t(lang, "unitSizeHintNoBlock")
+                  }
+                  value={form.unitSize}
+                  onValue={(v) => update({ unitSize: v })}
+                  error={err("unitSize")}
+                />
+                <TextField
+                  id="cash"
+                  label={t(lang, "cash")}
+                  value={form.cash}
+                  onValue={(v) => update({ cash: v })}
+                  error={err("cash")}
+                />
+              </Section>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn--primary btn--block btn--end"
+          >
             {t(lang, "calculate")}
             <Icon name="next" size={18} />
           </button>

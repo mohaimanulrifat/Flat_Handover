@@ -116,16 +116,18 @@ export function RoomScreen({ room, next, inspection, dispatch }: Props) {
                   {t(lang, "allOk")}
                 </button>
               </div>
-              {group.items.map((item, i) => (
-                <ItemCard
-                  key={item.code}
-                  item={item}
-                  itemKey={keys[i]}
-                  answer={inspection.answers[keys[i]]}
-                  showTips={showTips}
-                  dispatch={dispatch}
-                />
-              ))}
+              <div className="group__items">
+                {group.items.map((item, i) => (
+                  <ItemCard
+                    key={item.code}
+                    item={item}
+                    itemKey={keys[i]}
+                    answer={inspection.answers[keys[i]]}
+                    showTips={showTips}
+                    dispatch={dispatch}
+                  />
+                ))}
+              </div>
             </section>
           );
         })}

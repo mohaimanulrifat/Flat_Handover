@@ -81,92 +81,100 @@ export function ReportScreen({ inspection, rooms }: Props) {
           ))}
         </div>
 
-        {counts.unanswered > 0 && (
-          <div className="notice">
-            <Icon name="alert" />
-            <div className="notice__body">
-              <p>
-                <strong>
-                  {t(lang, "notCheckedYet", { n: counts.unanswered })}
-                </strong>{" "}
-                {t(lang, "notCheckedYetText")}
-              </p>
-              <ul>
-                {report.unanswered.map((r) => (
-                  <li key={r.room.id}>
-                    <a href={routeHref({ name: "room", roomId: r.room.id })}>
-                      {r.room.name[lang]}
-                    </a>
-                    : {t(lang, "left", { n: r.items.length })}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="split split--side">
+          <div className="split__side">
+            {counts.unanswered > 0 && (
+              <div className="notice">
+                <Icon name="alert" />
+                <div className="notice__body">
+                  <p>
+                    <strong>
+                      {t(lang, "notCheckedYet", { n: counts.unanswered })}
+                    </strong>{" "}
+                    {t(lang, "notCheckedYetText")}
+                  </p>
+                  <ul>
+                    {report.unanswered.map((r) => (
+                      <li key={r.room.id}>
+                        <a
+                          href={routeHref({ name: "room", roomId: r.room.id })}
+                        >
+                          {r.room.name[lang]}
+                        </a>
+                        : {t(lang, "left", { n: r.items.length })}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {unrated.length > 0 && (
+              <div className="notice">
+                <Icon name="alert" />
+                <div className="notice__body">
+                  <p>
+                    <strong>
+                      {t(lang, "noSeverityYet", { n: unrated.length })}
+                    </strong>{" "}
+                    {t(lang, "noSeverityYetText")}
+                  </p>
+                  <ul>
+                    {unrated.map(({ room, p }) => (
+                      <li key={p.key}>
+                        <a href={routeHref({ name: "room", roomId: room.id })}>
+                          {room.name[lang]}
+                        </a>
+                        : {p.item.code} {p.item.title[lang]}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            <PdfExport inspection={inspection} report={report} />
           </div>
-        )}
 
-        {unrated.length > 0 && (
-          <div className="notice">
-            <Icon name="alert" />
-            <div className="notice__body">
-              <p>
-                <strong>
-                  {t(lang, "noSeverityYet", { n: unrated.length })}
-                </strong>{" "}
-                {t(lang, "noSeverityYetText")}
-              </p>
-              <ul>
-                {unrated.map(({ room, p }) => (
-                  <li key={p.key}>
-                    <a href={routeHref({ name: "room", roomId: room.id })}>
-                      {room.name[lang]}
-                    </a>
-                    : {p.item.code} {p.item.title[lang]}
-                  </li>
-                ))}
-              </ul>
+          <div className="split__main">
+            <div className="section-title">
+              <h2>{t(lang, "severityProblems", { name: safetyName })}</h2>
             </div>
+            {report.safety.length ? (
+              <ProblemList rooms={report.safety} />
+            ) : (
+              <p className="empty">
+                <Icon name="check" size={18} />
+                {t(lang, "noneFound")}
+              </p>
+            )}
+
+            <div className="section-title">
+              <h2>{t(lang, "otherProblems")}</h2>
+            </div>
+            {report.other.length ? (
+              <ProblemList rooms={report.other} />
+            ) : (
+              <p className="empty">
+                <Icon name="check" size={18} />
+                {t(lang, "noneFound")}
+              </p>
+            )}
+
+            <details className="plain">
+              <summary>
+                <Icon name="next" size={18} />
+                {t(lang, "checkedOkCount", { n: counts.ok })}
+              </summary>
+              {report.ok.map((r) => (
+                <p key={r.room.id} className="small muted">
+                  <strong>{r.room.name[lang]}:</strong>{" "}
+                  {r.items.map((i) => `${i.code} ${i.title[lang]}`).join("; ")}
+                </p>
+              ))}
+            </details>
           </div>
-        )}
-
-        <PdfExport inspection={inspection} report={report} />
-
-        <div className="section-title">
-          <h2>{t(lang, "severityProblems", { name: safetyName })}</h2>
         </div>
-        {report.safety.length ? (
-          <ProblemList rooms={report.safety} />
-        ) : (
-          <p className="empty">
-            <Icon name="check" size={18} />
-            {t(lang, "noneFound")}
-          </p>
-        )}
-
-        <div className="section-title">
-          <h2>{t(lang, "otherProblems")}</h2>
-        </div>
-        {report.other.length ? (
-          <ProblemList rooms={report.other} />
-        ) : (
-          <p className="empty">
-            <Icon name="check" size={18} />
-            {t(lang, "noneFound")}
-          </p>
-        )}
-
-        <details className="plain">
-          <summary>
-            <Icon name="next" size={18} />
-            {t(lang, "checkedOkCount", { n: counts.ok })}
-          </summary>
-          {report.ok.map((r) => (
-            <p key={r.room.id} className="small muted">
-              <strong>{r.room.name[lang]}:</strong>{" "}
-              {r.items.map((i) => `${i.code} ${i.title[lang]}`).join("; ")}
-            </p>
-          ))}
-        </details>
       </main>
     </>
   );

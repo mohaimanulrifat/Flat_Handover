@@ -70,6 +70,8 @@
 }
 
 :root {
+  /* Content width: one phone-sized column, wider on large screens. */
+  --page-w: 680px;
   --radius: 16px;
   --radius-sm: 10px;
   --tap: 48px;
@@ -139,7 +141,7 @@ a {
 }
 
 .page {
-  max-width: 680px;
+  max-width: var(--page-w);
   margin: 0 auto;
   padding: 1.25rem 1rem 6rem;
 }
@@ -183,7 +185,7 @@ a {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  max-width: 680px;
+  max-width: var(--page-w);
   min-height: 58px;
   margin: 0 auto;
   padding: 0 0.4rem;
@@ -1050,7 +1052,7 @@ textarea {
 .dock__inner {
   display: flex;
   gap: 0.6rem;
-  max-width: 648px;
+  max-width: calc(var(--page-w) - 2rem);
   margin: 0 auto;
 }
 .dock__inner .btn--primary {
@@ -1401,4 +1403,77 @@ select[aria-invalid="true"] {
 .disclaimer {
   border-color: color-mix(in srgb, var(--warn) 50%, transparent);
   background: var(--warn-soft);
+}
+
+/*
+ * Wide screens (laptops, desktops, tablets held sideways): the same screens
+ * laid out across the width. A .split holds two columns that stack, in the
+ * same order, on a phone.
+ */
+@media (min-width: 960px) {
+  :root {
+    --page-w: 1160px;
+  }
+  .page {
+    padding: 2.25rem 1.5rem 6rem;
+  }
+  .hero {
+    max-width: 46rem;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+  /* A narrow side column, listed first so it comes first on a phone. */
+  .split--side {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+  }
+  .split--side > * > :first-child {
+    margin-top: 0;
+  }
+  .split--side > .split__side {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .split--side > .split__main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .service-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .room-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .group__items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: start;
+  }
+  .group__items .item {
+    margin-bottom: 0;
+  }
+  .stats {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .result-hero {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+  .result-hero .card--accent {
+    grid-column: auto;
+  }
+  /* A full-width button would be too wide: its own width, on the right. */
+  .btn--end {
+    width: fit-content;
+    min-width: 18rem;
+    margin-left: auto;
+  }
+  .dock__inner .btn--primary {
+    flex: 0 1 auto;
+    min-width: 18rem;
+    margin-left: auto;
+  }
 }
