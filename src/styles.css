@@ -620,6 +620,14 @@ textarea {
   color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
+/* ০১, ০২ ... in Bangla. Browsers without @counter-style show 01, 02. */
+@counter-style bangla-leading-zero {
+  system: extends bengali;
+  pad: 2 "০";
+}
+:lang(bn) .numbered li::before {
+  content: counter(n, bangla-leading-zero);
+}
 .resume {
   display: flex;
   align-items: center;

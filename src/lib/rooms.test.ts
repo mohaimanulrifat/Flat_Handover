@@ -24,7 +24,7 @@ describe("generateRooms", () => {
   const byId = (id: string) => rooms.find((r) => r.id === id)!;
 
   it("lists rooms in the document's order", () => {
-    expect(rooms.map((r) => r.name)).toEqual([
+    expect(rooms.map((r) => r.name.en)).toEqual([
       "Living room",
       "Dining room",
       "Bedroom 1",
@@ -39,6 +39,11 @@ describe("generateRooms", () => {
       "Building and common areas",
       "End of the visit",
     ]);
+  });
+
+  it("numbers repeated rooms in Bangla with Bangla digits", () => {
+    expect(byId("bedroom-2").name.bn).toBe("শোবার ঘর ২");
+    expect(byId("kitchen").name.bn).toBe("রান্নাঘর");
   });
 
   it("gives every room a unique id", () => {
@@ -81,7 +86,7 @@ describe("generateRooms", () => {
         ...range("D", 1, 7),
         ...range("A", 1, 6),
       ]);
-      expect(balcony.groups.map((g) => g.title)).toEqual([
+      expect(balcony.groups.map((g) => g.title.en)).toEqual([
         "Balcony",
         "Walls and ceiling",
       ]);
@@ -98,7 +103,7 @@ describe("generateRooms", () => {
   });
 
   it("keeps the section's sub-groups so each can have an All OK button", () => {
-    expect(byId("living").groups.map((g) => g.title)).toEqual([
+    expect(byId("living").groups.map((g) => g.title.en)).toEqual([
       "Walls and ceiling",
       "Floor",
       "Doors",
@@ -107,10 +112,10 @@ describe("generateRooms", () => {
     ]);
     expect(
       byId("bathroom-1")
-        .groups.map((g) => g.title)
+        .groups.map((g) => g.title.en)
         .at(-1),
     ).toBe("Bathroom");
-    expect(byId("wholeFlat").groups.map((g) => g.title)).toEqual([
+    expect(byId("wholeFlat").groups.map((g) => g.title.en)).toEqual([
       "Electricity",
       "Water",
       "Entrance and area",
@@ -147,9 +152,9 @@ describe("generateRooms", () => {
     const one = generateRooms({ bedrooms: 1, bathrooms: 1, balconies: 1 });
     expect(one.find((r) => r.kind === "bedroom")).toMatchObject({
       id: "bedroom-1",
-      name: "Bedroom",
+      name: { en: "Bedroom", bn: "শোবার ঘর" },
     });
-    expect(one.find((r) => r.kind === "balcony")!.name).toBe("Balcony");
+    expect(one.find((r) => r.kind === "balcony")!.name.en).toBe("Balcony");
   });
 
   it("keeps room ids stable when the layout grows", () => {

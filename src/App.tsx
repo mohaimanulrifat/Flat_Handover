@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+import { t } from "./lib/i18n.ts";
+import { useLang } from "./lib/lang.ts";
 import { generateRooms } from "./lib/rooms.ts";
 import { useRoute } from "./lib/route.ts";
 import { useUpdate } from "./lib/serviceWorker.ts";
@@ -12,6 +14,7 @@ import { RoomsScreen } from "./screens/RoomsScreen.tsx";
 import { StartScreen } from "./screens/StartScreen.tsx";
 
 export function App() {
+  const [lang] = useLang();
   const [inspection, dispatch, saveFailed] = useInspection();
   const route = useRoute();
   const update = useUpdate();
@@ -54,15 +57,14 @@ export function App() {
     <>
       {saveFailed && (
         <div className="banner" role="alert">
-          Your answers cannot be saved on this phone. Do not close this page, or
-          turn off private browsing and try again.
+          {t(lang, "saveFailed")}
         </div>
       )}
       {update && (
         <div className="banner banner--info">
-          A new version of the app is ready.{" "}
+          {t(lang, "updateReady")}{" "}
           <button type="button" className="link" onClick={update}>
-            Update now
+            {t(lang, "updateNow")}
           </button>
         </div>
       )}

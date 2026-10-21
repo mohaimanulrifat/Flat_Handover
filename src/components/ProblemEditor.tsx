@@ -1,12 +1,14 @@
 import { useState, type ChangeEvent, type Dispatch } from "react";
 import { SEVERITY_NAMES } from "../config.ts";
 import { severityLevels } from "../data/checklist.ts";
+import { t } from "../lib/i18n.ts";
 import { resizeImage } from "../lib/image.ts";
 import {
   NOTE_MAX_LENGTH,
   type Action,
   type Answer,
 } from "../lib/inspection.ts";
+import { useLang } from "../lib/lang.ts";
 import { deletePhoto, savePhoto } from "../lib/photos.ts";
 import { Icon } from "./Icon.tsx";
 import { PhotoThumb } from "./PhotoThumb.tsx";
@@ -24,14 +26,15 @@ interface Props {
 }
 
 export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
+  const [lang] = useLang();
   const [showExamples, setShowExamples] = useState(false);
   const [saving, setSaving] = useState(0);
-  const [error, setError] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
 
   async function addPhotos(event: ChangeEvent<HTMLInputElement>) {
     const files = [...(event.target.files ?? [])];
     event.target.value = ""; // so the same photo can be chosen again
-    setError(null);
+    setFailed(false);
     for (const file of files) {
       setSaving((n) => n + 1);
       try {
@@ -39,9 +42,7 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
         const photoId = await savePhoto(small);
         dispatch({ type: "addPhoto", key: itemKey, photoId });
       } catch {
-        setError(
-          "This photo could not be saved. Try again, or check that your phone has free space.",
-        );
+        setFailed(true);
       } finally {
         setSaving((n) => n - 1);
       }
@@ -58,7 +59,7 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
   return (
     <div className="problem">
       <fieldset>
-        <legend>How serious is it?</legend>
+        <legend>{t(lang, "howSerious")}</legend>
         {severityLevels.map((level) => (
           <button
             key={level.id}
@@ -76,8 +77,8 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
           >
             <span className="severity__dot" aria-hidden="true" />
             <span>
-              <strong>{SEVERITY_NAMES[level.id]}</strong>
-              {level.meaning}
+              <strong>{SEVERITY_NAMES[level.id][lang]}</strong>
+              {level.meaning[lang]}
             </span>
           </button>
         ))}
@@ -87,30 +88,31 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
           onClick={() => setShowExamples(!showExamples)}
           aria-expanded={showExamples}
         >
-          {showExamples ? "Hide examples" : "Show examples"}
+          {t(lang, showExamples ? "hideExamples" : "showExamples")}
         </button>
         {showExamples &&
           severityLevels.map((level) => (
             <p key={level.id} className="examples">
-              <strong>{SEVERITY_NAMES[level.id]}:</strong> {level.examples}
+              <strong>{SEVERITY_NAMES[level.id][lang]}:</strong>{" "}
+              {level.examples[lang]}
             </p>
           ))}
       </fieldset>
 
       <label className="field" htmlFor={noteId}>
-        <span className="field__label">Short note</span>
+        <span className="field__label">{t(lang, "shortNote")}</span>
         <textarea
           id={noteId}
           value={answer.note ?? ""}
           maxLength={NOTE_MAX_LENGTH}
-          placeholder="What is wrong, and exactly where?"
+          placeholder={t(lang, "notePlaceholder")}
           onChange={(e) =>
             dispatch({ type: "setNote", key: itemKey, note: e.target.value })
           }
         />
       </label>
 
-      <div className="field__label">Photos</div>
+      <div className="field__label">{t(lang, "photos")}</div>
       {(answer.photos?.length ?? 0) > 0 && (
         <div className="photos">
           {answer.photos!.map((id) => (
@@ -125,7 +127,7 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
       <div className="btn-row">
         <label className="btn btn--small btn--primary file-btn">
           <Icon name="camera" size={18} />
-          Take photo
+          {t(lang, "takePhoto")}
           <input
             type="file"
             accept="image/*"
@@ -135,14 +137,14 @@ export function ProblemEditor({ itemKey, answer, dispatch }: Props) {
         </label>
         <label className="btn btn--small file-btn">
           <Icon name="image" size={18} />
-          Choose from gallery
+          {t(lang, "chooseFromGallery")}
           <input type="file" accept="image/*" multiple onChange={addPhotos} />
         </label>
       </div>
-      {saving > 0 && <p className="small muted">Saving photo…</p>}
-      {error && (
+      {saving > 0 && <p className="small muted">{t(lang, "savingPhoto")}</p>}
+      {failed && (
         <p className="small error-text" role="alert">
-          {error}
+          {t(lang, "photoSaveFailed")}
         </p>
       )}
     </div>

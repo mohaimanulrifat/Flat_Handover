@@ -1,8 +1,10 @@
 import { PDFDocument, type PDFImage } from "pdf-lib";
 import { APP_TITLE, SEVERITY_COLOURS, SEVERITY_NAMES } from "../config.ts";
 import { severityLevels } from "../data/checklist.ts";
+import { t } from "./i18n.ts";
 import { resizeImage } from "./image.ts";
 import type { FlatDetails, Inspection } from "./inspection.ts";
+import { fmt, type Lang } from "./lang.ts";
 import {
   BLACK,
   CONTENT_W,
@@ -26,6 +28,7 @@ const PHOTO_MAX_H = 150;
 const BRAND = hexToRgb("#26327a"); // Nocturne night indigo, on paper
 
 interface Options {
+  lang: Lang;
   inspection: Inspection;
   report: Report;
   loadPhoto: (id: string) => Promise<Blob | null>;
@@ -33,6 +36,7 @@ interface Options {
 }
 
 export async function createReportPdf({
+  lang,
   inspection,
   report,
   loadPhoto,
@@ -40,67 +44,68 @@ export async function createReportPdf({
 }: Options): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
   doc.setTitle(
-    `Handover inspection report${flatLabel(inspection.details, " - ")}`,
+    `${t(lang, "reportTitle")}${flatLabel(lang, inspection.details, " - ")}`,
   );
   doc.setCreator(APP_TITLE);
   doc.setProducer(APP_TITLE);
 
   const w = await createWriter(doc);
 
-  await writeCover(w, inspection, report);
+  await writeCover(w, lang, inspection, report);
 
   const photoTotal = [...report.safety, ...report.other]
     .flatMap((r) => r.problems)
     .reduce((n, p) => n + p.photos.length, 0);
   let photoCount = 0;
   const addPhoto = async (id: string) => {
-    onProgress?.(`Adding photos (${++photoCount} of ${photoTotal})…`);
+    onProgress?.(
+      t(lang, "addingPhotos", { n: ++photoCount, total: photoTotal }),
+    );
     const blob = await loadPhoto(id).catch(() => null);
     if (!blob) return null;
     const jpeg = await resizeImage(blob, PDF_PHOTO_EDGE, PDF_PHOTO_QUALITY);
     return doc.embedJpg(await jpeg.arrayBuffer());
   };
 
-  await w.heading(`${SEVERITY_NAMES.safety} problems`, 15);
+  const safetyName = SEVERITY_NAMES.safety[lang];
+  await w.heading(t(lang, "severityProblems", { name: safetyName }), 15);
   if (report.safety.length === 0) {
     await w.paragraph(
-      `No ${SEVERITY_NAMES.safety.toLowerCase()} problems were found.`,
-      {
-        color: GREY,
-      },
+      t(lang, "pdfNoSeverityProblems", {
+        name: lang === "en" ? safetyName.toLowerCase() : safetyName,
+      }),
+      { color: GREY },
     );
   }
-  for (const room of report.safety) await writeRoom(w, room, addPhoto);
+  for (const room of report.safety) await writeRoom(w, lang, room, addPhoto);
 
   w.space(10);
-  await w.heading("Other problems, room by room", 15);
+  await w.heading(t(lang, "pdfOtherProblems"), 15);
   if (report.other.length === 0) {
-    await w.paragraph("No other problems were found.", { color: GREY });
+    await w.paragraph(t(lang, "pdfNoOtherProblems"), { color: GREY });
   }
-  for (const room of report.other) await writeRoom(w, room, addPhoto);
+  for (const room of report.other) await writeRoom(w, lang, room, addPhoto);
 
   w.space(10);
-  await w.heading("Checked and OK", 15);
-  await w.paragraph("Items checked and found OK during the visit.", {
-    color: GREY,
-    size: 9,
-  });
+  await w.heading(t(lang, "pdfCheckedOk"), 15);
+  await w.paragraph(t(lang, "pdfCheckedOkText"), { color: GREY, size: 9 });
   if (report.ok.length === 0) {
-    await w.paragraph("None.", { color: GREY, size: 9 });
+    await w.paragraph(t(lang, "pdfNone"), { color: GREY, size: 9 });
   }
   for (const { room, items } of report.ok) {
     w.ensure(30);
-    await w.paragraph(room.name, { font: w.bold, size: 9 });
-    await w.paragraph(items.map((i) => `${i.code} ${i.title}`).join("; "), {
-      size: 8.5,
-    });
+    await w.paragraph(room.name[lang], { font: w.bold, size: 9 });
+    await w.paragraph(
+      items.map((i) => `${i.code} ${i.title[lang]}`).join("; "),
+      { size: 8.5 },
+    );
     w.space(4);
   }
 
-  await writeAcknowledgement(w);
+  await writeAcknowledgement(w, lang);
 
-  onProgress?.("Finishing…");
-  await w.footers(flatLabel(inspection.details, ""));
+  onProgress?.(t(lang, "finishing"));
+  await w.footers(flatLabel(lang, inspection.details, ""), lang);
   return doc.save();
 }
 
@@ -117,35 +122,42 @@ export function reportFileName(details: FlatDetails): string {
     .concat(".pdf");
 }
 
-function flatLabel(details: FlatDetails, prefix: string): string {
-  const label = [details.project, details.flat && `Flat ${details.flat}`]
+function flatLabel(lang: Lang, details: FlatDetails, prefix: string): string {
+  const label = [
+    details.project,
+    details.flat && t(lang, "flatNo", { flat: details.flat }),
+  ]
     .filter((s) => s.trim())
     .join(", ");
   return label ? prefix + label : "";
 }
 
-async function writeCover(w: Writer, inspection: Inspection, report: Report) {
+async function writeCover(
+  w: Writer,
+  lang: Lang,
+  inspection: Inspection,
+  report: Report,
+) {
   const { details, layout } = inspection;
   const { counts } = report;
+  const n = (value: number) => fmt(lang, value);
 
   await w.paragraph(APP_TITLE, { size: 10, font: w.bold, color: BRAND });
-  await w.paragraph("Handover inspection report", { size: 20, font: w.bold });
+  await w.paragraph(t(lang, "reportTitle"), { size: 20, font: w.bold });
   w.space(6);
 
-  const count = (n: number, one: string, many: string) =>
-    `${n} ${n === 1 ? one : many}`;
   const rows: [string, string][] = [
-    ["Project or building", details.project],
-    ["Flat", details.flat],
-    ["Buyer", details.buyer],
-    ["Date of visit", details.date],
+    [t(lang, "pdfProject"), details.project],
+    [t(lang, "pdfFlat"), details.flat],
+    [t(lang, "pdfBuyer"), details.buyer],
+    [t(lang, "visitDate"), details.date],
     [
-      "Layout",
+      t(lang, "pdfLayout"),
       layout
         ? [
-            count(layout.bedrooms, "bedroom", "bedrooms"),
-            count(layout.bathrooms, "bathroom", "bathrooms"),
-            count(layout.balconies, "balcony", "balconies"),
+            t(lang, "pdfBedrooms", { n: layout.bedrooms }),
+            t(lang, "pdfBathrooms", { n: layout.bathrooms }),
+            t(lang, "pdfBalconies", { n: layout.balconies }),
           ].join(", ")
         : "",
     ],
@@ -155,25 +167,30 @@ async function writeCover(w: Writer, inspection: Inspection, report: Report) {
   }
 
   w.space(8);
-  await w.heading("Summary", 12);
+  await w.heading(t(lang, "pdfSummary"), 12);
   const bySeverity = [
-    `${SEVERITY_NAMES.safety} ${counts.safety}`,
-    `${SEVERITY_NAMES.major} ${counts.major}`,
-    `${SEVERITY_NAMES.minor} ${counts.minor}`,
-    ...(counts.unrated ? [`no severity given ${counts.unrated}`] : []),
+    `${SEVERITY_NAMES.safety[lang]} ${n(counts.safety)}`,
+    `${SEVERITY_NAMES.major[lang]} ${n(counts.major)}`,
+    `${SEVERITY_NAMES.minor[lang]} ${n(counts.minor)}`,
+    ...(counts.unrated
+      ? [t(lang, "pdfNoSeverityGiven", { n: counts.unrated })]
+      : []),
   ].join(", ");
-  await w.labelled("Problems found", `${counts.problems} (${bySeverity})`);
-  await w.labelled("Checked OK", String(counts.ok));
-  await w.labelled("Not applicable", String(counts.na));
-  await w.labelled("Not checked", String(counts.unanswered));
-  await w.labelled("Total items", String(counts.total));
+  await w.labelled(
+    t(lang, "pdfProblemsFound"),
+    `${n(counts.problems)} (${bySeverity})`,
+  );
+  await w.labelled(t(lang, "statusOk"), n(counts.ok));
+  await w.labelled(t(lang, "statusNa"), n(counts.na));
+  await w.labelled(t(lang, "notChecked"), n(counts.unanswered));
+  await w.labelled(t(lang, "pdfTotalItems"), n(counts.total));
 
   w.space(8);
-  await w.heading("Severity levels", 12);
+  await w.heading(t(lang, "pdfSeverityLevels"), 12);
   for (const level of [...severityLevels].reverse()) {
     await w.labelled(
-      SEVERITY_NAMES[level.id],
-      level.meaning,
+      SEVERITY_NAMES[level.id][lang],
+      level.meaning[lang],
       hexToRgb(SEVERITY_COLOURS[level.id]),
     );
   }
@@ -184,6 +201,7 @@ async function writeCover(w: Writer, inspection: Inspection, report: Report) {
 
 async function writeRoom(
   w: Writer,
+  lang: Lang,
   { room, problems }: RoomProblems,
   addPhoto: PhotoLoader,
 ) {
@@ -193,9 +211,13 @@ async function writeRoom(
   // Keep the room name on the same page as its first problem.
   w.ensure(24 + prepared[0].firstBlockH);
   w.space(4);
-  await w.paragraph(room.name, { font: w.bold, size: 12.5, color: BRAND });
+  await w.paragraph(room.name[lang], {
+    font: w.bold,
+    size: 12.5,
+    color: BRAND,
+  });
   w.space(2);
-  for (const problem of prepared) await writeProblem(w, problem);
+  for (const problem of prepared) await writeProblem(w, lang, problem);
 }
 
 type PhotoLoader = (id: string) => Promise<PDFImage | null>;
@@ -241,23 +263,23 @@ async function prepareProblem(
   };
 }
 
-async function writeProblem(w: Writer, prepared: PreparedProblem) {
+async function writeProblem(w: Writer, lang: Lang, prepared: PreparedProblem) {
   const { entry: p, rows, missingPhotos } = prepared;
   w.ensure(prepared.firstBlockH);
 
   const label = (
-    p.severity ? SEVERITY_NAMES[p.severity] : "No severity"
+    p.severity ? SEVERITY_NAMES[p.severity][lang] : t(lang, "noSeverity")
   ).toUpperCase();
   const colour = p.severity ? hexToRgb(SEVERITY_COLOURS[p.severity]) : GREY;
   const badgeW = await w.badge(label, colour);
-  await w.paragraph(`${p.item.code}  ${p.item.title}`, {
+  await w.paragraph(`${p.item.code}  ${p.item.title[lang]}`, {
     font: w.bold,
     size: 10.5,
     indent: badgeW + 6,
   });
   if (p.note) await w.paragraph(p.note, { size: 10 });
   if (missingPhotos > 0) {
-    await w.paragraph(`${missingPhotos} photo(s) could not be added.`, {
+    await w.paragraph(t(lang, "pdfPhotosMissing", { n: missingPhotos }), {
       size: 8.5,
       color: GREY,
     });
@@ -283,26 +305,34 @@ async function writeProblem(w: Writer, prepared: PreparedProblem) {
   w.space(10);
 }
 
-async function writeAcknowledgement(w: Writer) {
+async function writeAcknowledgement(w: Writer, lang: Lang) {
   w.space(10);
   w.ensure(150);
-  await w.heading("Acknowledgement", 15);
-  await w.paragraph(
-    "Received by the developer, with the agreed date for repairs.",
-    { color: GREY, size: 9 },
-  );
-  for (const label of ["Name", "Signature", "Date", "Repair date"]) {
+  await w.heading(t(lang, "pdfAcknowledgement"), 15);
+  await w.paragraph(t(lang, "pdfAcknowledgementText"), {
+    color: GREY,
+    size: 9,
+  });
+  // Bangla labels are wider, so their signature lines start further right.
+  const lineX = MARGIN + (lang === "bn" ? 100 : 80);
+  for (const key of [
+    "pdfName",
+    "pdfSignature",
+    "pdfDate",
+    "pdfRepairDate",
+  ] as const) {
     w.space(16);
-    w.page.drawText(`${label}:`, {
-      x: MARGIN,
-      y: w.y - 10,
-      size: 10,
-      font: w.regular,
-      color: BLACK,
-    });
+    await w.drawSingleLine(
+      w.page,
+      `${t(lang, key)}:`,
+      MARGIN,
+      w.y - 10,
+      10,
+      BLACK,
+    );
     w.page.drawLine({
-      start: { x: MARGIN + 80, y: w.y - 12 },
-      end: { x: MARGIN + 320, y: w.y - 12 },
+      start: { x: lineX, y: w.y - 12 },
+      end: { x: lineX + 240, y: w.y - 12 },
       thickness: 0.6,
       color: GREY,
     });

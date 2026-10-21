@@ -13,6 +13,8 @@ import {
   type RGB,
 } from "pdf-lib";
 import { REPORT_FOOTER_TEXT } from "../config.ts";
+import { t } from "./i18n.ts";
+import type { Lang } from "./lang.ts";
 
 // A4 in points.
 export const PAGE_W = 595.28;
@@ -188,13 +190,12 @@ export class Writer {
   }
 
   /** Adds the footer to every page, now that the page count is known. */
-  async footers(label: string) {
+  async footers(label: string, lang: Lang) {
     const pages = this.doc.getPages();
     const size = 8;
     for (const [i, page] of pages.entries()) {
-      const right = [label, `Page ${i + 1} of ${pages.length}`]
-        .filter(Boolean)
-        .join("  |  ");
+      const pageNo = t(lang, "pdfPage", { n: i + 1, total: pages.length });
+      const right = [label, pageNo].filter(Boolean).join("  |  ");
       const y = MARGIN - 18;
       page.drawLine({
         start: { x: MARGIN, y: MARGIN - 6 },
@@ -202,32 +203,57 @@ export class Writer {
         thickness: 0.5,
         color: LIGHT,
       });
-      await this.drawSingleLine(page, REPORT_FOOTER_TEXT, MARGIN, y, size);
-      const rightW = canEncode(this.regular, right)
-        ? this.regular.widthOfTextAtSize(right, size)
-        : CONTENT_W / 2;
-      await this.drawSingleLine(page, right, PAGE_W - MARGIN - rightW, y, size);
+      await this.drawSingleLine(
+        page,
+        REPORT_FOOTER_TEXT[lang],
+        MARGIN,
+        y,
+        size,
+      );
+      await this.drawSingleLine(
+        page,
+        right,
+        PAGE_W - MARGIN,
+        y,
+        size,
+        GREY,
+        "right",
+      );
     }
   }
 
-  private async drawSingleLine(
+  /**
+   * One line of short text with its baseline at `y`, in any language. With
+   * align "right", `x` is where the text ends.
+   */
+  async drawSingleLine(
     page: PDFPage,
     text: string,
     x: number,
     y: number,
     size: number,
+    color = GREY,
+    align: "left" | "right" = "left",
   ) {
     if (canEncode(this.regular, text)) {
-      page.drawText(text, { x, y, size, font: this.regular, color: GREY });
+      const width = this.regular.widthOfTextAtSize(text, size);
+      page.drawText(text, {
+        x: align === "right" ? x - width : x,
+        y,
+        size,
+        font: this.regular,
+        color,
+      });
       return;
     }
-    const [line] = await renderLines(text, size, CONTENT_W / 2, false, GREY);
+    const [line] = await renderLines(text, size, CONTENT_W / 2, false, color);
     if (!line) return;
     const image = await this.doc.embedPng(line);
+    const width = image.width / RENDER_SCALE;
     page.drawImage(image, {
-      x,
+      x: align === "right" ? x - width : x,
       y: y - size * 0.3,
-      width: image.width / RENDER_SCALE,
+      width,
       height: size * LINE,
     });
   }

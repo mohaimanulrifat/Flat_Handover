@@ -5,11 +5,11 @@ import type { AreaUnit, LengthUnit, RoadKind } from "../landowner/calc.ts";
 import {
   parseForm,
   useLandownerForm,
-  useLang,
   type FieldError,
   type LandownerForm,
 } from "../landowner/form.ts";
 import {
+  blockArea,
   blockLabel,
   fmt,
   groupLabel,
@@ -17,9 +17,10 @@ import {
   type Lang,
   type StringKey,
 } from "../landowner/i18n.ts";
+import { t as appText } from "../lib/i18n.ts";
+import { useLang } from "../lib/lang.ts";
 import { navigate } from "../lib/route.ts";
 import { rules } from "../rules/index.ts";
-import { LangToggle } from "./HomeScreen.tsx";
 
 const AREA_UNITS: AreaUnit[] = ["katha", "sqft", "m2"];
 const LENGTH_UNITS: LengthUnit[] = ["ft", "m"];
@@ -66,13 +67,10 @@ export function LandownerFormScreen() {
     <>
       <TopBar
         title={t(lang, "landTitle")}
-        back={{ href: "#/", label: lang === "bn" ? "হোম" : "Home" }}
-        side={<LangToggle />}
+        back={{ href: "#/", label: appText(lang, "home") }}
       />
       <main className="page" lang={lang}>
-        <p className="eyebrow">
-          {lang === "bn" ? "যৌথ উদ্যোগ (জয়েন্ট ভেঞ্চার)" : "Joint venture"}
-        </p>
+        <p className="eyebrow">{t(lang, "jointVenture")}</p>
         <h1>{t(lang, "landTitle")}</h1>
         <p className="lead">{t(lang, "landIntro")}</p>
 
@@ -157,7 +155,7 @@ export function LandownerFormScreen() {
                 ))}
               </select>
               <span className="field__hint">
-                {block ? block.area_bn : t(lang, "blockHint")}
+                {block ? blockArea(lang, block.id) : t(lang, "blockHint")}
               </span>
               {err("blockId")}
             </label>
@@ -443,7 +441,7 @@ function NumberWithUnit({
         <select
           value={unit}
           onChange={(e) => onUnit(e.target.value)}
-          aria-label={`${label}: ${lang === "bn" ? "একক" : "unit"}`}
+          aria-label={`${label}: ${t(lang, "unit")}`}
         >
           {units.map((u) => (
             <option key={u} value={u}>

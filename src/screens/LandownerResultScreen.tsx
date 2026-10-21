@@ -6,7 +6,7 @@ import {
   metresToFeet,
   type PlotResult,
 } from "../landowner/calc.ts";
-import { parseForm, useLandownerForm, useLang } from "../landowner/form.ts";
+import { parseForm, useLandownerForm } from "../landowner/form.ts";
 import {
   assumptions,
   errorText,
@@ -18,8 +18,8 @@ import {
   type Lang,
 } from "../landowner/i18n.ts";
 import { calculateShare, type ShareResult } from "../landowner/share.ts";
+import { useLang } from "../lib/lang.ts";
 import { RULES_VERSION } from "../rules/index.ts";
-import { LangToggle } from "./HomeScreen.tsx";
 
 export interface LandownerOutcome {
   plot: PlotResult;
@@ -55,7 +55,6 @@ export function LandownerResultScreen() {
       <TopBar
         title={t(lang, "resultTitle")}
         back={{ href: "#/land", label: t(lang, "editInputs") }}
-        side={<LangToggle />}
       />
       <main className="page" lang={lang}>
         {outcome.kind === "ok" ? (
@@ -197,7 +196,7 @@ function Result({ lang, outcome }: { lang: Lang; outcome: LandownerOutcome }) {
           </div>
         </div>
         <p className="small muted" style={{ margin: "0.6rem 0 0" }}>
-          {lang === "bn" ? "মিটারে; " : "In metres; "}
+          {t(lang, "inMetres")};{" "}
           {t(lang, "setbackRowNote", { storeys: n(r.setbacks.storeys, 0) })}
         </p>
       </section>

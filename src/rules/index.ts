@@ -45,7 +45,9 @@ export interface RoadGroup {
 export interface DensityBlock {
   id: string;
   name_bn: string;
+  name_en: string;
   area_bn: string;
+  area_en: string;
   type: "spontaneous" | "planned" | null;
   grossPPA: number;
   avgUnitSizeSqft: number;
@@ -72,6 +74,7 @@ export interface SetbackRow {
   fromStoreys: number;
   toStoreys: number | null;
   label_bn: string;
+  label_en: string;
   betweenBuildingsM: number;
   sideM: number;
   rearM: number;
