@@ -1,6 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { calculatePlot } from "./calc.ts";
-import { fmt, parseNumber, stepText, t } from "./i18n.ts";
+import {
+  assumptions,
+  blockArea,
+  blockLabel,
+  fmt,
+  parseNumber,
+  stepText,
+  t,
+} from "./i18n.ts";
+
+const BANGLA = /[\u0980-\u09FF]/;
 
 describe("numbers", () => {
   it("reads Bangla and English digits", () => {
@@ -48,6 +58,22 @@ describe("text", () => {
         expect(text.length, `${step.id} ${lang}`).toBeGreaterThan(10);
         expect(text, `${step.id} ${lang}`).not.toMatch(/NaN|undefined|\{\w+\}/);
       }
+      expect(stepText("en", step), step.id).not.toMatch(BANGLA);
     }
+    const used = assumptions("en", {
+      interpolated: true,
+      incentivesUsed: true,
+      groupId: "central",
+      saleablePct: 70,
+      unitSizeSqft: 1000,
+      unitSizeFromBlock: true,
+    });
+    for (const line of used) expect(line).not.toMatch(BANGLA);
+  });
+
+  it("names blocks in the chosen language", () => {
+    expect(blockLabel("en", "09")).toBe("Block 09: Mirpur");
+    expect(blockLabel("bn", "09")).toBe("ব্লক ০৯: মিরপুর");
+    expect(blockArea("en", "17")).toBe("DNCC-19 (part)");
   });
 });

@@ -1,8 +1,8 @@
 import { Icon } from "../components/Icon.tsx";
-import { ThemeToggle } from "../components/TopBar.tsx";
+import { LangToggle, ThemeToggle } from "../components/TopBar.tsx";
 import { APP_TITLE } from "../config.ts";
-import { useLang } from "../landowner/form.ts";
-import { t } from "../landowner/i18n.ts";
+import { t } from "../lib/i18n.ts";
+import { useLang } from "../lib/lang.ts";
 
 /** The first screen: choose the handover checklist or the landowner calculator. */
 export function HomeScreen() {
@@ -44,21 +44,5 @@ export function HomeScreen() {
         </a>
       </div>
     </main>
-  );
-}
-
-/** Switches the calculator text between Bangla and English. */
-export function LangToggle() {
-  const [lang, toggle] = useLang();
-  return (
-    <button
-      type="button"
-      className="icon-btn lang-btn"
-      onClick={toggle}
-      aria-label={t(lang, "switchLangLabel")}
-      lang={lang === "bn" ? "en" : "bn"}
-    >
-      {t(lang, "switchLang")}
-    </button>
   );
 }

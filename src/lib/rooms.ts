@@ -5,6 +5,7 @@ import {
   type LayoutCount,
   type RoomKind,
 } from "../data/checklist.ts";
+import { fmt, type LangText } from "./lang.ts";
 
 /** The flat layout the buyer enters on the start screen. */
 export type Layout = Record<LayoutCount, number>;
@@ -20,7 +21,7 @@ export const DEFAULT_LAYOUT: Layout = {
 export interface RoomGroup {
   /** Group id from the checklist, for example "A-walls". Unique in a room. */
   id: string;
-  title: string;
+  title: LangText;
   items: ChecklistItem[];
 }
 
@@ -28,7 +29,7 @@ export interface Room {
   /** Stable id, for example "kitchen" or "bedroom-2". */
   id: string;
   kind: RoomKind;
-  name: string;
+  name: LangText;
   groups: RoomGroup[];
 }
 
@@ -72,7 +73,13 @@ export function generateRooms(layout: Layout): Room[] {
       rooms.push({
         id: repeated ? `${type.kind}-${n}` : type.kind,
         kind: type.kind,
-        name: repeated && count > 1 ? `${type.name} ${n}` : type.name,
+        name:
+          repeated && count > 1
+            ? {
+                en: `${type.name.en} ${n}`,
+                bn: `${type.name.bn} ${fmt("bn", n)}`,
+              }
+            : type.name,
         groups,
       });
     }

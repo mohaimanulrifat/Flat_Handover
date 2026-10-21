@@ -44,6 +44,7 @@
         "fromStoreys": 1,
         "toStoreys": 7,
         "label_bn": "৭ তলা পর্যন্ত",
+        "label_en": "up to 7 storeys",
         "betweenBuildingsM": 2.0,
         "sideM": 1.0,
         "rearM": 1.25
@@ -53,6 +54,7 @@
         "fromStoreys": 8,
         "toStoreys": 10,
         "label_bn": "৮ তলা হইতে ১০ তলা পর্যন্ত",
+        "label_en": "8 to 10 storeys",
         "betweenBuildingsM": 2.5,
         "sideM": 1.25,
         "rearM": 2.0
@@ -62,6 +64,7 @@
         "fromStoreys": 11,
         "toStoreys": 15,
         "label_bn": "১১ তলা হইতে ১৫ তলা পর্যন্ত",
+        "label_en": "11 to 15 storeys",
         "betweenBuildingsM": 5.0,
         "sideM": 3.0,
         "rearM": 3.0
@@ -71,6 +74,7 @@
         "fromStoreys": 16,
         "toStoreys": 20,
         "label_bn": "১৬ তলা হইতে ২০ তলা পর্যন্ত",
+        "label_en": "16 to 20 storeys",
         "betweenBuildingsM": 6.0,
         "sideM": 3.25,
         "rearM": 3.25
@@ -80,6 +84,7 @@
         "fromStoreys": 21,
         "toStoreys": 30,
         "label_bn": "২১ তলা হইতে ৩০ তলা পর্যন্ত",
+        "label_en": "21 to 30 storeys",
         "betweenBuildingsM": 6.5,
         "sideM": 3.5,
         "rearM": 3.5
@@ -89,6 +94,7 @@
         "fromStoreys": 31,
         "toStoreys": 40,
         "label_bn": "৩১ তলা হইতে ৪০ তলা পর্যন্ত",
+        "label_en": "31 to 40 storeys",
         "betweenBuildingsM": 7.0,
         "sideM": 4.5,
         "rearM": 4.5
@@ -98,6 +104,7 @@
         "fromStoreys": 41,
         "toStoreys": null,
         "label_bn": "৪০ তলার ঊর্ধ্বে",
+        "label_en": "more than 40 storeys",
         "betweenBuildingsM": 10.0,
         "sideM": 5.0,
         "rearM": 5.0

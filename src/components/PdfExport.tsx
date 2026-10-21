@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { SEVERITY_NAMES } from "../config.ts";
+import { t } from "../lib/i18n.ts";
 import type { Inspection } from "../lib/inspection.ts";
+import { useLang } from "../lib/lang.ts";
 import { getPhoto } from "../lib/photos.ts";
 import { Icon } from "./Icon.tsx";
 import type { Report } from "../lib/report.ts";
@@ -17,12 +19,13 @@ type State =
   | { step: "error" };
 
 export function PdfExport({ inspection, report }: Props) {
+  const [lang] = useLang();
   const [state, setState] = useState<State>({ step: "idle" });
 
-  // A new report makes any earlier PDF out of date.
+  // A new report or language makes any earlier PDF out of date.
   useEffect(() => {
     setState({ step: "idle" });
-  }, [report, inspection.details]);
+  }, [report, inspection.details, lang]);
 
   useEffect(() => {
     if (state.step !== "ready") return;
@@ -30,11 +33,12 @@ export function PdfExport({ inspection, report }: Props) {
   }, [state]);
 
   async function create() {
-    setState({ step: "working", message: "Making your PDF…" });
+    setState({ step: "working", message: t(lang, "makingPdf") });
     try {
       // Loaded only when needed, so the app itself stays small.
       const { createReportPdf, reportFileName } = await import("../lib/pdf.ts");
       const bytes = await createReportPdf({
+        lang,
         inspection,
         report,
         loadPhoto: getPhoto,
@@ -58,7 +62,7 @@ export function PdfExport({ inspection, report }: Props) {
     try {
       await navigator.share({
         files: [file],
-        title: "Handover inspection report",
+        title: t(lang, "reportTitle"),
       });
     } catch {
       // The buyer closed the share sheet, or sharing failed. They can still
@@ -77,18 +81,16 @@ export function PdfExport({ inspection, report }: Props) {
         <span className="icon-tile">
           <Icon name="report" size={22} />
         </span>
-        <h2>PDF report</h2>
+        <h2>{t(lang, "pdfReport")}</h2>
       </div>
       <p className="small muted">
-        Lists problems room by room with {SEVERITY_NAMES.safety} items first,
-        then the items checked OK. Give it to the developer and ask them to sign
-        it with a repair date.
+        {t(lang, "pdfReportText", { name: SEVERITY_NAMES.safety[lang] })}
       </p>
 
       {state.step === "ready" ? (
         <>
           <p>
-            <strong>Your PDF is ready:</strong> {state.file.name}
+            <strong>{t(lang, "pdfReady")}</strong> {state.file.name}
           </p>
           <div className="btn-row">
             {canShare && (
@@ -98,7 +100,7 @@ export function PdfExport({ inspection, report }: Props) {
                 onClick={() => share(state.file)}
               >
                 <Icon name="share" size={18} />
-                Share PDF
+                {t(lang, "sharePdf")}
               </button>
             )}
             <a
@@ -107,7 +109,7 @@ export function PdfExport({ inspection, report }: Props) {
               download={state.file.name}
             >
               <Icon name="download" size={18} />
-              Save PDF
+              {t(lang, "savePdf")}
             </a>
           </div>
         </>
@@ -118,14 +120,13 @@ export function PdfExport({ inspection, report }: Props) {
           disabled={state.step === "working"}
           onClick={create}
         >
-          {state.step === "working" ? state.message : "Make PDF report"}
+          {state.step === "working" ? state.message : t(lang, "makePdf")}
         </button>
       )}
 
       {state.step === "error" && (
         <p className="small error-text" role="alert">
-          The PDF could not be made. Please try again. If it keeps failing, try
-          removing very large photos.
+          {t(lang, "pdfFailed")}
         </p>
       )}
     </section>

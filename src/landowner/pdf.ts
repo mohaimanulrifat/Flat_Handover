@@ -198,7 +198,7 @@ export async function createLandownerPdf(
     color: GREY,
   });
 
-  await w.footers(t(lang, "landTitle"));
+  await w.footers(t(lang, "landTitle"), lang);
   return doc.save();
 }
 

@@ -1,54 +1,27 @@
 /**
- * Bangla and English text for the Landowner Calculator. Bangla is the
- * default. Every string has both languages; t() fills in {placeholders}.
+ * English and Bangla text for the Landowner Calculator. English is the
+ * default (see src/lib/lang.ts). Every string has both languages; t() fills
+ * in {placeholders}.
  */
+import { fmt, toAsciiDigits, toBnDigits, type Lang } from "../lib/lang.ts";
 import { rules, type Source } from "../rules/index.ts";
 import type { ErrorId, Step } from "./calc.ts";
 import type { ShareError } from "./share.ts";
 
-export type Lang = "bn" | "en";
-
-const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
-
-/** Formats a number with Bangla digits in Bangla, grouped the local way. */
-export function fmt(lang: Lang, n: number, maxDecimals = 2): string {
-  return new Intl.NumberFormat(lang === "bn" ? "bn-BD" : "en-IN", {
-    maximumFractionDigits: maxDecimals,
-  }).format(n);
-}
+export { fmt, type Lang };
 
 /** Reads a number typed with Bangla or English digits. NaN if not a number. */
 export function parseNumber(text: string): number {
-  const ascii = text
-    .trim()
-    .replace(/[০-৯]/g, (d) => String(BN_DIGITS.indexOf(d)))
-    .replace(/[,\s]/g, "");
+  const ascii = toAsciiDigits(text.trim()).replace(/[,\s]/g, "");
   return ascii === "" || !/^\d*\.?\d+$|^\d+\.$/.test(ascii)
     ? NaN
     : Number(ascii);
 }
 
-const strings = {
-  // Home
-  homeTitle: { bn: "আপনি কী করতে চান?", en: "What would you like to do?" },
-  homeChecklist: {
-    bn: "ফ্ল্যাট বুঝে নেওয়ার চেকলিস্ট",
-    en: "Flat handover checklist",
-  },
-  homeChecklistText: {
-    bn: "হস্তান্তরের দিন ঘর ঘর দেখে নিন এবং ত্রুটির PDF রিপোর্ট তৈরি করুন। চেকলিস্টটি ইংরেজিতে।",
-    en: "Check your new flat room by room on handover day and make a PDF defect report.",
-  },
-  homeLand: { bn: "জমির মালিকের হিসাব", en: "Landowner calculator" },
-  homeLandText: {
-    bn: "আপনার প্লটে কত বড় ভবন হতে পারে, আর ডেভেলপারের সাথে যৌথ চুক্তিতে আপনি কয়টি ফ্ল্যাট পেতে পারেন, তার আনুমানিক হিসাব।",
-    en: "Estimate how big a building your plot allows, and how many flats you might get in a joint-venture deal with a developer.",
-  },
-  switchLang: { bn: "English", en: "বাংলা" },
-  switchLangLabel: { bn: "Switch to English", en: "বাংলায় দেখুন" },
-
+export const strings = {
   // Form
   landTitle: { bn: "জমির মালিকের হিসাব", en: "Landowner calculator" },
+  jointVenture: { bn: "যৌথ উদ্যোগ (জয়েন্ট ভেঞ্চার)", en: "Joint venture" },
   landIntro: {
     bn: "ডেভেলপারের সাথে যৌথ চুক্তির আগে নিজের জমির সম্ভাবনা বুঝে নিন। তথ্যগুলো দিন, ফলাফল আনুমানিক।",
     en: "Understand what your land allows before a joint-venture deal. Fill in the details; the result is an estimate.",
@@ -88,6 +61,7 @@ const strings = {
     en: "The block your plot is in on the DAP map.",
   },
   chooseBlock: { bn: "ব্লক বেছে নিন", en: "Choose a block" },
+  unit: { bn: "একক", en: "unit" },
   moreSection: { bn: "আরও তথ্য (ঐচ্ছিক)", en: "More details (optional)" },
   plotWidth: {
     bn: "প্লটের প্রস্থ (রাস্তার দিকে)",
@@ -203,6 +177,7 @@ const strings = {
   side: { bn: "দুই পাশে", en: "Each side" },
   rear: { bn: "পেছনে", en: "Rear" },
   metresFeet: { bn: "{m} মিটার ({ft} ফুট)", en: "{m} m ({ft} ft)" },
+  inMetres: { bn: "মিটারে", en: "In metres" },
   setbackRowNote: {
     bn: "{storeys} তলা ভবনের জন্য",
     en: "for a {storeys}-storey building",
@@ -358,12 +333,23 @@ export function incentiveTitle(lang: Lang, id: string): string {
 export function blockLabel(lang: Lang, id: string): string {
   const b = rules.densityBlocks.find((x) => x.id === id);
   if (!b) return id;
-  const no = lang === "bn" ? toBnDigits(b.id) : b.id;
-  return `${lang === "bn" ? "ব্লক" : "Block"} ${no}: ${b.name_bn}`;
+  return lang === "bn"
+    ? `ব্লক ${toBnDigits(b.id)}: ${b.name_bn}`
+    : `Block ${b.id}: ${b.name_en}`;
 }
 
-export function toBnDigits(text: string): string {
-  return text.replace(/[0-9]/g, (d) => BN_DIGITS[Number(d)]);
+/** The places a density block covers, as the DAP lists them. */
+export function blockArea(lang: Lang, id: string): string {
+  const b = rules.densityBlocks.find((x) => x.id === id);
+  if (!b) return "";
+  return lang === "bn" ? b.area_bn : b.area_en;
+}
+
+/** The setback table row's name, for example "8 to 10 storeys". */
+export function setbackRowLabel(lang: Lang, row: number): string {
+  const r = rules.setbacks.byStoreys.find((x) => x.row === row);
+  if (!r) return "";
+  return lang === "bn" ? r.label_bn : r.label_en;
 }
 
 const DOC_NAMES: Record<string, Record<Lang, string>> = {
@@ -509,10 +495,12 @@ export function stepText(lang: Lang, step: Step): string {
       return bn
         ? `${n("totalSqft")} ÷ ${n("plateSqft")} = ${n("ratio", 2)}, তাই নিচতলার উপরে ${n("aboveGround", 0)} তলা, প্রতি তলা ${n("perFloorSqft")} বর্গফুট (নিচতলা পার্কিং; মোট ${n("storeys", 0)} তলা)।`
         : `${n("totalSqft")} ÷ ${n("plateSqft")} = ${n("ratio", 2)}, so ${n("aboveGround", 0)} floors above the ground floor, ${n("perFloorSqft")} sq ft each (ground floor parking; ${n("storeys", 0)} storeys in all).`;
-    case "setbacks":
+    case "setbacks": {
+      const row = setbackRowLabel(lang, Number(v.row));
       return bn
-        ? `${n("storeys", 0)} তলা ভবন (${String(v.rowLabel)}): পাশে ${n("sideM")} মিটার, পেছনে ${n("rearM")} মিটার; সামনে ${n("frontM")} মিটার।`
-        : `${n("storeys", 0)}-storey building (${String(v.rowLabel)}): sides ${n("sideM")} m, rear ${n("rearM")} m; front ${n("frontM")} m.`;
+        ? `${n("storeys", 0)} তলা ভবন (${row}): পাশে ${n("sideM")} মিটার, পেছনে ${n("rearM")} মিটার; সামনে ${n("frontM")} মিটার।`
+        : `${n("storeys", 0)}-storey building (${row}): sides ${n("sideM")} m, rear ${n("rearM")} m; front ${n("frontM")} m.`;
+    }
     case "units":
       return v.densityCap === "-"
         ? bn

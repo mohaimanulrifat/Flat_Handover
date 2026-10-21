@@ -2,14 +2,23 @@
 
 A mobile-first web app with two services for property owners in Dhaka:
 
-- **Flat handover checklist** (English): guides flat buyers through a
-  handover-day inspection and produces a PDF defect report to give the
-  developer.
-- **Landowner calculator** (Bangla first, with English): estimates what a
-  plot allows under the 2025 Dhaka building rules (FAR, floors, setbacks,
-  flats) and the owner's share in a joint-venture deal with a developer.
+- **Flat handover checklist**: guides flat buyers through a handover-day
+  inspection and produces a PDF defect report to give the developer.
+- **Landowner calculator**: estimates what a plot allows under the 2025
+  Dhaka building rules (FAR, floors, setbacks, flats) and the owner's share
+  in a joint-venture deal with a developer.
 
 Both open from the home screen.
+
+The app is in English by default. The **বাংলা** button at the top of every
+screen switches the whole app to Bangla, including the checklist, the
+calculator and both PDF reports, and the **English** button switches it
+back. The phone remembers the choice.
+
+On a phone every screen is one column. On a wider screen, such as a laptop
+or desktop browser or a tablet held sideways (960 px or more), the same
+screens spread across the width: two or three columns of cards, rooms and
+checklist items. The layout is in `src/styles.css`, at the end of the file.
 
 "Handover Check" is a working title. It is set in one place,
 `src/config.ts`.
@@ -157,7 +166,9 @@ The tests cover:
   order, which sections each room gets, balcony A1 to A6, rooms that the
   flat does not have, stable room ids, invalid layout numbers).
 - `src/data/checklist.test.ts`: the checklist data matches draft 1 (item
-  codes, counts per section, the six [Confirm] items, the room mapping).
+  codes, counts per section, the six [Confirm] items, the room mapping),
+  every text has a Bangla version, and the English and Bangla tips name
+  the same severity levels.
 - `src/lib/inspection.test.ts`: answers, All OK, layout changes and saving.
 - `src/lib/report.test.ts`: report order (Safety first, then by room and
   severity) and counts.
@@ -174,7 +185,9 @@ The tests cover:
   as "expected fail"; see VERIFY.md.
 - `src/landowner/form.test.ts`, `src/landowner/i18n.test.ts`,
   `src/lib/route.test.ts`: the calculator form, Bangla number input and
-  text, and screen addresses.
+  text (with no Bangla left in the English text), and screen addresses.
+- `src/lib/lang.test.ts`, `src/lib/i18n.test.ts`: English as the default
+  language, Bangla digits, and the same placeholders in both languages.
 
 ## Changing the content
 
@@ -184,17 +197,27 @@ The tests cover:
 | What to bring, ground rules        | `src/data/checklist.ts`                |
 | Severity meanings and examples     | `src/data/checklist.ts`                |
 | Which sections each room uses      | `src/data/checklist.ts` (`roomTypes`)  |
+| Checklist screen and PDF text      | `src/lib/i18n.ts`                      |
+| Calculator text                    | `src/landowner/i18n.ts`                |
+| Default language                   | `src/lib/lang.ts` (`DEFAULT_LANG`)     |
 | App name                           | `src/config.ts` (`APP_TITLE`)          |
 | Severity names and colours         | `src/config.ts`                        |
 | PDF report footer                  | `src/config.ts` (`REPORT_FOOTER_TEXT`) |
 | Colours (Night and Daylight)       | `src/styles.css` (tokens at the top)   |
 | Fonts                              | `src/fonts.css`                        |
 
+Every text has an English and a Bangla version, written next to each
+other as `en` and `bn`. When you change one, change the other too.
+`npm test` fails if a checklist text has no Bangla, or if a placeholder
+such as `{n}` is in one language but not the other.
+
 The checklist text comes from `Flat_Handover_Checklist_Draft1.docx`, which
 is kept privately and is not in this repository (`.gitignore` skips `.docx`
 files). The
 "Your note" column and "Decisions for you" section of that document are
-review material and are not in the app.
+review material and are not in the app. The Bangla checklist text is a
+translation of the English in draft 1; please have a Bangla speaker review
+it along with the draft.
 
 Items marked **[Confirm]** in the draft (A21, B13, D2, E3, E10 and G8) have
 `confirm: true` in the data file, and D2 also keeps the marker's text in
@@ -204,7 +227,9 @@ remind you to update the list of flagged items in
 `src/data/checklist.test.ts`.
 
 If you rename a severity level, also check the how-to-check texts that
-mention a level by name (for example A1 "Mark Major", A2 "mark Safety").
+mention a level by name, in both languages (for example A1 "Mark Major"
+and "‘গুরুতর’ দিন"). `npm test` checks that the English and Bangla texts
+name the same levels.
 
 After changing content, run `npm test` and `npm run build`, then deploy.
 Phones that already have the app see an "Update now" button the next time
@@ -234,7 +259,9 @@ the gazettes leave unclear have `"needs_verification": true`, and each one
 is explained in VERIFY.md.
 
 **To correct a value:** edit the JSON file, keep its `source` accurate,
-and run `npm test`.
+and run `npm test`. Block names and areas, and the setback table's row
+names, are written in Bangla and English (`name_bn` and `name_en`,
+`area_bn` and `area_en`, `label_bn` and `label_en`); keep both.
 
 **When a new gazette changes the rules:**
 
@@ -261,6 +288,10 @@ are in `src/landowner/settings.ts`.
 - Vite, React and TypeScript. Other runtime dependencies:
   [pdf-lib](https://pdf-lib.js.org/), loaded only when a PDF is made, and
   the two font packages.
+- `src/lib/lang.ts` keeps the language choice (English unless the user
+  picks Bangla) and writes numbers with Bangla digits in Bangla;
+  `src/lib/i18n.ts` holds the English and Bangla text of the home screen
+  and the checklist.
 - `src/lib/rooms.ts` turns the layout into rooms using the mapping in the
   data file.
 - `src/lib/inspection.ts` holds the answers and saves them;
@@ -269,7 +300,7 @@ are in `src/landowner/settings.ts`.
   Text the PDF's built-in font cannot show, such as notes typed in Bangla,
   is drawn by the phone's browser and added as an image.
 - `src/landowner/calc.ts` and `share.ts` are the calculator's pure
-  functions; `i18n.ts` holds its Bangla and English text;
+  functions; `i18n.ts` holds its English and Bangla text;
   `src/screens/Landowner*.tsx` are its screens.
 - `src/lib/pdfWriter.ts` draws PDF pages for both reports.
 - Fonts (Fraunces and Manrope) are bundled from `@fontsource-variable`,

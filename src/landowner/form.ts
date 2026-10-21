@@ -3,10 +3,10 @@
  * and turned into calculator inputs. Fields are kept as typed text so the
  * owner can enter Bangla digits and half-finished numbers.
  */
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { rules, type RoadGroupId } from "../rules/index.ts";
 import type { AreaUnit, LengthUnit, PlotInput, RoadKind } from "./calc.ts";
-import { parseNumber, type Lang } from "./i18n.ts";
+import { parseNumber } from "./i18n.ts";
 import { DEFAULT_OWNER_SHARE_PCT, DEFAULT_SALEABLE_PCT } from "./settings.ts";
 import type { ShareInput } from "./share.ts";
 
@@ -212,40 +212,4 @@ export function useLandownerForm(): [
     }
   }, [form]);
   return [form, (patch) => setForm((f) => ({ ...f, ...patch }))];
-}
-
-// Language --------------------------------------------------------------
-
-const LANG_KEY = "handover-check:lang";
-const langListeners = new Set<() => void>();
-
-function currentLang(): Lang {
-  try {
-    return localStorage.getItem(LANG_KEY) === "en" ? "en" : "bn";
-  } catch {
-    return "bn";
-  }
-}
-
-let langCache: Lang | null = null;
-
-/** Bangla by default; the choice is kept on the phone. */
-export function useLang(): [Lang, () => void] {
-  const lang = useSyncExternalStore(
-    (listener) => {
-      langListeners.add(listener);
-      return () => langListeners.delete(listener);
-    },
-    () => (langCache ??= currentLang()),
-  );
-  const toggle = () => {
-    langCache = lang === "bn" ? "en" : "bn";
-    try {
-      localStorage.setItem(LANG_KEY, langCache);
-    } catch {
-      // Not saved; the choice still applies until the page is closed.
-    }
-    langListeners.forEach((l) => l());
-  };
-  return [lang, toggle];
 }

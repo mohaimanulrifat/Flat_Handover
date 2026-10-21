@@ -1,15 +1,17 @@
 import { useMemo, useState, type Dispatch, type FormEvent } from "react";
 import { Icon, type IconName } from "../components/Icon.tsx";
-import { ThemeToggle } from "../components/TopBar.tsx";
+import { LangToggle, ThemeToggle } from "../components/TopBar.tsx";
 import { Stepper } from "../components/Stepper.tsx";
 import { APP_TITLE } from "../config.ts";
 import { groundRules, whatToBring } from "../data/checklist.ts";
+import { t, type TextKey } from "../lib/i18n.ts";
 import {
   answersLostByLayout,
   type Action,
   type FlatDetails,
   type Inspection,
 } from "../lib/inspection.ts";
+import { fmt, useLang } from "../lib/lang.ts";
 import { requestPersistentStorage } from "../lib/photos.ts";
 import { buildReport } from "../lib/report.ts";
 import { navigate } from "../lib/route.ts";
@@ -26,21 +28,25 @@ interface Props {
   dispatch: Dispatch<Action>;
 }
 
-const LAYOUT_FIELDS: { key: keyof Layout; label: string; icon: IconName }[] = [
-  { key: "bedrooms", label: "Bedrooms", icon: "bed" },
-  { key: "bathrooms", label: "Bathrooms", icon: "bath" },
-  { key: "balconies", label: "Balconies", icon: "balcony" },
+const LAYOUT_FIELDS: { key: keyof Layout; label: TextKey; icon: IconName }[] = [
+  { key: "bedrooms", label: "bedrooms", icon: "bed" },
+  { key: "bathrooms", label: "bathrooms", icon: "bath" },
+  { key: "balconies", label: "balconies", icon: "balcony" },
 ];
 
-const DETAIL_FIELDS: { key: keyof FlatDetails; label: string; type: string }[] =
-  [
-    { key: "project", label: "Project or building name", type: "text" },
-    { key: "flat", label: "Flat number", type: "text" },
-    { key: "buyer", label: "Your name", type: "text" },
-    { key: "date", label: "Date of visit", type: "date" },
-  ];
+const DETAIL_FIELDS: {
+  key: keyof FlatDetails;
+  label: TextKey;
+  type: string;
+}[] = [
+  { key: "project", label: "projectName", type: "text" },
+  { key: "flat", label: "flatNumber", type: "text" },
+  { key: "buyer", label: "yourName", type: "text" },
+  { key: "date", label: "visitDate", type: "date" },
+];
 
 export function StartScreen({ inspection, dispatch }: Props) {
+  const [lang] = useLang();
   const inProgress = inspection.layout !== null;
   const [layout, setLayout] = useState<Layout>(
     inspection.layout ?? DEFAULT_LAYOUT,
@@ -62,12 +68,7 @@ export function StartScreen({ inspection, dispatch }: Props) {
     event.preventDefault();
     if (inProgress) {
       const lost = answersLostByLayout(inspection, layout);
-      if (
-        lost > 0 &&
-        !confirm(
-          `Your new layout has fewer rooms. Your answers for ${lost} items in the removed rooms will be deleted. Continue?`,
-        )
-      ) {
+      if (lost > 0 && !confirm(t(lang, "confirmFewerRooms", { n: lost }))) {
         return;
       }
     }
@@ -77,49 +78,39 @@ export function StartScreen({ inspection, dispatch }: Props) {
   }
 
   function startOver() {
-    if (
-      confirm(
-        "Start a new inspection? All answers, notes and photos on this phone will be deleted.",
-      )
-    ) {
+    if (confirm(t(lang, "confirmStartOver"))) {
       dispatch({ type: "reset" });
       setLayout(DEFAULT_LAYOUT);
     }
   }
 
   return (
-    <main className="page">
+    <main className="page" lang={lang}>
       <div className="brand">
-        <a className="icon-btn" href="#/" aria-label="Back to home">
+        <a className="icon-btn" href="#/" aria-label={t(lang, "backHome")}>
           <Icon name="back" />
         </a>
         <span className="brand__mark">
           <Icon name="home" size={26} />
         </span>
         <span className="brand__name">{APP_TITLE}</span>
+        <LangToggle />
         <ThemeToggle />
       </div>
 
       <section className="hero">
-        <p className="eyebrow">Flat handover inspection</p>
+        <p className="eyebrow">{t(lang, "heroEyebrow")}</p>
         <h1>
-          Check your new flat <em>before you sign.</em>
+          {t(lang, "heroTitle")} <em>{t(lang, "heroTitleEm")}</em>
         </h1>
-        <p className="lead">
-          A room-by-room checklist for the day you receive your flat. Mark each
-          item OK or Problem, take photos, and make a PDF report to give the
-          developer.
-        </p>
+        <p className="lead">{t(lang, "heroLead")}</p>
         <ol className="steps">
-          <li>
-            <b>1</b>Enter your flat layout
-          </li>
-          <li>
-            <b>2</b>Check room by room
-          </li>
-          <li>
-            <b>3</b>Share the PDF report
-          </li>
+          {(["heroStep1", "heroStep2", "heroStep3"] as const).map((key, i) => (
+            <li key={key}>
+              <b>{fmt(lang, i + 1)}</b>
+              {t(lang, key)}
+            </li>
+          ))}
         </ol>
       </section>
 
@@ -129,110 +120,119 @@ export function StartScreen({ inspection, dispatch }: Props) {
             <Icon name="papers" size={22} />
           </span>
           <div className="resume__text">
-            <strong>Inspection in progress</strong>
+            <strong>{t(lang, "inProgress")}</strong>
             <div className="small muted">
-              {counts.total - counts.unanswered} of {counts.total} items checked
-              · saved on this phone
+              {t(lang, "itemsChecked", {
+                done: counts.total - counts.unanswered,
+                total: counts.total,
+              })}{" "}
+              · {t(lang, "savedOnPhone")}
             </div>
           </div>
           <a className="btn btn--primary btn--small" href="#/rooms">
-            Continue
+            {t(lang, "continue")}
           </a>
         </div>
       )}
 
-      <div className="section-title">
-        <h2>Before you go</h2>
-      </div>
+      <div className="split">
+        <div>
+          <div className="section-title">
+            <h2>{t(lang, "beforeYouGo")}</h2>
+          </div>
 
-      <section className="card">
-        <div className="card__head">
-          <span className="icon-tile">
-            <Icon name="bag" size={22} />
-          </span>
-          <h3>What to bring</h3>
+          <section className="card">
+            <div className="card__head">
+              <span className="icon-tile">
+                <Icon name="bag" size={22} />
+              </span>
+              <h3>{t(lang, "whatToBring")}</h3>
+            </div>
+            <ol className="numbered">
+              {whatToBring.map((thing) => (
+                <li key={thing.en}>{thing[lang]}</li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="card">
+            <div className="card__head">
+              <span className="icon-tile">
+                <Icon name="shield" size={22} />
+              </span>
+              <h3>{t(lang, "groundRules")}</h3>
+            </div>
+            <ol className="numbered">
+              {groundRules.map((rule) => (
+                <li key={rule.en}>{rule[lang]}</li>
+              ))}
+            </ol>
+          </section>
         </div>
-        <ol className="numbered">
-          {whatToBring.map((thing) => (
-            <li key={thing}>{thing}</li>
-          ))}
-        </ol>
-      </section>
 
-      <section className="card">
-        <div className="card__head">
-          <span className="icon-tile">
-            <Icon name="shield" size={22} />
-          </span>
-          <h3>Ground rules</h3>
+        <div>
+          <div className="section-title">
+            <h2>{t(lang, "yourFlat")}</h2>
+          </div>
+
+          <form className="card" onSubmit={submit}>
+            <p className="muted small">{t(lang, "layoutIntro")}</p>
+            {LAYOUT_FIELDS.map((f) => (
+              <Stepper
+                key={f.key}
+                label={t(lang, f.label)}
+                icon={f.icon}
+                value={layout[f.key]}
+                min={LAYOUT_MIN}
+                max={LAYOUT_MAX}
+                onChange={(value) => setLayout({ ...layout, [f.key]: value })}
+              />
+            ))}
+
+            <h3 style={{ margin: "1.5rem 0 0.9rem" }}>
+              {t(lang, "forTheReport")}{" "}
+              <span className="muted small">{t(lang, "optional")}</span>
+            </h3>
+            {DETAIL_FIELDS.map((f) => (
+              <label className="field" key={f.key}>
+                <span className="field__label">{t(lang, f.label)}</span>
+                <input
+                  type={f.type}
+                  value={inspection.details[f.key]}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "setDetails",
+                      details: { [f.key]: e.target.value },
+                    })
+                  }
+                />
+              </label>
+            ))}
+
+            <button type="submit" className="btn btn--primary btn--block">
+              {t(
+                lang,
+                !inProgress
+                  ? "startChecking"
+                  : layoutChanged
+                    ? "updateRooms"
+                    : "continueChecking",
+              )}
+              <Icon name="next" size={18} />
+            </button>
+          </form>
+
+          {inProgress && (
+            <button
+              type="button"
+              className="btn btn--danger btn--block"
+              onClick={startOver}
+            >
+              {t(lang, "startOver")}
+            </button>
+          )}
         </div>
-        <ol className="numbered">
-          {groundRules.map((rule) => (
-            <li key={rule}>{rule}</li>
-          ))}
-        </ol>
-      </section>
-
-      <div className="section-title">
-        <h2>Your flat</h2>
       </div>
-
-      <form className="card" onSubmit={submit}>
-        <p className="muted small">
-          Enter the number of rooms and the app makes your checklist. The living
-          room, dining room, kitchen, whole flat, building and papers are always
-          included.
-        </p>
-        {LAYOUT_FIELDS.map((f) => (
-          <Stepper
-            key={f.key}
-            label={f.label}
-            icon={f.icon}
-            value={layout[f.key]}
-            min={LAYOUT_MIN}
-            max={LAYOUT_MAX}
-            onChange={(value) => setLayout({ ...layout, [f.key]: value })}
-          />
-        ))}
-
-        <h3 style={{ margin: "1.5rem 0 0.9rem" }}>
-          For the report <span className="muted small">(optional)</span>
-        </h3>
-        {DETAIL_FIELDS.map((f) => (
-          <label className="field" key={f.key}>
-            <span className="field__label">{f.label}</span>
-            <input
-              type={f.type}
-              value={inspection.details[f.key]}
-              onChange={(e) =>
-                dispatch({
-                  type: "setDetails",
-                  details: { [f.key]: e.target.value },
-                })
-              }
-            />
-          </label>
-        ))}
-
-        <button type="submit" className="btn btn--primary btn--block">
-          {!inProgress
-            ? "Start checking"
-            : layoutChanged
-              ? "Update my rooms"
-              : "Continue checking"}
-          <Icon name="next" size={18} />
-        </button>
-      </form>
-
-      {inProgress && (
-        <button
-          type="button"
-          className="btn btn--danger btn--block"
-          onClick={startOver}
-        >
-          Start a new inspection
-        </button>
-      )}
     </main>
   );
 }

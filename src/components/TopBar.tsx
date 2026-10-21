@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { t } from "../lib/i18n.ts";
+import { useLang } from "../lib/lang.ts";
 import { useTheme } from "../lib/theme.ts";
 import { Icon } from "./Icon.tsx";
 
@@ -11,6 +13,7 @@ interface Props {
 }
 
 export function TopBar({ title, back, side, progress }: Props) {
+  const [lang] = useLang();
   return (
     <header className="topbar">
       <div className="topbar__row">
@@ -18,7 +21,7 @@ export function TopBar({ title, back, side, progress }: Props) {
           <a
             className="icon-btn"
             href={back.href}
-            aria-label={`Back to ${back.label}`}
+            aria-label={t(lang, "backTo", { label: back.label })}
           >
             <Icon name="back" />
             <span className="small">{back.label}</span>
@@ -26,6 +29,7 @@ export function TopBar({ title, back, side, progress }: Props) {
         )}
         <div className="topbar__title">{title}</div>
         {side && <div className="topbar__side">{side}</div>}
+        <LangToggle />
         <ThemeToggle />
       </div>
       {progress !== undefined && (
@@ -37,8 +41,25 @@ export function TopBar({ title, back, side, progress }: Props) {
   );
 }
 
+/** Switches the whole app between English and Bangla. */
+export function LangToggle() {
+  const [lang, toggle] = useLang();
+  return (
+    <button
+      type="button"
+      className="icon-btn lang-btn"
+      onClick={toggle}
+      aria-label={t(lang, "switchLangLabel")}
+      lang={lang === "en" ? "bn" : "en"}
+    >
+      {t(lang, "switchLang")}
+    </button>
+  );
+}
+
 /** Switches between Nocturne (dark) and Daylight. */
 export function ThemeToggle() {
+  const [lang] = useLang();
   const [theme, toggle] = useTheme();
   const toLight = theme === "dark";
   return (
@@ -46,8 +67,8 @@ export function ThemeToggle() {
       type="button"
       className="icon-btn"
       onClick={toggle}
-      aria-label={toLight ? "Switch to Daylight mode" : "Switch to Night mode"}
-      title={toLight ? "Daylight mode" : "Night mode"}
+      aria-label={t(lang, toLight ? "toDaylight" : "toNight")}
+      title={t(lang, toLight ? "daylightMode" : "nightMode")}
     >
       <Icon name={toLight ? "sun" : "moon"} />
     </button>

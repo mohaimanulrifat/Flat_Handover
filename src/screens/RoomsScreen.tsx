@@ -2,7 +2,9 @@ import { Icon, ROOM_ICONS } from "../components/Icon.tsx";
 import { TopBar } from "../components/TopBar.tsx";
 import { APP_TITLE, SEVERITY_NAMES } from "../config.ts";
 import type { RoomKind } from "../data/checklist.ts";
+import { t } from "../lib/i18n.ts";
 import type { Inspection } from "../lib/inspection.ts";
+import { fmt, useLang } from "../lib/lang.ts";
 import { buildReport, roomProgress } from "../lib/report.ts";
 import { routeHref } from "../lib/route.ts";
 import type { Room } from "../lib/rooms.ts";
@@ -15,6 +17,7 @@ interface Props {
 const ONCE_KINDS: RoomKind[] = ["wholeFlat", "building"];
 
 export function RoomsScreen({ inspection, rooms }: Props) {
+  const [lang] = useLang();
   const progress = rooms.map((room) => ({
     room,
     ...roomProgress(room, inspection.answers),
@@ -25,24 +28,24 @@ export function RoomsScreen({ inspection, rooms }: Props) {
 
   const groups = [
     {
-      title: "Rooms",
+      title: t(lang, "rooms"),
       items: progress.filter(
         (p) =>
           !ONCE_KINDS.includes(p.room.kind) && p.room.kind !== "endOfVisit",
       ),
     },
     {
-      title: "Once for the flat",
+      title: t(lang, "onceForFlat"),
       items: progress.filter((p) => ONCE_KINDS.includes(p.room.kind)),
     },
     {
-      title: "Before you sign",
+      title: t(lang, "beforeYouSign"),
       items: progress.filter((p) => p.room.kind === "endOfVisit"),
     },
   ];
 
   const { project, flat } = inspection.details;
-  const flatLabel = [project, flat && `Flat ${flat}`]
+  const flatLabel = [project, flat && t(lang, "flatNo", { flat })]
     .filter(Boolean)
     .join(" · ");
 
@@ -50,31 +53,35 @@ export function RoomsScreen({ inspection, rooms }: Props) {
     <>
       <TopBar
         title={APP_TITLE}
-        back={{ href: "#/checklist", label: "Start" }}
+        back={{ href: "#/checklist", label: t(lang, "start") }}
       />
-      <main className="page">
+      <main className="page" lang={lang}>
         {flatLabel && <p className="eyebrow">{flatLabel}</p>}
-        <h1>Your checklist</h1>
+        <h1>{t(lang, "yourChecklist")}</h1>
 
         <div className="card summary">
           <ProgressRing value={share} />
           <div className="summary__text">
             <div className="summary__count">
-              {answered} of {counts.total} items checked
+              {t(lang, "itemsChecked", { done: answered, total: counts.total })}
             </div>
             <div className="chips">
               {counts.problems === 0 ? (
-                <span className="pill pill--ok">No problems yet</span>
+                <span className="pill pill--ok">
+                  {t(lang, "noProblemsYet")}
+                </span>
               ) : (
                 <>
                   {counts.safety > 0 && (
                     <span className="pill">
-                      {counts.safety} {SEVERITY_NAMES.safety}
+                      {t(lang, "severityCount", {
+                        n: counts.safety,
+                        name: SEVERITY_NAMES.safety[lang],
+                      })}
                     </span>
                   )}
                   <span className="pill pill--muted">
-                    {counts.problems}{" "}
-                    {counts.problems === 1 ? "problem" : "problems"}
+                    {t(lang, "problemCount", { n: counts.problems })}
                   </span>
                 </>
               )}
@@ -107,7 +114,7 @@ export function RoomsScreen({ inspection, rooms }: Props) {
                           </span>
                           <span className="room-link__main">
                             <span className="room-link__name">
-                              {p.room.name}
+                              {p.room.name[lang]}
                             </span>
                             <span className="room-link__meta">
                               <span className="mini-bar" aria-hidden="true">
@@ -117,18 +124,22 @@ export function RoomsScreen({ inspection, rooms }: Props) {
                                   }}
                                 />
                               </span>
-                              {done ? "Done" : `${p.answered}/${p.total}`}
+                              {done
+                                ? t(lang, "done")
+                                : `${fmt(lang, p.answered)}/${fmt(lang, p.total)}`}
                             </span>
                           </span>
                           {p.safety > 0 && (
-                            <span className="pill">{p.safety}</span>
+                            <span className="pill">{fmt(lang, p.safety)}</span>
                           )}
                           {others > 0 && (
                             <span
                               className="pill pill--muted"
-                              aria-label={`${others} other problems`}
+                              aria-label={t(lang, "otherProblemCount", {
+                                n: others,
+                              })}
                             >
-                              {others}
+                              {fmt(lang, others)}
                             </span>
                           )}
                           <Icon
@@ -145,8 +156,8 @@ export function RoomsScreen({ inspection, rooms }: Props) {
             ),
         )}
 
-        <a className="btn btn--ghost btn--block" href="#/checklist">
-          Change rooms or flat details
+        <a className="btn btn--ghost btn--block btn--end" href="#/checklist">
+          {t(lang, "changeRooms")}
         </a>
       </main>
 
@@ -154,7 +165,7 @@ export function RoomsScreen({ inspection, rooms }: Props) {
         <div className="dock__inner">
           <a className="btn btn--primary" href="#/report">
             <Icon name="report" size={18} />
-            See the report
+            {t(lang, "seeReport")}
           </a>
         </div>
       </div>
@@ -163,13 +174,15 @@ export function RoomsScreen({ inspection, rooms }: Props) {
 }
 
 function ProgressRing({ value }: { value: number }) {
+  const [lang] = useLang();
+  const pct = fmt(lang, Math.round(value * 100));
   const r = 36;
   const c = 2 * Math.PI * r;
   return (
     <div
       className="ring"
       role="img"
-      aria-label={`${Math.round(value * 100)}% checked`}
+      aria-label={t(lang, "pctChecked", { pct })}
     >
       <svg width="84" height="84" viewBox="0 0 84 84">
         <circle
@@ -192,7 +205,7 @@ function ProgressRing({ value }: { value: number }) {
           strokeDashoffset={c * (1 - value)}
         />
       </svg>
-      <span className="ring__label">{Math.round(value * 100)}%</span>
+      <span className="ring__label">{pct}%</span>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SEVERITY_NAMES } from "../config.ts";
+import type { LangText } from "../lib/lang.ts";
 import {
   groundRules,
   roomTypes,
@@ -9,6 +10,33 @@ import {
 } from "./checklist.ts";
 
 const allItems = sections.flatMap((s) => s.groups.flatMap((g) => g.items));
+const BANGLA = /[\u0980-\u09FF]/;
+
+/** Every text in the checklist data, with where it is. */
+const allTexts: [string, LangText][] = [
+  ...severityLevels.flatMap((l): [string, LangText][] => [
+    [`${l.id} meaning`, l.meaning],
+    [`${l.id} examples`, l.examples],
+  ]),
+  ...Object.entries(SEVERITY_NAMES).map(([id, name]): [string, LangText] => [
+    `${id} name`,
+    name,
+  ]),
+  ...whatToBring.map((x, i): [string, LangText] => [`whatToBring ${i}`, x]),
+  ...groundRules.map((x, i): [string, LangText] => [`groundRules ${i}`, x]),
+  ...roomTypes.map((r): [string, LangText] => [`room ${r.kind}`, r.name]),
+  ...sections.flatMap((s): [string, LangText][] => [
+    [`section ${s.id} title`, s.title],
+    [`section ${s.id} intro`, s.intro],
+    ...s.groups.flatMap((g): [string, LangText][] =>
+      g.title ? [[`group ${g.id}`, g.title]] : [],
+    ),
+  ]),
+  ...allItems.flatMap((i): [string, LangText][] => [
+    [`${i.code} title`, i.title],
+    [`${i.code} howToCheck`, i.howToCheck],
+  ]),
+];
 
 describe("checklist data", () => {
   it("has sections A to G in order", () => {
@@ -45,15 +73,34 @@ describe("checklist data", () => {
 
   it("keeps review markers out of the text buyers see", () => {
     for (const item of allItems) {
-      expect(item.title).not.toMatch(/\[|\]/);
-      expect(item.howToCheck).not.toMatch(/\[|\]/);
+      for (const lang of ["en", "bn"] as const) {
+        expect(item.title[lang]).not.toMatch(/\[|\]/);
+        expect(item.howToCheck[lang]).not.toMatch(/\[|\]/);
+      }
     }
   });
 
   it("gives every item a title and how-to-check text", () => {
     for (const item of allItems) {
-      expect(item.title.trim()).not.toBe("");
-      expect(item.howToCheck.trim()).not.toBe("");
+      expect(item.title.en.trim()).not.toBe("");
+      expect(item.howToCheck.en.trim()).not.toBe("");
+    }
+  });
+
+  it("has every text in English and in Bangla", () => {
+    for (const [where, text] of allTexts) {
+      expect(text.en, where).not.toMatch(BANGLA);
+      expect(text.bn, where).toMatch(BANGLA);
+    }
+  });
+
+  it("names the same severity levels in the English and Bangla tips", () => {
+    for (const item of allItems) {
+      for (const name of Object.values(SEVERITY_NAMES)) {
+        expect(item.howToCheck.bn.includes(name.bn), item.code).toBe(
+          item.howToCheck.en.includes(name.en),
+        );
+      }
     }
   });
 

@@ -6,7 +6,7 @@ import {
   metresToFeet,
   type PlotResult,
 } from "../landowner/calc.ts";
-import { parseForm, useLandownerForm, useLang } from "../landowner/form.ts";
+import { parseForm, useLandownerForm } from "../landowner/form.ts";
 import {
   assumptions,
   errorText,
@@ -18,8 +18,8 @@ import {
   type Lang,
 } from "../landowner/i18n.ts";
 import { calculateShare, type ShareResult } from "../landowner/share.ts";
+import { useLang } from "../lib/lang.ts";
 import { RULES_VERSION } from "../rules/index.ts";
-import { LangToggle } from "./HomeScreen.tsx";
 
 export interface LandownerOutcome {
   plot: PlotResult;
@@ -55,7 +55,6 @@ export function LandownerResultScreen() {
       <TopBar
         title={t(lang, "resultTitle")}
         back={{ href: "#/land", label: t(lang, "editInputs") }}
-        side={<LangToggle />}
       />
       <main className="page" lang={lang}>
         {outcome.kind === "ok" ? (
@@ -118,200 +117,221 @@ function Result({ lang, outcome }: { lang: Lang; outcome: LandownerOutcome }) {
         </div>
       </div>
 
-      <section className="card">
-        <h2>{t(lang, "farCard")}</h2>
-        <dl className="kv">
-          <dt>{t(lang, "areaFar")}</dt>
-          <dd>{n(r.far.area, 3)}</dd>
-          <dt>{t(lang, "roadFar")}</dt>
-          <dd>{n(r.far.road, 3)}</dd>
-          <dt>{t(lang, "baseFar")}</dt>
-          <dd>{n(r.far.base, 3)}</dd>
-          <dt>{t(lang, "maxFar")}</dt>
-          <dd>{n(r.far.max, 3)}</dd>
-          {r.far.incentives.map((i) => (
-            <FragmentRow
-              key={i.id}
-              label={`+ ${incentiveTitle(lang, i.id)}`}
-              value={`+${n(i.far, 3)}`}
-            />
-          ))}
-          {r.far.subdividedReduction > 0 && (
-            <FragmentRow
-              label={t(lang, "subdividedLess")}
-              value={`−${n(r.far.subdividedReduction)}`}
-            />
-          )}
-          <dt className="kv__total">{t(lang, "farUsed")}</dt>
-          <dd className="kv__total">{n(r.far.achievable, 3)}</dd>
-        </dl>
-      </section>
-
-      <section className="card">
-        <h2>{t(lang, "sizeCard")}</h2>
-        <dl className="kv">
-          <dt>{t(lang, "totalFloor")}</dt>
-          <dd>{sqft(r.floorArea.totalSqft)}</dd>
-          {r.floorArea.roadWideningBonusSqft > 0 && (
-            <FragmentRow
-              label={t(lang, "roadBonus")}
-              value={sqft(r.floorArea.roadWideningBonusSqft)}
-            />
-          )}
-          <dt>
-            {t(lang, "coverage")} ({n(r.coverage.pct)}%)
-          </dt>
-          <dd>{sqft(r.coverage.maxFootprintSqft)}</dd>
-          <dt>{t(lang, "floorPlate")}</dt>
-          <dd>{sqft(r.coverage.floorPlateSqft)}</dd>
-          <dt>{t(lang, "floorsLine")}</dt>
-          <dd>G+{n(r.floors.aboveGround, 0)}</dd>
-          <dt>{t(lang, "perFloor")}</dt>
-          <dd>{sqft(r.floors.perFloorSqft)}</dd>
-        </dl>
-      </section>
-
-      <section className="card">
-        <h2>{t(lang, "setbackCard")}</h2>
-        <div className="setback-grid">
-          <div>
-            <span className="small muted">{t(lang, "front")}</span>
-            <strong>{n(r.setbacks.frontM)}</strong>
-            <span className="small muted">
-              {mft(r.setbacks.frontM).replace(/^[^(]*/, "")}
-            </span>
-          </div>
-          <div>
-            <span className="small muted">{t(lang, "side")}</span>
-            <strong>{n(r.setbacks.sideM)}</strong>
-            <span className="small muted">
-              {mft(r.setbacks.sideM).replace(/^[^(]*/, "")}
-            </span>
-          </div>
-          <div>
-            <span className="small muted">{t(lang, "rear")}</span>
-            <strong>{n(r.setbacks.rearM)}</strong>
-            <span className="small muted">
-              {mft(r.setbacks.rearM).replace(/^[^(]*/, "")}
-            </span>
-          </div>
-        </div>
-        <p className="small muted" style={{ margin: "0.6rem 0 0" }}>
-          {lang === "bn" ? "মিটারে; " : "In metres; "}
-          {t(lang, "setbackRowNote", { storeys: n(r.setbacks.storeys, 0) })}
-        </p>
-      </section>
-
-      <section className="card">
-        <h2>{t(lang, "unitsCard")}</h2>
-        <dl className="kv">
-          {r.units.densityCap !== null && (
-            <>
-              <dt>{t(lang, "densityCap")}</dt>
-              <dd>{n(r.units.densityCap, 0)}</dd>
-            </>
-          )}
-          <dt>
-            {t(lang, "sizeBasedUnits", { size: n(r.units.avgUnitSizeSqft, 0) })}
-          </dt>
-          <dd>{n(r.units.sizeBased, 0)}</dd>
-          <dt className="kv__total">{t(lang, "estimateUnits")}</dt>
-          <dd className="kv__total">{n(r.units.estimate, 0)}</dd>
-        </dl>
-        {r.units.extraWithApproval !== null &&
-          r.units.extraWithApproval > 0 && (
-            <p className="small muted" style={{ margin: "0.6rem 0 0" }}>
-              {t(lang, "extraUnits", {
-                pct: n(10, 0),
-                n: n(r.units.extraWithApproval, 0),
-              })}
-            </p>
-          )}
-      </section>
-
-      <section className="card">
-        <h2>{t(lang, "shareCard")}</h2>
-        <dl className="kv">
-          <dt>{t(lang, "saleableArea", { pct: n(s.input.saleablePct) })}</dt>
-          <dd>{sqft(s.saleableSqft)}</dd>
-          <dt>{t(lang, "ownerArea", { pct: n(s.input.ownerPct) })}</dt>
-          <dd>{sqft(s.ownerSqft)}</dd>
-          <dt>{t(lang, "developerArea")}</dt>
-          <dd>{sqft(s.developerSqft)}</dd>
-          <dt>{t(lang, "ownerFlats", { size: n(s.input.unitSizeSqft, 0) })}</dt>
-          <dd>{n(s.ownerFlats, 0)}</dd>
-          <dt>{t(lang, "leftover")}</dt>
-          <dd>{sqft(s.ownerLeftoverSqft)}</dd>
-          {s.cashTaka > 0 && (
-            <FragmentRow
-              label={t(lang, "cashLine")}
-              value={t(lang, "takaValue", { n: n(s.cashTaka, 0) })}
-            />
-          )}
-        </dl>
-        {s.overDensity && (
-          <div className="notice" style={{ margin: "0.9rem 0 0" }}>
-            <Icon name="alert" />
-            <p className="notice__body small">
-              {t(lang, "overDensity", {
-                total: n(s.totalFlats, 0),
-                cap: n(r.units.densityCap ?? 0, 0),
-              })}
-            </p>
-          </div>
-        )}
-        <p className="small" style={{ margin: "0.9rem 0 0", fontWeight: 700 }}>
-          {t(lang, "negotiationNote")}
-        </p>
-      </section>
-
-      <details className="card plain">
-        <summary>
-          <Icon name="next" size={18} />
-          {t(lang, "stepsTitle")}
-        </summary>
-        <ol className="step-list">
-          {r.steps.map((step, i) => (
-            <li key={i}>
-              {stepText(lang, step)}
-              {step.source && (
-                <span className="source">
-                  {t(lang, "sourceLabel")}: {sourceText(lang, step.source)}
-                </span>
+      <div className="split">
+        <div>
+          <section className="card">
+            <h2>{t(lang, "farCard")}</h2>
+            <dl className="kv">
+              <dt>{t(lang, "areaFar")}</dt>
+              <dd>{n(r.far.area, 3)}</dd>
+              <dt>{t(lang, "roadFar")}</dt>
+              <dd>{n(r.far.road, 3)}</dd>
+              <dt>{t(lang, "baseFar")}</dt>
+              <dd>{n(r.far.base, 3)}</dd>
+              <dt>{t(lang, "maxFar")}</dt>
+              <dd>{n(r.far.max, 3)}</dd>
+              {r.far.incentives.map((i) => (
+                <FragmentRow
+                  key={i.id}
+                  label={`+ ${incentiveTitle(lang, i.id)}`}
+                  value={`+${n(i.far, 3)}`}
+                />
+              ))}
+              {r.far.subdividedReduction > 0 && (
+                <FragmentRow
+                  label={t(lang, "subdividedLess")}
+                  value={`−${n(r.far.subdividedReduction)}`}
+                />
               )}
-            </li>
-          ))}
-        </ol>
-      </details>
+              <dt className="kv__total">{t(lang, "farUsed")}</dt>
+              <dd className="kv__total">{n(r.far.achievable, 3)}</dd>
+            </dl>
+          </section>
 
-      <section className="card">
-        <h2>{t(lang, "assumptionsTitle")}</h2>
-        <ul>
-          {assumptions(lang, {
-            interpolated: r.road.interpolated,
-            incentivesUsed: r.far.incentives.length > 0,
-            groupId: r.steps.find((st) => st.id === "roadFar")?.values
-              .group as string,
-            saleablePct: s.input.saleablePct,
-            unitSizeSqft: s.input.unitSizeSqft,
-            unitSizeFromBlock: outcome.unitSizeFromBlock,
-          }).map((a) => (
-            <li key={a} className="small">
-              {a}
-            </li>
-          ))}
-        </ul>
-      </section>
+          <section className="card">
+            <h2>{t(lang, "sizeCard")}</h2>
+            <dl className="kv">
+              <dt>{t(lang, "totalFloor")}</dt>
+              <dd>{sqft(r.floorArea.totalSqft)}</dd>
+              {r.floorArea.roadWideningBonusSqft > 0 && (
+                <FragmentRow
+                  label={t(lang, "roadBonus")}
+                  value={sqft(r.floorArea.roadWideningBonusSqft)}
+                />
+              )}
+              <dt>
+                {t(lang, "coverage")} ({n(r.coverage.pct)}%)
+              </dt>
+              <dd>{sqft(r.coverage.maxFootprintSqft)}</dd>
+              <dt>{t(lang, "floorPlate")}</dt>
+              <dd>{sqft(r.coverage.floorPlateSqft)}</dd>
+              <dt>{t(lang, "floorsLine")}</dt>
+              <dd>G+{n(r.floors.aboveGround, 0)}</dd>
+              <dt>{t(lang, "perFloor")}</dt>
+              <dd>{sqft(r.floors.perFloorSqft)}</dd>
+            </dl>
+          </section>
+        </div>
 
-      <section className="card disclaimer">
-        <h2>{t(lang, "disclaimerTitle")}</h2>
-        <p>{t(lang, "disclaimer")}</p>
-        <p className="small muted" style={{ margin: 0 }}>
-          {t(lang, "rulesVersion")}: {RULES_VERSION}
-        </p>
-      </section>
+        <div>
+          <section className="card">
+            <h2>{t(lang, "setbackCard")}</h2>
+            <div className="setback-grid">
+              <div>
+                <span className="small muted">{t(lang, "front")}</span>
+                <strong>{n(r.setbacks.frontM)}</strong>
+                <span className="small muted">
+                  {mft(r.setbacks.frontM).replace(/^[^(]*/, "")}
+                </span>
+              </div>
+              <div>
+                <span className="small muted">{t(lang, "side")}</span>
+                <strong>{n(r.setbacks.sideM)}</strong>
+                <span className="small muted">
+                  {mft(r.setbacks.sideM).replace(/^[^(]*/, "")}
+                </span>
+              </div>
+              <div>
+                <span className="small muted">{t(lang, "rear")}</span>
+                <strong>{n(r.setbacks.rearM)}</strong>
+                <span className="small muted">
+                  {mft(r.setbacks.rearM).replace(/^[^(]*/, "")}
+                </span>
+              </div>
+            </div>
+            <p className="small muted" style={{ margin: "0.6rem 0 0" }}>
+              {t(lang, "inMetres")};{" "}
+              {t(lang, "setbackRowNote", { storeys: n(r.setbacks.storeys, 0) })}
+            </p>
+          </section>
 
-      <LandownerPdf lang={lang} outcome={outcome} />
+          <section className="card">
+            <h2>{t(lang, "unitsCard")}</h2>
+            <dl className="kv">
+              {r.units.densityCap !== null && (
+                <>
+                  <dt>{t(lang, "densityCap")}</dt>
+                  <dd>{n(r.units.densityCap, 0)}</dd>
+                </>
+              )}
+              <dt>
+                {t(lang, "sizeBasedUnits", {
+                  size: n(r.units.avgUnitSizeSqft, 0),
+                })}
+              </dt>
+              <dd>{n(r.units.sizeBased, 0)}</dd>
+              <dt className="kv__total">{t(lang, "estimateUnits")}</dt>
+              <dd className="kv__total">{n(r.units.estimate, 0)}</dd>
+            </dl>
+            {r.units.extraWithApproval !== null &&
+              r.units.extraWithApproval > 0 && (
+                <p className="small muted" style={{ margin: "0.6rem 0 0" }}>
+                  {t(lang, "extraUnits", {
+                    pct: n(10, 0),
+                    n: n(r.units.extraWithApproval, 0),
+                  })}
+                </p>
+              )}
+          </section>
+
+          <section className="card">
+            <h2>{t(lang, "shareCard")}</h2>
+            <dl className="kv">
+              <dt>
+                {t(lang, "saleableArea", { pct: n(s.input.saleablePct) })}
+              </dt>
+              <dd>{sqft(s.saleableSqft)}</dd>
+              <dt>{t(lang, "ownerArea", { pct: n(s.input.ownerPct) })}</dt>
+              <dd>{sqft(s.ownerSqft)}</dd>
+              <dt>{t(lang, "developerArea")}</dt>
+              <dd>{sqft(s.developerSqft)}</dd>
+              <dt>
+                {t(lang, "ownerFlats", { size: n(s.input.unitSizeSqft, 0) })}
+              </dt>
+              <dd>{n(s.ownerFlats, 0)}</dd>
+              <dt>{t(lang, "leftover")}</dt>
+              <dd>{sqft(s.ownerLeftoverSqft)}</dd>
+              {s.cashTaka > 0 && (
+                <FragmentRow
+                  label={t(lang, "cashLine")}
+                  value={t(lang, "takaValue", { n: n(s.cashTaka, 0) })}
+                />
+              )}
+            </dl>
+            {s.overDensity && (
+              <div className="notice" style={{ margin: "0.9rem 0 0" }}>
+                <Icon name="alert" />
+                <p className="notice__body small">
+                  {t(lang, "overDensity", {
+                    total: n(s.totalFlats, 0),
+                    cap: n(r.units.densityCap ?? 0, 0),
+                  })}
+                </p>
+              </div>
+            )}
+            <p
+              className="small"
+              style={{ margin: "0.9rem 0 0", fontWeight: 700 }}
+            >
+              {t(lang, "negotiationNote")}
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <div className="split">
+        <div>
+          <details className="card plain">
+            <summary>
+              <Icon name="next" size={18} />
+              {t(lang, "stepsTitle")}
+            </summary>
+            <ol className="step-list">
+              {r.steps.map((step, i) => (
+                <li key={i}>
+                  {stepText(lang, step)}
+                  {step.source && (
+                    <span className="source">
+                      {t(lang, "sourceLabel")}: {sourceText(lang, step.source)}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </details>
+
+          <section className="card">
+            <h2>{t(lang, "assumptionsTitle")}</h2>
+            <ul>
+              {assumptions(lang, {
+                interpolated: r.road.interpolated,
+                incentivesUsed: r.far.incentives.length > 0,
+                groupId: r.steps.find((st) => st.id === "roadFar")?.values
+                  .group as string,
+                saleablePct: s.input.saleablePct,
+                unitSizeSqft: s.input.unitSizeSqft,
+                unitSizeFromBlock: outcome.unitSizeFromBlock,
+              }).map((a) => (
+                <li key={a} className="small">
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <div>
+          <section className="card disclaimer">
+            <h2>{t(lang, "disclaimerTitle")}</h2>
+            <p>{t(lang, "disclaimer")}</p>
+            <p className="small muted" style={{ margin: 0 }}>
+              {t(lang, "rulesVersion")}: {RULES_VERSION}
+            </p>
+          </section>
+
+          <LandownerPdf lang={lang} outcome={outcome} />
+        </div>
+      </div>
     </>
   );
 }

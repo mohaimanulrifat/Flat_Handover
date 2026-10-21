@@ -42,6 +42,19 @@ describe("rules data", () => {
     }
   });
 
+  it("names every block and setback row in English and Bangla", () => {
+    const bangla = /[\u0980-\u09FF]/;
+    for (const b of rules.densityBlocks) {
+      expect(b.name_en, b.id).toBeTruthy();
+      expect(b.name_en, b.id).not.toMatch(bangla);
+      expect(b.area_en, b.id).toBeTruthy();
+      expect(b.area_en, b.id).not.toMatch(bangla);
+    }
+    for (const row of rules.setbacks.byStoreys) {
+      expect(row.label_en, String(row.row)).toMatch(/storeys/);
+    }
+  });
+
   it("gives every table entry a source with a page", () => {
     const sources = [
       rules.roadFar.source,

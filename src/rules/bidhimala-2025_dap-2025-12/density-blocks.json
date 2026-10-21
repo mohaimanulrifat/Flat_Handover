@@ -13,7 +13,9 @@
     {
       "id": "01",
       "name_bn": "সংরক্ষিত",
+      "name_en": "Reserved",
       "area_bn": "বিমান বন্দর",
+      "area_en": "Airport",
       "type": null,
       "grossPPA": 0,
       "avgUnitSizeSqft": 0,
@@ -28,7 +30,9 @@
     {
       "id": "02",
       "name_bn": "জিঞ্জিরা, কালিন্দি, আগানগর",
+      "name_en": "Jinjira, Kalindi, Aganagar",
       "area_bn": "আগানগর ইউনিয়ন, কালিন্দী ইউনিয়ন, শুভাড্যা ইউনিয়ন (অংশ), জিঞ্জিরা ইউনিয়ন",
+      "area_en": "Aganagar Union, Kalindi Union, Shubhadda Union (part), Jinjira Union",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 940,
@@ -43,7 +47,9 @@
     {
       "id": "03",
       "name_bn": "বসুন্ধরা আবাসিক এলাকা",
+      "name_en": "Bashundhara Residential Area",
       "area_bn": "DNCC-১৭, ৪০, ৪২, ৪৩ (অংশ)",
+      "area_en": "DNCC-17, 40, 42, 43 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1480,
@@ -58,7 +64,9 @@
     {
       "id": "04",
       "name_bn": "দক্ষিণখান",
+      "name_en": "Dakshinkhan",
       "area_bn": "DNCC-৪৪ (অংশ), ৪৫, ৪৬, ৪৮ (অংশ)",
+      "area_en": "DNCC-44 (part), 45, 46, 48 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1200,
@@ -73,7 +81,9 @@
     {
       "id": "05",
       "name_bn": "ফরিদাবাদ",
+      "name_en": "Faridabad",
       "area_bn": "DNCC-৪৭, ৫০",
+      "area_en": "DNCC-47, 50",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1000,
@@ -88,7 +98,9 @@
     {
       "id": "06",
       "name_bn": "কাউলা",
+      "name_en": "Kawla",
       "area_bn": "DNCC-১৭, ৪৯ (অংশ)",
+      "area_en": "DNCC-17, 49 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 1150,
@@ -103,7 +115,9 @@
     {
       "id": "07",
       "name_bn": "উত্তরা ১ম ও ২য় পর্ব",
+      "name_en": "Uttara Phase 1 and 2",
       "area_bn": "DNCC-১, ৫১ (অংশ)",
+      "area_en": "DNCC-1, 51 (part)",
       "type": "planned",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1630,
@@ -118,7 +132,9 @@
     {
       "id": "08",
       "name_bn": "কামারপাড়া",
+      "name_en": "Kamarpara",
       "area_bn": "DNCC-৫৩, ৫৪ (অংশ)",
+      "area_en": "DNCC-53, 54 (part)",
       "type": "spontaneous",
       "grossPPA": 280,
       "avgUnitSizeSqft": 980,
@@ -133,7 +149,9 @@
     {
       "id": "09",
       "name_bn": "মিরপুর",
+      "name_en": "Mirpur",
       "area_bn": "DNCC-২, ৩, ৪, ৫, ৬, ৭, ৮, ১২, ১৩, ১৪, ১৬, ৫২ (অংশ)",
+      "area_en": "DNCC-2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 16, 52 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1300,
@@ -148,7 +166,9 @@
     {
       "id": "10",
       "name_bn": "কেরানীগঞ্জ, তারানগর, ভাকুর্তা, কোন্ডা",
+      "name_en": "Keraniganj, Taranagar, Bhakurta, Konda",
       "area_bn": "আলিরটেক, আমিন বাজার, বাক্তাবলি, বাস্তা, ভাকুর্তা, হযরতপুর, কালাটীয়া, কন্দা, রুহিতপুর, সাক্তা ইউনিয়ন",
+      "area_en": "Alirtek, Amin Bazar, Baktaboli, Basta, Bhakurta, Hazratpur, Kalatia, Konda, Ruhitpur and Shakta Unions",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 860,
@@ -163,7 +183,9 @@
     {
       "id": "11",
       "name_bn": "আনন্দনগর বেড়ীবাঁধ",
+      "name_en": "Anandanagar Beribandh",
       "area_bn": "DNCC-৮, ৯, ১০ (অংশ)",
+      "area_en": "DNCC-8, 9, 10 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 950,
@@ -178,7 +200,9 @@
     {
       "id": "12",
       "name_bn": "শেওড়াপাড়া",
+      "name_en": "Shewrapara",
       "area_bn": "DNCC-১০, ১১, ১২, ১৩, ১৪ (অংশ), ১৬, ২৮ (অংশ)",
+      "area_en": "DNCC-10, 11, 12, 13, 14 (part), 16, 28 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1150,
@@ -193,7 +217,9 @@
     {
       "id": "13",
       "name_bn": "ইব্রাহীমপুর পূর্ব শেওড়াপাড়া",
+      "name_en": "Ibrahimpur, East Shewrapara",
       "area_bn": "DNCC-১৪, ১৬ (অংশ)",
+      "area_en": "DNCC-14, 16 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1150,
@@ -208,7 +234,9 @@
     {
       "id": "14",
       "name_bn": "বাউনিয়া",
+      "name_en": "Bauniya",
       "area_bn": "DNCC-৩, ৪, ৫, ১৫ (অংশ)",
+      "area_en": "DNCC-3, 4, 5, 15 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1200,
@@ -223,7 +251,9 @@
     {
       "id": "15",
       "name_bn": "খিলখেত ভাটারা",
+      "name_en": "Khilkhet, Bhatara",
       "area_bn": "DNCC-১৭, ১৮, ৪০ (অংশ)",
+      "area_en": "DNCC-17, 18, 40 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1180,
@@ -238,7 +268,9 @@
     {
       "id": "16",
       "name_bn": "বারিধারা",
+      "name_en": "Baridhara",
       "area_bn": "DNCC-১৮, ৩৯, ৪০ (অংশ)",
+      "area_en": "DNCC-18, 39, 40 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1880,
@@ -253,7 +285,9 @@
     {
       "id": "17",
       "name_bn": "গুলশান বনানী",
+      "name_en": "Gulshan, Banani",
       "area_bn": "DNCC-১৯ (অংশ)",
+      "area_en": "DNCC-19 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 2100,
@@ -268,7 +302,9 @@
     {
       "id": "18",
       "name_bn": "বাইপাইল, আশুলিয়া, ধামসোনা, ইয়ারপুর",
+      "name_en": "Baipail, Ashulia, Dhamsona, Yearpur",
       "area_bn": "আশুলিয়া ইউনিয়ন, ধামসোনা ইউনিয়ন, শিমুলিয়া ইউনিয়ন, ইয়ারপুর ইউনিয়ন",
+      "area_en": "Ashulia Union, Dhamsona Union, Shimulia Union, Yearpur Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
@@ -283,7 +319,9 @@
     {
       "id": "19",
       "name_bn": "করাইল",
+      "name_en": "Korail",
       "area_bn": "DNCC-১৯ (অংশ)",
+      "area_en": "DNCC-19 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1050,
@@ -298,7 +336,9 @@
     {
       "id": "20",
       "name_bn": "মহাখালী ডিওএইচএস",
+      "name_en": "Mohakhali DOHS",
       "area_bn": "DNCC-২০ (অংশ)",
+      "area_en": "DNCC-20 (part)",
       "type": "planned",
       "grossPPA": 200,
       "avgUnitSizeSqft": 1580,
@@ -313,7 +353,9 @@
     {
       "id": "21",
       "name_bn": "নিকেতন",
+      "name_en": "Niketan",
       "area_bn": "DNCC-১৯, ২০, ২৪ (অংশ)",
+      "area_en": "DNCC-19, 20, 24 (part)",
       "type": "spontaneous",
       "grossPPA": 280,
       "avgUnitSizeSqft": 1500,
@@ -328,7 +370,9 @@
     {
       "id": "22",
       "name_bn": "মহাখালী",
+      "name_en": "Mohakhali",
       "area_bn": "DNCC-২০ (অংশ)",
+      "area_en": "DNCC-20 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 960,
@@ -343,7 +387,9 @@
     {
       "id": "23",
       "name_bn": "রামপুরা",
+      "name_en": "Rampura",
       "area_bn": "DNCC-১৮, ২১, ২২, ৩৮, ৩৯ (অংশ)",
+      "area_en": "DNCC-18, 21, 22, 38, 39 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1180,
@@ -358,7 +404,9 @@
     {
       "id": "24",
       "name_bn": "তেজগাঁও আই এ",
+      "name_en": "Tejgaon Industrial Area",
       "area_bn": "DNCC-২৪, ২৫ (অংশ)",
+      "area_en": "DNCC-24, 25 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 1040,
@@ -373,7 +421,9 @@
     {
       "id": "25",
       "name_bn": "মোহাম্মদপুর",
+      "name_en": "Mohammadpur",
       "area_bn": "DNCC-২৯, ৩১ (অংশ), ৩২ (অংশ)",
+      "area_en": "DNCC-29, 31 (part), 32 (part)",
       "type": "planned",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1100,
@@ -388,7 +438,9 @@
     {
       "id": "26",
       "name_bn": "বনগ্রাম",
+      "name_en": "Bongram",
       "area_bn": "বনগ্রাম ইউনিয়ন, তেঁতুলঝোড়া ইউনিয়ন (অংশ)",
+      "area_en": "Bongram Union, Tetuljhora Union (part)",
       "type": "spontaneous",
       "grossPPA": 150,
       "avgUnitSizeSqft": 950,
@@ -403,7 +455,9 @@
     {
       "id": "27",
       "name_bn": "বাইতুল আমান",
+      "name_en": "Baitul Aman",
       "area_bn": "DNCC-১০, ১১, ৩০, ৩৩ (অংশ)",
+      "area_en": "DNCC-10, 11, 30, 33 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1080,
@@ -418,7 +472,9 @@
     {
       "id": "28",
       "name_bn": "মগবাজার",
+      "name_en": "Moghbazar",
       "area_bn": "DNCC-২২, ৩৫, ৩৬ (অংশ), DSCC-৮, ১০ (অংশ), ১১, ১২, ১৩, ১৯ (অংশ)",
+      "area_en": "DNCC-22, 35, 36 (part), DSCC-8, 10 (part), 11, 12, 13, 19 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1050,
@@ -433,7 +489,9 @@
     {
       "id": "29A",
       "name_bn": "পুরাতন ঢাকা",
+      "name_en": "Old Dhaka",
       "area_bn": "DSCC-২৪, ২৫, ৫০-৫৪, ৫৮, ৫৯, ৬০, ৬১, ৬২ (অংশ)",
+      "area_en": "DSCC-24, 25, 50-54, 58, 59, 60, 61, 62 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1000,
@@ -448,7 +506,9 @@
     {
       "id": "29B",
       "name_bn": "দনিয়া-মুরাদপুর",
+      "name_en": "Donia-Muradpur",
       "area_bn": "DSCC-৫২, ৫৩, ৫৮, ৫৯, ৬১, ৬২ (অংশ)",
+      "area_en": "DSCC-52, 53, 58, 59, 61, 62 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1000,
@@ -463,7 +523,9 @@
     {
       "id": "30",
       "name_bn": "গ্রীন মডেল টাউন",
+      "name_en": "Green Model Town",
       "area_bn": "DSCC-৬৩, ৭১, ৭২, ৭৩ (অংশ)",
+      "area_en": "DSCC-63, 71, 72, 73 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1350,
@@ -478,7 +540,9 @@
     {
       "id": "31",
       "name_bn": "সাতারকুল, নাসিরাবাদ",
+      "name_en": "Satarkul, Nasirabad",
       "area_bn": "DNCC-৩৭ (অংশ), ৪১-৪২ (অংশ), DSCC-৭০ (অংশ), ৭৫ (অংশ)",
+      "area_en": "DNCC-37 (part), 41-42 (part), DSCC-70 (part), 75 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 1050,
@@ -493,7 +557,9 @@
     {
       "id": "32",
       "name_bn": "বাসাবো, খিলগাঁও",
+      "name_en": "Basabo, Khilgaon",
       "area_bn": "DNCC-২২, ২৩ (অংশ), DSCC-১-৭, ৪০ (অংশ), ৪৮ (অংশ), ৪৯, ৫০ (অংশ), ৭১, ৭২ (অংশ)",
+      "area_en": "DNCC-22, 23 (part), DSCC-1-7, 40 (part), 48 (part), 49, 50 (part), 71, 72 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1160,
@@ -508,7 +574,9 @@
     {
       "id": "33",
       "name_bn": "বন্দর, মোগরাপাড়া, কাচপুর",
+      "name_en": "Bandar, Mograpara, Kanchpur",
       "area_bn": "বন্দর ইউনিয়ন, কাচপুর ইউনিয়ন, কলাগাছিয়া ইউনিয়ন, মদনপুর ইউনিয়ন, মুছাপুর ইউনিয়ন, সাদিপুর",
+      "area_en": "Bandar Union, Kanchpur Union, Kalagachhia Union, Madanpur Union, Musapur Union, Sadipur",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 860,
@@ -523,7 +591,9 @@
     {
       "id": "34",
       "name_bn": "রমনা, ঢাকা বিশ্ববিদ্যালয় এলাকা",
+      "name_en": "Ramna, Dhaka University area",
       "area_bn": "DSCC-৮, ৯, ১০ (অংশ), ১৩, ১৮, ১৯, ২০, ২১, ২২ (অংশ), ২৩ (অংশ), ২৬ (অংশ)",
+      "area_en": "DSCC-8, 9, 10 (part), 13, 18, 19, 20, 21, 22 (part), 23 (part), 26 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 1040,
@@ -538,7 +608,9 @@
     {
       "id": "35",
       "name_bn": "পান্থপথ",
+      "name_en": "Panthapath",
       "area_bn": "DNCC-২৫, ২৬, ২৭ (অংশ); DSCC-১৫, ১৬, ১৭, ১৮ (অংশ)",
+      "area_en": "DNCC-25, 26, 27 (part); DSCC-15, 16, 17, 18 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1100,
@@ -553,7 +625,9 @@
     {
       "id": "36",
       "name_bn": "ধানমন্ডি আবাসিক",
+      "name_en": "Dhanmondi Residential",
       "area_bn": "DNCC-৩১ (অংশ), ৩২ (অংশ), ৩৪ (অংশ), DSCC-১৫, ১৭, ১৮ (অংশ)",
+      "area_en": "DNCC-31 (part), 32 (part), 34 (part), DSCC-15, 17, 18 (part)",
       "type": "planned",
       "grossPPA": 220,
       "avgUnitSizeSqft": 2000,
@@ -568,7 +642,9 @@
     {
       "id": "37",
       "name_bn": "নারায়ণগঞ্জ সেন্টার",
+      "name_en": "Narayanganj Centre",
       "area_bn": "NCC-৮, ১০, ১১-১৭, বক্তাবলী ইউনিয়ন, এনায়েতনগর ইউনিয়ন, ফতুল্লা ইউনিয়ন, কাশীপুর ইউনিয়ন",
+      "area_en": "NCC-8, 10, 11-17, Baktaboli Union, Enayetnagar Union, Fatullah Union, Kashipur Union",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1060,
@@ -583,7 +659,9 @@
     {
       "id": "38",
       "name_bn": "টঙ্গী",
+      "name_en": "Tongi",
       "area_bn": "GCC-৪৩, ৪৪, ৪৫, ৪৬, ৫৫, ৫৬, ৫৭ (অংশ)",
+      "area_en": "GCC-43, 44, 45, 46, 55, 56, 57 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 990,
@@ -598,7 +676,9 @@
     {
       "id": "39",
       "name_bn": "বিরুলিয়া",
+      "name_en": "Birulia",
       "area_bn": "বিরুলিয়া ইউনিয়ন, সাভার ইউনিয়ন",
+      "area_en": "Birulia Union, Savar Union",
       "type": "spontaneous",
       "grossPPA": 175,
       "avgUnitSizeSqft": 946,
@@ -613,7 +693,9 @@
     {
       "id": "40",
       "name_bn": "গোগনগর, এনসিসি ২৭",
+      "name_en": "Gognagar, NCC 27",
       "area_bn": "NCC-৫, ৬, ১৮-২৭ (অংশ), গোগনগর ইউনিয়ন",
+      "area_en": "NCC-5, 6, 18-27 (part), Gognagar Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
@@ -628,7 +710,9 @@
     {
       "id": "41",
       "name_bn": "দাশেরকান্দি, কায়েতপাড়া",
+      "name_en": "Dasherkandi, Kayetpara",
       "area_bn": "কায়েত পাড়া ইউনিয়ন",
+      "area_en": "Kayetpara Union",
       "type": "spontaneous",
       "grossPPA": 175,
       "avgUnitSizeSqft": 950,
@@ -643,7 +727,9 @@
     {
       "id": "42A",
       "name_bn": "মাতুয়াইল, সারুলিয়া",
+      "name_en": "Matuail, Sarulia",
       "area_bn": "DSCC-৬৩ (অংশ), ৬৪ (অংশ), ৬৫, ৬৬, ৬৭, ৬৮, ৬৯ (অংশ), ৭০ (অংশ)",
+      "area_en": "DSCC-63 (part), 64 (part), 65, 66, 67, 68, 69 (part), 70 (part)",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 1280,
@@ -658,7 +744,9 @@
     {
       "id": "42B",
       "name_bn": "কুতুবপুর, ফতুল্লা",
+      "name_en": "Kutubpur, Fatullah",
       "area_bn": "NCC-১, ২, ৩, ৪, ৭, ৯ (অংশ), কুতুবপুর ইউনিয়ন",
+      "area_en": "NCC-1, 2, 3, 4, 7, 9 (part), Kutubpur Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 1280,
@@ -673,7 +761,9 @@
     {
       "id": "43",
       "name_bn": "পাথালিয়া",
+      "name_en": "Pathalia",
       "area_bn": "পাথালিয়া ইউনিয়ন",
+      "area_en": "Pathalia Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
@@ -688,7 +778,9 @@
     {
       "id": "44",
       "name_bn": "রূপগঞ্জ, ইসাপুর",
+      "name_en": "Rupganj, Isapur",
       "area_bn": "রূপগঞ্জ ইউনিয়ন",
+      "area_en": "Rupganj Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
@@ -703,7 +795,9 @@
     {
       "id": "45",
       "name_bn": "ভুলতা, গোলাকান্দাইল",
+      "name_en": "Bhulta, Golakandail",
       "area_bn": "ভুলতা ইউনিয়ন, গোলাকান্দাইল ইউনিয়ন, মুড়াপাড়া ইউনিয়ন",
+      "area_en": "Bhulta Union, Golakandail Union, Murapara Union",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
@@ -718,7 +812,9 @@
     {
       "id": "46",
       "name_bn": "সাভার পৌরসভা এলাকা",
+      "name_en": "Savar Pourashava area",
       "area_bn": "SP-১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯, তেঁতুলঝোড়া ইউনিয়ন",
+      "area_en": "SP-1, 2, 3, 4, 5, 6, 7, 8, 9, Tetuljhora Union",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1050,
@@ -733,7 +829,9 @@
     {
       "id": "47",
       "name_bn": "ঝিলমিল আবাসিক এলাকা",
+      "name_en": "Jhilmil Residential Area",
       "area_bn": "ঝিলমিল আবাসিক এলাকা",
+      "area_en": "Jhilmil Residential Area",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1600,
@@ -748,7 +846,9 @@
     {
       "id": "48",
       "name_bn": "হেমায়েতপুর, তেতুলঝোড়া",
+      "name_en": "Hemayetpur, Tetuljhora",
       "area_bn": "তেতুলঝোড়া ইউনিয়ন",
+      "area_en": "Tetuljhora Union",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 890,
@@ -763,7 +863,9 @@
     {
       "id": "49",
       "name_bn": "তাড়াবো পৌরসভা",
+      "name_en": "Tarabo Pourashava",
       "area_bn": "TP-১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯ (অংশ)",
+      "area_en": "TP-1, 2, 3, 4, 5, 6, 7, 8, 9 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 940,
@@ -778,7 +880,9 @@
     {
       "id": "50",
       "name_bn": "জলসিড়ি",
+      "name_en": "Jolshiri",
       "area_bn": "জলসিঁড়ি আবাসন",
+      "area_en": "Jolshiri Abashon",
       "type": "planned",
       "grossPPA": 200,
       "avgUnitSizeSqft": 1400,
@@ -793,7 +897,9 @@
     {
       "id": "51",
       "name_bn": "বাড্ডা",
+      "name_en": "Badda",
       "area_bn": "DNCC-৩৭, ৩৮, ৩৯ (অংশ)",
+      "area_en": "DNCC-37, 38, 39 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1180,
@@ -808,7 +914,9 @@
     {
       "id": "52",
       "name_bn": "আফতাবনগর, বনশ্রী",
+      "name_en": "Aftabnagar, Banasree",
       "area_bn": "DNCC-২২, ৩৭ (অংশ), DSCC-৩, ৭৪ (অংশ)",
+      "area_en": "DNCC-22, 37 (part), DSCC-3, 74 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1600,
@@ -823,7 +931,9 @@
     {
       "id": "53",
       "name_bn": "ইউনাইটেড, সানভ্যালী",
+      "name_en": "United, Sun Valley",
       "area_bn": "DNCC-৪১, ৪২, ৪৩ (অংশ)",
+      "area_en": "DNCC-41, 42, 43 (part)",
       "type": "planned",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1380,
@@ -838,7 +948,9 @@
     {
       "id": "54",
       "name_bn": "পূর্বাচল আবাসিক এলাকা",
+      "name_en": "Purbachal Residential Area",
       "area_bn": "পূর্বাচল নতুন শহর",
+      "area_en": "Purbachal New Town",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1680,
@@ -853,7 +965,9 @@
     {
       "id": "55",
       "name_bn": "উত্তরা ৩য় পর্ব",
+      "name_en": "Uttara Phase 3",
       "area_bn": "DNCC-৫২, ৫৩ (অংশ)",
+      "area_en": "DNCC-52, 53 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1760,
@@ -868,7 +982,9 @@
     {
       "id": "56",
       "name_bn": "পি ও এইচ এস এবং স্বর্নালী আবাসিক এলাকা",
+      "name_en": "POHS and Swarnali Residential Area",
       "area_bn": "DNCC-৪৩, ৪৪, ৪৮ (অংশ)",
+      "area_en": "DNCC-43, 44, 48 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1560,
@@ -883,7 +999,9 @@
     {
       "id": "57",
       "name_bn": "নলভোগ",
+      "name_en": "Nalbhog",
       "area_bn": "DNCC-৫২, ৫৩ (অংশ)",
+      "area_en": "DNCC-52, 53 (part)",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 900,
@@ -898,7 +1016,9 @@
     {
       "id": "58",
       "name_bn": "কল্যানপুর-রিটেনশন",
+      "name_en": "Kallyanpur retention",
       "area_bn": "কল্যানপুর-রিটেনশন",
+      "area_en": "Kallyanpur retention",
       "type": "spontaneous",
       "grossPPA": 0,
       "avgUnitSizeSqft": 0,
@@ -913,7 +1033,9 @@
     {
       "id": "59",
       "name_bn": "বসিলা, চন্দ্রিমা",
+      "name_en": "Bosila, Chandrima",
       "area_bn": "DNCC-৩৩, DSCC-৩৪ (অংশ), DSCC-১৪, ১৫ (অংশ), ১৮ (অংশ), ২২ (অংশ), ২৩ (অংশ), ২৬, ৫৫, ৫৬, ৫৭ (অংশ)",
+      "area_en": "DNCC-33, DSCC-34 (part), DSCC-14, 15 (part), 18 (part), 22 (part), 23 (part), 26, 55, 56, 57 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 980,
@@ -928,7 +1050,9 @@
     {
       "id": "60",
       "name_bn": "খিলখেত আবাসিক এলাকা",
+      "name_en": "Khilkhet Residential Area",
       "area_bn": "DNCC-৪৩, ৪৪ (অংশ)",
+      "area_en": "DNCC-43, 44 (part)",
       "type": "planned",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1850,
@@ -943,7 +1067,9 @@
     {
       "id": "61",
       "name_bn": "মিরপুর ডি ও এইচ এস",
+      "name_en": "Mirpur DOHS",
       "area_bn": "DNCC-০২, ৫২ (অংশ)",
+      "area_en": "DNCC-02, 52 (part)",
       "type": "planned",
       "grossPPA": 220,
       "avgUnitSizeSqft": 2050,
@@ -958,7 +1084,9 @@
     {
       "id": "62",
       "name_bn": "পাইকপাড়া, টোলারবাগ",
+      "name_en": "Paikpara, Tolarbag",
       "area_bn": "DNCC-১০ (অংশ), ১১ (অংশ), ১২ (অংশ)",
+      "area_en": "DNCC-10 (part), 11 (part), 12 (part)",
       "type": "spontaneous",
       "grossPPA": 300,
       "avgUnitSizeSqft": 1250,
@@ -973,7 +1101,9 @@
     {
       "id": "63",
       "name_bn": "কাউন্দিয়া, আমিনবাজার",
+      "name_en": "Kaundia, Amin Bazar",
       "area_bn": "কাউন্দিয়া ইউনিয়ন",
+      "area_en": "Kaundia Union",
       "type": "spontaneous",
       "grossPPA": 175,
       "avgUnitSizeSqft": 1100,
@@ -988,7 +1118,9 @@
     {
       "id": "64",
       "name_bn": "কাচকুড়া মইনারটেক",
+      "name_en": "Kachkura, Moinartek",
       "area_bn": "DNCC-৪৩ (অংশ), ৪৪ (অংশ)",
+      "area_en": "DNCC-43 (part), 44 (part)",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 890,
@@ -1003,7 +1135,9 @@
     {
       "id": "65",
       "name_bn": "পল্লবী ২",
+      "name_en": "Pallabi 2",
       "area_bn": "DNCC-৮, ৫২ (অংশ)",
+      "area_en": "DNCC-8, 52 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1400,
@@ -1018,7 +1152,9 @@
     {
       "id": "66",
       "name_bn": "ঘাটারচর",
+      "name_en": "Ghatarchar",
       "area_bn": "তারানগর (অংশ), শাক্তা (অংশ) ইউনিয়ন",
+      "area_en": "Taranagar (part) and Shakta (part) Unions",
       "type": "spontaneous",
       "grossPPA": 220,
       "avgUnitSizeSqft": 1150,
@@ -1033,7 +1169,9 @@
     {
       "id": "67",
       "name_bn": "ডেমরা, কোনাপাড়া",
+      "name_en": "Demra, Konapara",
       "area_bn": "DSCC-৬৩ (অংশ), ৬৪ (অংশ), ৬৯, ৭০, ৭৩-৭৫ (অংশ)",
+      "area_en": "DSCC-63 (part), 64 (part), 69, 70, 73-75 (part)",
       "type": "spontaneous",
       "grossPPA": 250,
       "avgUnitSizeSqft": 1280,
@@ -1048,7 +1186,9 @@
     {
       "id": "68",
       "name_bn": "সুবাড্ডা, আরাকুল, বেয়ারা",
+      "name_en": "Shubadda, Arakul, Beyara",
       "area_bn": "সুবাড্ডা (অংশ), কন্ডা (অংশ), তেঘেরিয়া (অংশ) ইউনিয়ন",
+      "area_en": "Shubadda (part), Konda (part) and Tegharia (part) Unions",
       "type": "spontaneous",
       "grossPPA": 200,
       "avgUnitSizeSqft": 930,
